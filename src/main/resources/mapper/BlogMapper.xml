@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.simple.blog.mapper.BlogMapper">
+
+    <resultMap id="BaseResultMap" type="com.simple.blog.entity.Blog">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
+        <result column="updated_at" jdbcType="TIMESTAMP" property="updatedAt" />
+        <result column="title" jdbcType="VARCHAR" property="title" />
+        <result column="cover" jdbcType="VARCHAR" property="cover" />
+        <result column="md_content" jdbcType="LONGVARCHAR" property="mdContent" />
+        <result column="html_content" jdbcType="LONGVARCHAR" property="htmlContent" />
+        <result column="view" jdbcType="BIGINT" property="view" />
+        <result column="published" jdbcType="INTEGER" property="published" />
+        <result column="commented" jdbcType="INTEGER" property="commented" />
+        <result column="category_id" jdbcType="BIGINT" property="categoryId" />
+        <result column="user_id" jdbcType="BIGINT" property="userId" />
+    </resultMap>
+
+    <sql id="AllColumns">
+        id, created_at, updated_at, title, cover, md_content, html_content, view, published, commented, category_id, user_id
+    </sql>
+
+    <insert id="insert" parameterType="com.simple.blog.entity.Blog" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO blog ( created_at, updated_at, title, cover, md_content, html_content, view, published, commented, category_id, user_id )
+        VALUES (
+                   #{createdAt,jdbcType=TIMESTAMP} ,
+                   #{updatedAt,jdbcType=TIMESTAMP} ,
+                   #{title,jdbcType=VARCHAR} ,
+                   #{cover,jdbcType=VARCHAR} ,
+                   #{mdContent,jdbcType=LONGVARCHAR} ,
+                   #{htmlContent,jdbcType=LONGVARCHAR} ,
+                   #{view,jdbcType=BIGINT} ,
+                   #{published,jdbcType=INTEGER} ,
+                   #{commented,jdbcType=INTEGER} ,
+                   #{categoryId,jdbcType=BIGINT} ,
+                   #{userId,jdbcType=BIGINT}
+               )
+    </insert>
+
+    <insert id="insertBatch" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO blog ( created_at, updated_at, title, cover, md_content, html_content, view, published, commented, category_id, user_id )
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+                #{item.createdAt,jdbcType=TIMESTAMP} ,
+                #{item.updatedAt,jdbcType=TIMESTAMP} ,
+                #{item.title,jdbcType=VARCHAR} ,
+                #{item.cover,jdbcType=VARCHAR} ,
+                #{item.mdContent,jdbcType=LONGVARCHAR} ,
+                #{item.htmlContent,jdbcType=LONGVARCHAR} ,
+                #{item.view,jdbcType=BIGINT} ,
+                #{item.published,jdbcType=INTEGER} ,
+                #{item.commented,jdbcType=INTEGER} ,
+                #{item.categoryId,jdbcType=BIGINT} ,
+                #{item.userId,jdbcType=BIGINT}
+            )
+        </foreach>
+    </insert>
+
+    <delete id="deleteById" parameterType="java.lang.Long">
+        DELETE FROM blog
+        WHERE id = #{id,jdbcType=BIGINT}
+    </delete>
+
+    <delete id="deleteByIds" parameterType="java.util.List">
+        DELETE FROM blog
+        WHERE
+        <choose>
+            <when test="list==null || list.isEmpty()">
+                1 = 0
+            </when>
+            <otherwise>
+                id IN
+                <foreach collection="list" item="id" index="index" open="(" close=")" separator=",">
+                    #{id}
+                </foreach>
+            </otherwise>
+        </choose>
+    </delete>
+
+    <update id="update" parameterType="com.simple.blog.entity.Blog">
+        UPDATE blog
+        SET
+            created_at = #{createdAt,jdbcType=TIMESTAMP} ,
+            updated_at = #{updatedAt,jdbcType=TIMESTAMP} ,
+            title = #{title,jdbcType=VARCHAR} ,
+            cover = #{cover,jdbcType=VARCHAR} ,
+            md_content = #{mdContent,jdbcType=LONGVARCHAR} ,
+            html_content = #{htmlContent,jdbcType=LONGVARCHAR} ,
+            view = #{view,jdbcType=BIGINT} ,
+            published = #{published,jdbcType=INTEGER} ,
+            commented = #{commented,jdbcType=INTEGER} ,
+            category_id = #{categoryId,jdbcType=BIGINT} ,
+            user_id = #{userId,jdbcType=BIGINT}
+        WHERE id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <select id="selectById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        SELECT
+        <include refid="AllColumns" />
+        FROM blog
+        WHERE id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <select id="selectByIds" parameterType="java.util.List" resultMap="BaseResultMap">
+        SELECT
+        <include refid="AllColumns" />
+        FROM blog
+        WHERE
+        <choose>
+            <when test="list==null || list.isEmpty()">
+                1 = 0
+            </when>
+            <otherwise>
+                id IN
+                <foreach collection="list" item="id" index="index" open="(" close=")" separator=",">
+                    #{id}
+                </foreach>
+            </otherwise>
+        </choose>
+    </select>
+
+    <select id="page" resultMap="BaseResultMap">
+        SELECT
+        <include refid="AllColumns" />
+        FROM blog
+        <where>
+            <if test="title != null and title !=''">
+                AND title LIKE CONCAT('%', #{title}, '%')
+            </if>
+        </where>
+    </select>
+
+</mapper>

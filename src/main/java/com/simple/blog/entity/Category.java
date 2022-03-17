@@ -1,14 +1,10 @@
 package com.simple.blog.entity;
 
 import com.simple.blog.base.BaseEntity;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 /**
  * 分类
  */
-@Data
-@EqualsAndHashCode(callSuper = true)
 public class Category extends BaseEntity {
 
     /**
@@ -20,5 +16,21 @@ public class Category extends BaseEntity {
      * 分类图标
      */
     private String icon;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
 
 }

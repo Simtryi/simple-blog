@@ -1,14 +1,10 @@
 package com.simple.blog.entity;
 
 import com.simple.blog.base.BaseEntity;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 /**
  * 博客
  */
-@Data
-@EqualsAndHashCode(callSuper = true)
 public class Blog extends BaseEntity {
 
     /**
@@ -39,12 +35,12 @@ public class Blog extends BaseEntity {
     /**
      * 是否发布
      */
-    private Boolean isPublish;
+    private Boolean published;
 
     /**
      * 是否允许评论
      */
-    private Boolean isComment;
+    private Boolean commented;
 
     /**
      * 分类Id
@@ -55,5 +51,77 @@ public class Blog extends BaseEntity {
      * 用户Id
      */
     private Long userId;
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getCover() {
+        return cover;
+    }
+
+    public void setCover(String cover) {
+        this.cover = cover;
+    }
+
+    public String getMdContent() {
+        return mdContent;
+    }
+
+    public void setMdContent(String mdContent) {
+        this.mdContent = mdContent;
+    }
+
+    public String getHtmlContent() {
+        return htmlContent;
+    }
+
+    public void setHtmlContent(String htmlContent) {
+        this.htmlContent = htmlContent;
+    }
+
+    public Long getView() {
+        return view;
+    }
+
+    public void setView(Long view) {
+        this.view = view;
+    }
+
+    public Boolean getPublished() {
+        return published;
+    }
+
+    public void setPublished(Boolean published) {
+        this.published = published;
+    }
+
+    public Boolean getCommented() {
+        return commented;
+    }
+
+    public void setCommented(Boolean commented) {
+        this.commented = commented;
+    }
+
+    public Long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
 
 }

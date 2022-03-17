@@ -2,14 +2,10 @@ package com.simple.blog.entity;
 
 import com.simple.blog.base.BaseEntity;
 import com.simple.blog.enums.UserStatus;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 /**
  * 用户
  */
-@Data
-@EqualsAndHashCode(callSuper = true)
 public class User extends BaseEntity {
 
     /**
@@ -41,5 +37,53 @@ public class User extends BaseEntity {
      * 状态，正常：OK 禁用：DISABLED
      */
     private UserStatus status;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public UserStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(UserStatus status) {
+        this.status = status;
+    }
 
 }

@@ -1,7 +1,5 @@
 package com.simple.blog.enums;
 
-import lombok.Getter;
-
 /**
  * 用户状态
  */
@@ -11,11 +9,14 @@ public enum UserStatus {
     DISABLED("禁用"),
     ;
 
-    @Getter
     private String description;
 
     UserStatus(String description) {
         this.description = description;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
 }

@@ -13,7 +13,7 @@ create table `user` (
     `nickname` varchar(100) default null comment '昵称',
     `email` varchar(100) default null comment '邮箱',
     `avatar` varchar(256) default null comment '头像',
-    `status` varchar(100) default 'OK' comment '正常：OK 禁用：DISABLED',
+    `status` varchar(100) default 'OK' comment '状态，正常：OK 禁用：DISABLED',
     primary key (`id`)
 ) engine=InnoDB default charset=utf8 comment '用户表';
 
@@ -28,8 +28,8 @@ create table `blog` (
     `md_content` text comment 'MD文件源码',
     `html_content` text comment 'HTML文件源码',
     `view` bigint(20) not null default '0' comment '阅读量',
-    `is_publish` tinyint(1) not null default '0' comment '是否发布，0：不发布 1：发布',
-    `is_comment` tinyint(1) not null default '0' comment '是否允许评论，0：不允许 1：允许',
+    `published` tinyint(1) not null default '0' comment '是否发布，0：不发布 1：发布',
+    `commented` tinyint(1) not null default '0' comment '是否允许评论，0：不允许 1：允许',
     `category_id` bigint(20) default null comment '分类Id',
     `user_id` bigint(20) default null comment '用户Id',
     primary key (`id`),

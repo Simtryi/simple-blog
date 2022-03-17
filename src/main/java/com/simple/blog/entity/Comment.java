@@ -1,14 +1,10 @@
 package com.simple.blog.entity;
 
 import com.simple.blog.base.BaseEntity;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 /**
  * 评论
  */
-@Data
-@EqualsAndHashCode(callSuper = true)
 public class Comment extends BaseEntity {
 
     /**
@@ -30,5 +26,37 @@ public class Comment extends BaseEntity {
      * 用户Id
      */
     private Long userId;
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public Long getPid() {
+        return pid;
+    }
+
+    public void setPid(Long pid) {
+        this.pid = pid;
+    }
+
+    public Long getBlogId() {
+        return blogId;
+    }
+
+    public void setBlogId(Long blogId) {
+        this.blogId = blogId;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
 
 }
