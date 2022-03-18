@@ -2,7 +2,9 @@ create database `simple_blog` default character set utf8;
 
 use `simple_blog`;
 
-# Table structure for table `user`
+-- ----------------------------
+-- Table structure for user
+-- ----------------------------
 drop table if exists `user`;
 create table `user` (
     `id` bigint(20) not null auto_increment comment '主键',
@@ -17,7 +19,9 @@ create table `user` (
     primary key (`id`)
 ) engine=InnoDB default charset=utf8 comment '用户表';
 
-# Table structure for table `blog`
+-- ----------------------------
+-- Table structure for blog
+-- ----------------------------
 drop table if exists `blog`;
 create table `blog` (
     `id` bigint(20) not null auto_increment comment '主键',
@@ -37,7 +41,9 @@ create table `blog` (
     key `idx_user_id` (`user_id`)
 ) engine=InnoDB default charset=utf8 comment '博客表';
 
-# Table structure for table `category`
+-- ----------------------------
+-- Table structure for category
+-- ----------------------------
 drop table if exists `category`;
 create table `category` (
     `id` bigint(20) not null auto_increment comment '主键',
@@ -48,7 +54,9 @@ create table `category` (
     primary key (`id`)
 ) engine=InnoDB default charset=utf8 comment '分类表';
 
-# Table structure for table `tag`
+-- ----------------------------
+-- Table structure for tag
+-- ----------------------------
 drop table if exists `tag`;
 create table `tag` (
     `id` bigint(20) not null auto_increment comment '主键',
@@ -58,7 +66,9 @@ create table `tag` (
     primary key (`id`)
 ) engine=InnoDB default charset=utf8 comment '标签表';
 
-# Table structure for table `blog_tag_relation`
+-- ----------------------------
+-- Table structure for blog_tag_relation
+-- ----------------------------
 drop table if exists `blog_tag_relation`;
 create table `blog_tag_relation` (
      `id` bigint(20) not null auto_increment comment '主键',
@@ -71,7 +81,9 @@ create table `blog_tag_relation` (
      key `idx_tag_id` (`tag_id`)
 ) engine=InnoDB default charset=utf8 comment '博客标签关系表';
 
-# Table structure for table `comment`
+-- ----------------------------
+-- Table structure for comment
+-- ----------------------------
 drop table if exists `comment`;
 create table `comment` (
     `id` bigint(20) not null auto_increment comment '主键',
