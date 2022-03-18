@@ -3,6 +3,9 @@ package com.simple.blog.service;
 import com.github.pagehelper.Page;
 import com.simple.blog.entity.User;
 
+/**
+ * 用户管理 Service
+ */
 public interface UserService {
 
     /**

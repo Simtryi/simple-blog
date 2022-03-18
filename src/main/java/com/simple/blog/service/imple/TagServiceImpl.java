@@ -7,6 +7,11 @@ import com.simple.blog.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
+/**
+ * 标签管理 Service 实现类
+ */
 @Service
 public class TagServiceImpl implements TagService {
 
@@ -16,6 +21,7 @@ public class TagServiceImpl implements TagService {
     @Override
     public Tag create(Tag tag) {
         //  todo 校验
+        tag.setCreatedAt(new Date());
         tagMapper.insert(tag);
         return tag;
     }
@@ -39,6 +45,7 @@ public class TagServiceImpl implements TagService {
             //  todo 抛出异常
         }
 
+        tag.setUpdatedAt(new Date());
         tagMapper.update(tag);
         return tag;
     }

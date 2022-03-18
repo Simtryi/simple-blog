@@ -3,6 +3,9 @@ package com.simple.blog.service;
 import com.github.pagehelper.Page;
 import com.simple.blog.entity.Comment;
 
+/**
+ * 评论管理 Service
+ */
 public interface CommentService {
 
     /**

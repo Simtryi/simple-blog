@@ -7,6 +7,11 @@ import com.simple.blog.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
+/**
+ * 分类管理 Service 实现类
+ */
 @Service
 public class CategoryServiceImpl implements CategoryService {
 
@@ -16,6 +21,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Category create(Category category) {
         //  todo 校验
+        category.setCreatedAt(new Date());
         categoryMapper.insert(category);
         return category;
     }
@@ -39,6 +45,7 @@ public class CategoryServiceImpl implements CategoryService {
             //  todo 抛出异常
         }
 
+        category.setUpdatedAt(new Date());
         categoryMapper.update(category);
         return category;
     }

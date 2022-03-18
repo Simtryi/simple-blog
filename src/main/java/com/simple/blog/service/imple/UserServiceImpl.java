@@ -7,6 +7,11 @@ import com.simple.blog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
+/**
+ * 用户管理 Service 实现类
+ */
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -16,6 +21,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User create(User user) {
         //  todo 校验
+        user.setCreatedAt(new Date());
         userMapper.insert(user);
         return user;
     }
@@ -39,6 +45,7 @@ public class UserServiceImpl implements UserService {
             //  todo 抛出异常
         }
 
+        user.setUpdatedAt(new Date());
         userMapper.update(user);
         return user;
     }

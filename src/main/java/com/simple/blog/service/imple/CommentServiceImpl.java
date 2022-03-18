@@ -7,6 +7,11 @@ import com.simple.blog.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
+/**
+ * 评论管理 Service 实现类
+ */
 @Service
 public class CommentServiceImpl implements CommentService {
 
@@ -16,6 +21,7 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public Comment create(Comment comment) {
         //  todo 校验
+        comment.setCreatedAt(new Date());
         commentMapper.insert(comment);
         return comment;
     }
@@ -39,6 +45,7 @@ public class CommentServiceImpl implements CommentService {
             //  todo 抛出异常
         }
 
+        comment.setUpdatedAt(new Date());
         commentMapper.update(comment);
         return comment;
     }

@@ -3,6 +3,9 @@ package com.simple.blog.service;
 import com.github.pagehelper.Page;
 import com.simple.blog.entity.Category;
 
+/**
+ * 分类管理 Service
+ */
 public interface CategoryService {
 
     /**

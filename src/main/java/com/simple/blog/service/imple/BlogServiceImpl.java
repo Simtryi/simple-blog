@@ -7,6 +7,11 @@ import com.simple.blog.service.BlogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
+/**
+ * 博客管理 Service 实现类
+ */
 @Service
 public class BlogServiceImpl implements BlogService {
 
@@ -16,6 +21,7 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public Blog create(Blog blog) {
         //  todo 校验
+        blog.setCreatedAt(new Date());
         blogMapper.insert(blog);
         return blog;
     }
@@ -39,6 +45,7 @@ public class BlogServiceImpl implements BlogService {
             //  todo 抛出异常
         }
 
+        blog.setUpdatedAt(new Date());
         blogMapper.update(blog);
         return blog;
     }
