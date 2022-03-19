@@ -1,7 +1,9 @@
 package com.simple.blog.service.imple;
 
 import com.github.pagehelper.Page;
+import com.simple.blog.common.ResultCode;
 import com.simple.blog.entity.Category;
+import com.simple.blog.exception.Asserts;
 import com.simple.blog.mapper.CategoryMapper;
 import com.simple.blog.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +22,6 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category create(Category category) {
-        //  todo 校验
         category.setCreatedAt(new Date());
         categoryMapper.insert(category);
         return category;
@@ -37,12 +38,12 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Category update(Category category) {
         if (null == category.getId()) {
-            //  todo 抛出异常
+            Asserts.fail(ResultCode.BAD_REQUEST, "编辑时Id必填！");
         }
 
         Category categoryDB = categoryMapper.selectById(category.getId());
         if (null == categoryDB) {
-            //  todo 抛出异常
+            Asserts.fail(ResultCode.NOT_FOUND, "id=" + category.getId() + "对应的分类不存在");
         }
 
         category.setUpdatedAt(new Date());

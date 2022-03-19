@@ -1,7 +1,9 @@
 package com.simple.blog.service.imple;
 
 import com.github.pagehelper.Page;
+import com.simple.blog.common.ResultCode;
 import com.simple.blog.entity.Blog;
+import com.simple.blog.exception.Asserts;
 import com.simple.blog.mapper.BlogMapper;
 import com.simple.blog.service.BlogService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +22,6 @@ public class BlogServiceImpl implements BlogService {
 
     @Override
     public Blog create(Blog blog) {
-        //  todo 校验
         blog.setCreatedAt(new Date());
         blogMapper.insert(blog);
         return blog;
@@ -37,12 +38,12 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public Blog update(Blog blog) {
         if (null == blog.getId()) {
-            //  todo 抛出异常
+            Asserts.fail(ResultCode.BAD_REQUEST, "编辑时Id必填！");
         }
 
         Blog blogDB = blogMapper.selectById(blog.getId());
         if (null == blogDB) {
-            //  todo 抛出异常
+            Asserts.fail(ResultCode.NOT_FOUND, "id=" + blog.getId() + "对应的博客不存在");
         }
 
         blog.setUpdatedAt(new Date());

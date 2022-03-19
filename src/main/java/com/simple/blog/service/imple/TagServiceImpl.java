@@ -1,7 +1,9 @@
 package com.simple.blog.service.imple;
 
 import com.github.pagehelper.Page;
+import com.simple.blog.common.ResultCode;
 import com.simple.blog.entity.Tag;
+import com.simple.blog.exception.Asserts;
 import com.simple.blog.mapper.TagMapper;
 import com.simple.blog.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +22,6 @@ public class TagServiceImpl implements TagService {
 
     @Override
     public Tag create(Tag tag) {
-        //  todo 校验
         tag.setCreatedAt(new Date());
         tagMapper.insert(tag);
         return tag;
@@ -37,12 +38,12 @@ public class TagServiceImpl implements TagService {
     @Override
     public Tag update(Tag tag) {
         if (null == tag.getId()) {
-            //  todo 抛出异常
+            Asserts.fail(ResultCode.BAD_REQUEST, "编辑时Id必填！");
         }
 
         Tag tagDB = tagMapper.selectById(tag.getId());
         if (null == tagDB) {
-            //  todo 抛出异常
+            Asserts.fail(ResultCode.NOT_FOUND, "id=" + tag.getId() + "对应的标签不存在");
         }
 
         tag.setUpdatedAt(new Date());

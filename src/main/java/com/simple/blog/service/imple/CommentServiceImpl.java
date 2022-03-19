@@ -1,7 +1,9 @@
 package com.simple.blog.service.imple;
 
 import com.github.pagehelper.Page;
+import com.simple.blog.common.ResultCode;
 import com.simple.blog.entity.Comment;
+import com.simple.blog.exception.Asserts;
 import com.simple.blog.mapper.CommentMapper;
 import com.simple.blog.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +22,6 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public Comment create(Comment comment) {
-        //  todo 校验
         comment.setCreatedAt(new Date());
         commentMapper.insert(comment);
         return comment;
@@ -37,12 +38,12 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public Comment update(Comment comment) {
         if (null == comment.getId()) {
-            //  todo 抛出异常
+            Asserts.fail(ResultCode.BAD_REQUEST, "编辑时Id必填！");
         }
 
         Comment commentDB = commentMapper.selectById(comment.getId());
         if (null == commentDB) {
-            //  todo 抛出异常
+            Asserts.fail(ResultCode.NOT_FOUND, "id=" + comment.getId() + "对应的评论不存在");
         }
 
         comment.setUpdatedAt(new Date());
