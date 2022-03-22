@@ -1,0 +1,659 @@
+{
+	"info": {
+		"_postman_id": "050205ff-801f-464e-acad-40ff5fadedcd",
+		"name": "simple-blog",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"白展堂\",\n    \"password\": \"12345678\",\n    \"nickname\": \"老白\",\n    \"email\": \"123456@qq.com\",\n    \"status\": \"OK\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/user/create",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/user/delete/3",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								"delete",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"1\",\n    \"username\": \"白展堂\",\n    \"password\": \"12345678\",\n    \"nickname\": \"老白\",\n    \"email\": \"12345678@qq.com\",\n    \"status\": \"OK\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/user/update",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "detail",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/user/detail/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								"detail",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/user/list?pageNum=1&pageSize=10",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								"list"
+							],
+							"query": [
+								{
+									"key": "pageNum",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "blog",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"hello world\",\n    \"view\": \"1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/blog/create",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"blog",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/blog/delete/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"blog",
+								"delete",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"1\",\n    \"title\": \"hello world\",\n    \"view\": \"2\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/blog/update",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"blog",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "detail",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/blog/detail/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"blog",
+								"detail",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/blog/list?pageNum=1&pageSize=10",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"blog",
+								"list"
+							],
+							"query": [
+								{
+									"key": "pageNum",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "category",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Java\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/category/create",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"category",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/category/delete/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"category",
+								"delete",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"1\",\n    \"name\": \"Java\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/category/update",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"category",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "detail",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/category/detail/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"category",
+								"detail",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/category/list?pageNum=1&pageSize=10",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"category",
+								"list"
+							],
+							"query": [
+								{
+									"key": "pageNum",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "tag",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Java基础\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/tag/create",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"tag",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/tag/delete/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"tag",
+								"delete",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"1\",\n    \"name\": \"Java\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/category/update",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"category",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "detail",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/tag/detail/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"tag",
+								"detail",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/tag/list?pageNum=1&pageSize=10",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"tag",
+								"list"
+							],
+							"query": [
+								{
+									"key": "pageNum",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "comment",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"content\": \"这里是评论内容\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/comment/create",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"comment",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/blog/delete/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"blog",
+								"delete",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"1\",\n    \"content\": \"这里是评论内容\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/comment/update",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"comment",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "detail",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/comment/detail/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"comment",
+								"detail",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/comment/list?pageNum=1&pageSize=10",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"comment",
+								"list"
+							],
+							"query": [
+								{
+									"key": "pageNum",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
