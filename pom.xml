@@ -10,6 +10,7 @@
 
     <modules>
         <module>blog-admin</module>
+        <module>blog-security</module>
         <module>blog-common</module>
     </modules>
 
@@ -26,16 +27,36 @@
         <mybatis.version>2.2.2</mybatis.version>
         <pagehelper.version>5.3.0</pagehelper.version>
         <mysql-connector.version>8.0.20</mysql-connector.version>
+        <hutool.version>5.7.20</hutool.version>
+        <jjwt.version>0.9.0</jjwt.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
+            <!-- ########## 自身模块依赖 开始 ########## -->
+
+            <!-- blog-admin -->
+            <dependency>
+                <groupId>com.simple.blog</groupId>
+                <artifactId>blog-admin</artifactId>
+                <version>${simple-blog.version}</version>
+            </dependency>
+
+            <!-- blog-security -->
+            <dependency>
+                <groupId>com.simple.blog</groupId>
+                <artifactId>blog-security</artifactId>
+                <version>${simple-blog.version}</version>
+            </dependency>
+
             <!-- blog-common -->
             <dependency>
                 <groupId>com.simple.blog</groupId>
                 <artifactId>blog-common</artifactId>
                 <version>${simple-blog.version}</version>
             </dependency>
+
+            <!-- ########## 自身模块依赖 结束 ########## -->
 
             <!-- ########## 数据库相关依赖 开始 ########## -->
 
@@ -62,6 +83,23 @@
 
             <!-- ########## 数据库相关依赖 结束 ########## -->
 
+            <!-- ########## 工具相关依赖 开始 ########## -->
+
+            <!-- hutool -->
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>${hutool.version}</version>
+            </dependency>
+
+            <!-- JWT -->
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt</artifactId>
+                <version>${jjwt.version}</version>
+            </dependency>
+
+            <!-- ########## 工具相关依赖 结束 ########## -->
         </dependencies>
     </dependencyManagement>
 

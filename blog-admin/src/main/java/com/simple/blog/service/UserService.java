@@ -29,6 +29,11 @@ public interface UserService {
     User detail(Long id);
 
     /**
+     * 根据用户名查找用户
+     */
+    User getUserByUsername(String username);
+
+    /**
      * 分页查询用户
      */
     Page<User> list(int pageNum, int pageSize, String username, String nickname, String email);

@@ -109,6 +109,13 @@
         </choose>
     </select>
 
+    <select id="selectByUsername" resultMap="BaseResultMap">
+        SELECT
+        <include refid="AllColumns" />
+        FROM user
+        WHERE username = #{username,jdbcType=VARCHAR}
+    </select>
+
     <select id="selectByUsernameAndPassword" resultMap="BaseResultMap">
         SELECT
         <include refid="AllColumns" />
