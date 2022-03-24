@@ -25,6 +25,11 @@
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
@@ -45,6 +50,12 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+
+        <!-- blog-security -->
+        <dependency>
+            <groupId>com.simple.blog</groupId>
+            <artifactId>blog-security</artifactId>
         </dependency>
 
         <!-- blog-common -->

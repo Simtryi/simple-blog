@@ -32,9 +32,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private UserService userService;
-
-    @Autowired
     private RestfulAccessDeniedHandler restfulAccessDeniedHandler;
 
     @Autowired

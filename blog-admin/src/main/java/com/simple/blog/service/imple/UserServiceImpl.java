@@ -5,6 +5,7 @@ import com.simple.blog.common.api.ResultCode;
 import com.simple.blog.common.exception.Asserts;
 import com.simple.blog.entity.User;
 import com.simple.blog.mapper.UserMapper;
+import com.simple.blog.service.AdminService;
 import com.simple.blog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,10 +21,12 @@ public class UserServiceImpl implements UserService {
     @Autowired
     UserMapper userMapper;
 
+    @Autowired
+    AdminService adminService;
+
     @Override
-    public int create(User user) {
-        user.setCreatedAt(new Date());
-        return userMapper.insert(user);
+    public User create(User user) {
+        return adminService.register(user);
     }
 
     @Override
@@ -37,9 +40,18 @@ public class UserServiceImpl implements UserService {
             Asserts.fail(ResultCode.BAD_REQUEST, "编辑时Id必填！");
         }
 
+        if (null == user.getUsername()) {
+            Asserts.fail(ResultCode.BAD_REQUEST, "用户名不能为空");
+        }
+
         User userDB = userMapper.selectById(user.getId());
         if (null == userDB) {
             Asserts.fail(ResultCode.NOT_FOUND, "id=" + user.getId() + "对应的用户不存在");
+        }
+
+        User userDB2 = userMapper.selectByUsername(user.getUsername());
+        if (null != userDB2) {
+            Asserts.fail(ResultCode.BAD_REQUEST, "用户名已存在");
         }
 
         user.setUpdatedAt(new Date());

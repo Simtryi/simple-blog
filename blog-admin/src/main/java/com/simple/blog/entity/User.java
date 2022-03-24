@@ -9,7 +9,7 @@ import com.simple.blog.enums.UserStatus;
 public class User extends BaseEntity {
 
     /**
-     * 用户名
+     * 用户名，全局唯一
      */
     private String username;
 

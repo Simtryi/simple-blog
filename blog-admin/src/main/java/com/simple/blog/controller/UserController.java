@@ -19,13 +19,9 @@ public class UserController {
     UserService userService;
 
     @PostMapping(value = "/create")
-    public CommonResult<Void> create(@RequestBody User user) {
-        int count = userService.create(user);
-        if (count > 0) {
-            return CommonResult.success();
-        } else {
-            return CommonResult.failed();
-        }
+    public CommonResult<User> create(@RequestBody User user) {
+        User registerUser = userService.create(user);
+        return CommonResult.success(registerUser);
     }
 
     @RequestMapping(value = "/delete/{id}")

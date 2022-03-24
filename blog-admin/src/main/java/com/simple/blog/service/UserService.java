@@ -11,7 +11,7 @@ public interface UserService {
     /**
      * 添加用户
      */
-    int create(User user);
+    User create(User user);
 
     /**
      * 删除用户

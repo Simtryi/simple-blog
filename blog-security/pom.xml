@@ -32,12 +32,6 @@
             <artifactId>jjwt</artifactId>
         </dependency>
 
-        <!-- blog-admin -->
-        <dependency>
-            <groupId>com.simple.blog</groupId>
-            <artifactId>blog-admin</artifactId>
-        </dependency>
-
         <!-- blog-common -->
         <dependency>
             <groupId>com.simple.blog</groupId>
