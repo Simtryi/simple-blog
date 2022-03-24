@@ -1,4 +1,4 @@
-package com.simple.blog.service.imple;
+package com.simple.blog.service.impl;
 
 import com.github.pagehelper.Page;
 import com.simple.blog.common.api.ResultCode;
@@ -18,7 +18,7 @@ import java.util.Date;
 public class CategoryServiceImpl implements CategoryService {
 
     @Autowired
-    CategoryMapper categoryMapper;
+    private CategoryMapper categoryMapper;
 
     @Override
     public int create(Category category) {
@@ -34,7 +34,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public int update(Category category) {
         if (null == category.getId()) {
-            Asserts.fail(ResultCode.BAD_REQUEST, "编辑时Id必填！");
+            Asserts.fail(ResultCode.BAD_REQUEST, "编辑时Id必填");
         }
 
         Category categoryDB = categoryMapper.selectById(category.getId());

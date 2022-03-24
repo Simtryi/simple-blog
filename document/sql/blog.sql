@@ -20,6 +20,63 @@ create table `user` (
 ) engine=InnoDB default charset=utf8 comment '用户表';
 
 -- ----------------------------
+-- Table structure for role
+-- ----------------------------
+drop table if exists `role`;
+create table `role` (
+    `id` bigint(20) not null auto_increment comment '主键',
+    `created_at` datetime not null default current_timestamp comment '创建时间',
+    `updated_at` datetime not null default current_timestamp on update current_timestamp comment '更新时间',
+    `name` varchar(100) default null comment '角色名称',
+    `description` varchar(512) default null comment '描述',
+    `count` int default null comment '用户数量',
+    `status` varchar(100) default 'OK' comment '状态，正常：OK 禁用：DISABLED',
+    primary key (`id`)
+) engine=InnoDB default charset=utf8 comment '角色表';
+
+-- ----------------------------
+-- Table structure for user_role_relation
+-- ----------------------------
+drop table if exists `user_role_relation`;
+create table `user_role_relation` (
+    `id` bigint(20) not null auto_increment comment '主键',
+    `created_at` datetime not null default current_timestamp comment '创建时间',
+    `updated_at` datetime not null default current_timestamp on update current_timestamp comment '更新时间',
+    `user_id` bigint(20) default null comment '用户Id',
+    `role_id` bigint(20) default null comment '角色Id',
+    primary key (`id`),
+    key `idx_user_id` (`user_id`),
+    key `idx_role_id` (`role_id`)
+) engine=InnoDB default charset=utf8 comment '用户角色关系表';
+
+-- ----------------------------
+-- Table structure for resource
+-- ----------------------------
+drop table if exists `resource`;
+create table `resource` (
+    `id` bigint(20) not null auto_increment comment '主键',
+    `created_at` datetime not null default current_timestamp comment '创建时间',
+    `updated_at` datetime not null default current_timestamp on update current_timestamp comment '更新时间',
+    `name` varchar(200)  default null comment '资源名称',
+    `url` varchar(200) default null comment '资源URL',
+    `description` varchar(512) default null comment '描述',
+    primary key (`id`)
+) engine=InnoDB default charset=utf8 comment '资源表';
+
+-- ----------------------------
+-- Table structure for user_resource_relation
+-- ----------------------------
+drop table if exists `user_resource_relation`;
+create table `user_resource_relation` (
+    `id` bigint(20) not null auto_increment comment '主键',
+    `created_at` datetime not null default current_timestamp comment '创建时间',
+    `updated_at` datetime not null default current_timestamp on update current_timestamp comment '更新时间',
+    `user_id` bigint(20) default null comment '用户Id',
+    `resource_id` bigint(20) default null comment '资源Id',
+    primary key (`id`)
+) engine=InnoDB default charset=utf8 comment '用户资源关系表';
+
+-- ----------------------------
 -- Table structure for blog
 -- ----------------------------
 drop table if exists `blog`;

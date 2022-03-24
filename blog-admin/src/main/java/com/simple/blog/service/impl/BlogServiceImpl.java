@@ -1,4 +1,4 @@
-package com.simple.blog.service.imple;
+package com.simple.blog.service.impl;
 
 import com.github.pagehelper.Page;
 import com.simple.blog.common.api.ResultCode;
@@ -18,7 +18,7 @@ import java.util.Date;
 public class BlogServiceImpl implements BlogService {
 
     @Autowired
-    BlogMapper blogMapper;
+    private BlogMapper blogMapper;
 
     @Override
     public int create(Blog blog) {
@@ -34,7 +34,7 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public int update(Blog blog) {
         if (null == blog.getId()) {
-            Asserts.fail(ResultCode.BAD_REQUEST, "编辑时Id必填！");
+            Asserts.fail(ResultCode.BAD_REQUEST, "编辑时Id必填");
         }
 
         Blog blogDB = blogMapper.selectById(blog.getId());

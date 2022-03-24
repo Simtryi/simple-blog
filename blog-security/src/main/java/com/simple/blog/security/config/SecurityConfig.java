@@ -1,12 +1,8 @@
 package com.simple.blog.security.config;
 
-import com.simple.blog.entity.User;
-import com.simple.blog.security.component.AdminUserDetails;
 import com.simple.blog.security.component.JwtAuthenticationTokenFilter;
 import com.simple.blog.security.component.RestAuthenticationEntryPoint;
 import com.simple.blog.security.component.RestfulAccessDeniedHandler;
-import com.simple.blog.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -16,9 +12,8 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -31,58 +26,40 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private RestfulAccessDeniedHandler restfulAccessDeniedHandler;
-
-    @Autowired
-    private RestAuthenticationEntryPoint restAuthenticationEntryPoint;
-
     /**
      * 配置需要拦截的 URL 路径、JWT 过滤器及出现异常后的处理器
      */
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity
-                .csrf() //  由于使用的是 JWT，不需要 csrf
-                .disable()
-                .sessionManagement()    //  基于 token，不需要 session
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
+        ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry registry = httpSecurity.authorizeRequests();
 
+        //  不需要拦截的 URL 路径
+        for (String url : ignoreURLConfig().getUrls()) {
+            registry.antMatchers(url).permitAll();
+        }
+
+        //  允许跨域请求的 OPTIONS 请求
+        registry.antMatchers(HttpMethod.OPTIONS).permitAll();
+
+        //  任何其他请求都需要身份认证
+        registry.and()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.GET,
-                        "/",
-                        "/*.html",
-                        "/favicon.ico",
-                        "/**/*.html",
-                        "/**/*.css",
-                        "/**/*.js"
-                        )   //  允许对于网站静态资源的无授权访问
-                .permitAll()
-                .antMatchers("/admin/login", "/admin/register") //  对登录注册允许匿名访问
-                .permitAll()
-                .antMatchers(HttpMethod.OPTIONS)    //  跨域请求会先进行一次options请求
-                .permitAll()
-                //.antMatchers("/**")   //  测试时全部可以访问
-                //.permitAll()
-                .anyRequest()   //  除上面外的所有请求需要鉴权认证
-                .authenticated();
+                .anyRequest()
+                .authenticated()
 
-        //  禁用缓存
-        httpSecurity.headers().cacheControl();
+                .and()
+                .csrf() //  关闭跨站请求防护
+                .disable()
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS) //  不使用 session
 
-        //  添加 JWT 登录授权过滤器
-        httpSecurity.addFilterBefore(jwtAuthenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+                .and()
+                .exceptionHandling()
+                .accessDeniedHandler(restfulAccessDeniedHandler())    //  自定义未授权返回结果
+                .authenticationEntryPoint(restAuthenticationEntryPoint()) //  自定义未登录返回结果
 
-        //  添加自定义未授权和未登录返回结果
-        httpSecurity.exceptionHandling()
-                .accessDeniedHandler(restfulAccessDeniedHandler)
-                .authenticationEntryPoint(restAuthenticationEntryPoint);
-    }
-
-    @Bean
-    public JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter() {
-        return new JwtAuthenticationTokenFilter();
+                .and()
+                .addFilterBefore(jwtAuthenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class);   //  自定义 JWT 登录授权过滤器
     }
 
     /**
@@ -95,19 +72,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordEncoder(passwordEncoder());
     }
 
-    /**
-     * 获取登录用户信息
-     */
     @Bean
-    public UserDetailsService userDetailsService() {
-        //  根据用户名从数据库中查询用户
-        return username -> {
-            User user = userService.getUserByUsername(username);
-            if (null != user) {
-                return new AdminUserDetails(user);
-            }
-            throw new UsernameNotFoundException("用户名或密码错误");
-        };
+    public IgnoreURLConfig ignoreURLConfig() {
+        return new IgnoreURLConfig();
+    }
+
+    @Bean
+    public RestfulAccessDeniedHandler restfulAccessDeniedHandler() {
+        return new RestfulAccessDeniedHandler();
+    }
+
+    @Bean
+    public RestAuthenticationEntryPoint restAuthenticationEntryPoint() {
+        return new RestAuthenticationEntryPoint();
+    }
+
+    @Bean
+    public JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter() {
+        return new JwtAuthenticationTokenFilter();
     }
 
     /**

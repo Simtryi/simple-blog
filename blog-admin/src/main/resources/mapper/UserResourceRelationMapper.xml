@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.simple.blog.mapper.UserResourceRelationMapper">
+
+    <resultMap id="BaseResultMap" type="com.simple.blog.entity.UserResourceRelation">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
+        <result column="updated_at" jdbcType="TIMESTAMP" property="updatedAt" />
+        <result column="user_id" jdbcType="BIGINT" property="userId" />
+        <result column="resource_id" jdbcType="BIGINT" property="resourceId" />
+    </resultMap>
+
+    <sql id="AllColumns">
+        id, created_at, updated_at, user_id, resource_id
+    </sql>
+
+    <insert id="insert" parameterType="com.simple.blog.entity.UserResourceRelation" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO user_resource_relation ( created_at, updated_at, user_id, resource_id )
+        VALUES (
+                   #{createdAt,jdbcType=TIMESTAMP} ,
+                   #{updatedAt,jdbcType=TIMESTAMP} ,
+                   #{userId,jdbcType=BIGINT} ,
+                   #{resourceId,jdbcType=BIGINT}
+               )
+    </insert>
+
+    <insert id="insertBatch" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO user_resource_relation ( created_at, updated_at, user_id, resource_id )
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.createdAt,jdbcType=TIMESTAMP} ,
+            #{item.updatedAt,jdbcType=TIMESTAMP} ,
+            #{item.userId,jdbcType=BIGINT} ,
+            #{item.resourceId,jdbcType=BIGINT}
+            )
+        </foreach>
+    </insert>
+
+    <delete id="deleteById" parameterType="java.lang.Long">
+        DELETE FROM user_resource_relation
+        WHERE id = #{id,jdbcType=BIGINT}
+    </delete>
+
+    <delete id="deleteByIds" parameterType="java.util.List">
+        DELETE FROM user_resource_relation
+        WHERE
+        <choose>
+            <when test="list==null || list.isEmpty()">
+                1 = 0
+            </when>
+            <otherwise>
+                id IN
+                <foreach collection="list" item="id" index="index" open="(" close=")" separator=",">
+                    #{id}
+                </foreach>
+            </otherwise>
+        </choose>
+    </delete>
+
+    <update id="update" parameterType="com.simple.blog.entity.UserResourceRelation">
+        UPDATE user_resource_relation
+        SET
+            created_at = #{createdAt,jdbcType=TIMESTAMP} ,
+            updated_at = #{updatedAt,jdbcType=TIMESTAMP} ,
+            user_id = #{userId,jdbcType=BIGINT} ,
+            resource_id = #{resourceId,jdbcType=BIGINT}
+        WHERE id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <select id="selectById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        SELECT
+        <include refid="AllColumns" />
+        FROM user_resource_relation
+        WHERE id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <select id="selectByIds" parameterType="java.util.List" resultMap="BaseResultMap">
+        SELECT
+        <include refid="AllColumns" />
+        FROM user_resource_relation
+        WHERE
+        <choose>
+            <when test="list==null || list.isEmpty()">
+                1 = 0
+            </when>
+            <otherwise>
+                id IN
+                <foreach collection="list" item="id" index="index" open="(" close=")" separator=",">
+                    #{id}
+                </foreach>
+            </otherwise>
+        </choose>
+    </select>
+
+</mapper>

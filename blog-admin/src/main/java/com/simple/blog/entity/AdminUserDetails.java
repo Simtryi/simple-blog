@@ -1,6 +1,5 @@
-package com.simple.blog.security.component;
+package com.simple.blog.entity;
 
-import com.simple.blog.entity.User;
 import com.simple.blog.enums.UserStatus;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

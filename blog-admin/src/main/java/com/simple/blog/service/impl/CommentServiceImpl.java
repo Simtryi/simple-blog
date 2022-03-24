@@ -1,4 +1,4 @@
-package com.simple.blog.service.imple;
+package com.simple.blog.service.impl;
 
 import com.github.pagehelper.Page;
 import com.simple.blog.common.api.ResultCode;
@@ -18,7 +18,7 @@ import java.util.Date;
 public class CommentServiceImpl implements CommentService {
 
     @Autowired
-    CommentMapper commentMapper;
+    private CommentMapper commentMapper;
 
     @Override
     public int create(Comment comment) {
@@ -34,7 +34,7 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public int update(Comment comment) {
         if (null == comment.getId()) {
-            Asserts.fail(ResultCode.BAD_REQUEST, "编辑时Id必填！");
+            Asserts.fail(ResultCode.BAD_REQUEST, "编辑时Id必填");
         }
 
         Comment commentDB = commentMapper.selectById(comment.getId());

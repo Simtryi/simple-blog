@@ -1,4 +1,4 @@
-package com.simple.blog.service.imple;
+package com.simple.blog.service.impl;
 
 import com.github.pagehelper.Page;
 import com.simple.blog.common.api.ResultCode;
@@ -19,10 +19,10 @@ import java.util.Date;
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    UserMapper userMapper;
+    private UserMapper userMapper;
 
     @Autowired
-    AdminService adminService;
+    private AdminService adminService;
 
     @Override
     public User create(User user) {

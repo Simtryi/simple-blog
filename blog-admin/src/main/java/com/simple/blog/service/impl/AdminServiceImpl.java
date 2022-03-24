@@ -1,4 +1,4 @@
-package com.simple.blog.service.imple;
+package com.simple.blog.service.impl;
 
 import com.simple.blog.common.api.ResultCode;
 import com.simple.blog.common.exception.Asserts;

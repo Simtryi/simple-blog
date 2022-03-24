@@ -1,4 +1,4 @@
-package com.simple.blog.service.imple;
+package com.simple.blog.service.impl;
 
 import com.github.pagehelper.Page;
 import com.simple.blog.common.api.ResultCode;
@@ -18,7 +18,7 @@ import java.util.Date;
 public class TagServiceImpl implements TagService {
 
     @Autowired
-    TagMapper tagMapper;
+    private TagMapper tagMapper;
 
     @Override
     public int create(Tag tag) {
@@ -34,7 +34,7 @@ public class TagServiceImpl implements TagService {
     @Override
     public int update(Tag tag) {
         if (null == tag.getId()) {
-            Asserts.fail(ResultCode.BAD_REQUEST, "编辑时Id必填！");
+            Asserts.fail(ResultCode.BAD_REQUEST, "编辑时Id必填");
         }
 
         Tag tagDB = tagMapper.selectById(tag.getId());

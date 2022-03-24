@@ -4,7 +4,6 @@ import cn.hutool.json.JSONUtil;
 import com.simple.blog.common.api.ResultCode;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
-import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -12,9 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * 自定义返回结果：无权限访问接口时
+ * 自定义返回结果：无权限访问时
  */
-@Component
 public class RestfulAccessDeniedHandler implements AccessDeniedHandler {
 
     @Override
