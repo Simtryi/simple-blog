@@ -3,7 +3,11 @@ package com.simple.blog.entity;
 import com.simple.blog.common.base.BaseEntity;
 
 /**
- * 资源：后台接口
+ * 资源
+ * <p>
+ * 资源即后台接口，可以是单个接口，也可以是接口的集合。
+ * 如果接口被添加到资源，用户访问该接口时需要进行鉴权。
+ * </p>
  */
 public class Resource extends BaseEntity {
 
@@ -13,7 +17,7 @@ public class Resource extends BaseEntity {
     private String name;
 
     /**
-     * 资源 URL
+     * 资源 URL，支持 Ant 路径匹配规则
      */
     private String url;
 
@@ -21,6 +25,8 @@ public class Resource extends BaseEntity {
      * 描述
      */
     private String description;
+
+
 
     public String getName() {
         return name;

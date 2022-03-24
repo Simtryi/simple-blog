@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 public class CategoryController {
 
     @Autowired
-    CategoryService categoryService;
+    private CategoryService categoryService;
 
     @PostMapping(value = "/create")
     public CommonResult<Void> create(@RequestBody Category category) {

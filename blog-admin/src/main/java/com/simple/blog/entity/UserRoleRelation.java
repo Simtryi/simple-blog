@@ -17,6 +17,8 @@ public class UserRoleRelation extends BaseEntity {
      */
     private Long roleId;
 
+
+
     public Long getUserId() {
         return userId;
     }

@@ -4,6 +4,7 @@ import com.github.pagehelper.Page;
 import com.simple.blog.common.api.CommonPage;
 import com.simple.blog.common.api.CommonResult;
 import com.simple.blog.entity.Resource;
+import com.simple.blog.security.component.DynamicSecurityMetadataSource;
 import com.simple.blog.service.ResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,11 +17,16 @@ import org.springframework.web.bind.annotation.*;
 public class ResourceController {
 
     @Autowired
-    ResourceService resourceService;
+    private ResourceService resourceService;
+
+    @Autowired
+    private DynamicSecurityMetadataSource dynamicSecurityMetadataSource;
 
     @PostMapping(value = "/create")
     public CommonResult<Void> create(@RequestBody Resource resource) {
         int count = resourceService.create(resource);
+        //  当资源发生变化时，清空缓存资源
+        dynamicSecurityMetadataSource.clearDataSource();
         if (count > 0) {
             return CommonResult.success();
         } else {
@@ -31,12 +37,16 @@ public class ResourceController {
     @RequestMapping(value = "/delete/{id}")
     public CommonResult<Void> delete(@PathVariable long id) {
         resourceService.delete(id);
+        //  当资源发生变化时，清空缓存资源
+        dynamicSecurityMetadataSource.clearDataSource();
         return CommonResult.success();
     }
 
     @PostMapping(value = "/update")
     public CommonResult<Void> update(@RequestBody Resource resource) {
         int count = resourceService.update(resource);
+        //  当资源发生变化时，清空缓存资源
+        dynamicSecurityMetadataSource.clearDataSource();
         if (count > 0) {
             return CommonResult.success();
         } else {

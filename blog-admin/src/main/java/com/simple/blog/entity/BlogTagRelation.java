@@ -17,6 +17,8 @@ public class BlogTagRelation extends BaseEntity {
      */
     private Long tagId;
 
+
+
     public Long getBlogId() {
         return blogId;
     }

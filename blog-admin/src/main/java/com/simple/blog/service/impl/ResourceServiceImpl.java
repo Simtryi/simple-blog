@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * 资源管理 Service 实现类
@@ -54,6 +55,11 @@ public class ResourceServiceImpl implements ResourceService {
     @Override
     public Page<Resource> list(int pageNum, int pageSize, String name, String url) {
         return resourceMapper.page(pageNum, pageSize, name, url);
+    }
+
+    @Override
+    public List<Resource> listAll() {
+        return resourceMapper.selectAll();
     }
 
 }

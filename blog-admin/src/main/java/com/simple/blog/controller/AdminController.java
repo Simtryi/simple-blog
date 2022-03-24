@@ -20,7 +20,7 @@ import java.util.Map;
 public class AdminController {
 
     @Autowired
-    AdminService adminService;
+    private AdminService adminService;
 
     @PostMapping("/register")
     public CommonResult<User> register(@RequestBody User user) {

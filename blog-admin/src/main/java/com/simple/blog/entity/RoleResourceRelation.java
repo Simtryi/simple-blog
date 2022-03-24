@@ -3,26 +3,28 @@ package com.simple.blog.entity;
 import com.simple.blog.common.base.BaseEntity;
 
 /**
- * 用户资源关系
+ * 角色资源关系
  */
-public class UserResourceRelation extends BaseEntity {
+public class RoleResourceRelation extends BaseEntity {
 
     /**
-     * 用户Id
+     * 角色Id
      */
-    private Long userId;
+    private Long roleId;
 
     /**
      * 资源Id
      */
     private Long resourceId;
 
-    public Long getUserId() {
-        return userId;
+
+
+    public Long getRoleId() {
+        return roleId;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setRoleId(Long roleId) {
+        this.roleId = roleId;
     }
 
     public Long getResourceId() {

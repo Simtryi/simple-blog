@@ -97,6 +97,12 @@
         </choose>
     </select>
 
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT
+        <include refid="AllColumns" />
+        FROM resource
+    </select>
+
     <select id="page" resultMap="BaseResultMap">
         SELECT
         <include refid="AllColumns" />

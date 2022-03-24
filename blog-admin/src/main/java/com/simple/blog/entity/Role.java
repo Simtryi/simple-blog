@@ -28,6 +28,8 @@ public class Role extends BaseEntity {
      */
     private RoleStatus status = RoleStatus.OK;
 
+
+
     public String getName() {
         return name;
     }

@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 public class TagController {
 
     @Autowired
-    TagService tagService;
+    private TagService tagService;
 
     @PostMapping(value = "/create")
     public CommonResult<Void> create(@RequestBody Tag tag) {

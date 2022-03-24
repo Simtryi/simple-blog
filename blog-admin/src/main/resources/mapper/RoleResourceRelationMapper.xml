@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.simple.blog.mapper.UserResourceRelationMapper">
+<mapper namespace="com.simple.blog.mapper.RoleResourceRelationMapper">
 
-    <resultMap id="BaseResultMap" type="com.simple.blog.entity.UserResourceRelation">
+    <resultMap id="BaseResultMap" type="com.simple.blog.entity.RoleResourceRelation">
         <id column="id" jdbcType="BIGINT" property="id" />
         <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
         <result column="updated_at" jdbcType="TIMESTAMP" property="updatedAt" />
-        <result column="user_id" jdbcType="BIGINT" property="userId" />
+        <result column="role_id" jdbcType="BIGINT" property="roleId" />
         <result column="resource_id" jdbcType="BIGINT" property="resourceId" />
     </resultMap>
 
     <sql id="AllColumns">
-        id, created_at, updated_at, user_id, resource_id
+        id, created_at, updated_at, role_id, resource_id
     </sql>
 
-    <insert id="insert" parameterType="com.simple.blog.entity.UserResourceRelation" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO user_resource_relation ( created_at, updated_at, user_id, resource_id )
+    <insert id="insert" parameterType="com.simple.blog.entity.RoleResourceRelation" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO user_resource_relation ( created_at, updated_at, role_id, resource_id )
         VALUES (
                    #{createdAt,jdbcType=TIMESTAMP} ,
                    #{updatedAt,jdbcType=TIMESTAMP} ,
-                   #{userId,jdbcType=BIGINT} ,
+                   #{roleId,jdbcType=BIGINT} ,
                    #{resourceId,jdbcType=BIGINT}
                )
     </insert>
 
     <insert id="insertBatch" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO user_resource_relation ( created_at, updated_at, user_id, resource_id )
+        INSERT INTO user_resource_relation ( created_at, updated_at, role_id, resource_id )
         values
         <foreach collection="list" item="item" index="index" separator=",">
             (
             #{item.createdAt,jdbcType=TIMESTAMP} ,
             #{item.updatedAt,jdbcType=TIMESTAMP} ,
-            #{item.userId,jdbcType=BIGINT} ,
+            #{item.roleId,jdbcType=BIGINT} ,
             #{item.resourceId,jdbcType=BIGINT}
             )
         </foreach>
@@ -58,12 +58,12 @@
         </choose>
     </delete>
 
-    <update id="update" parameterType="com.simple.blog.entity.UserResourceRelation">
+    <update id="update" parameterType="com.simple.blog.entity.RoleResourceRelation">
         UPDATE user_resource_relation
         SET
             created_at = #{createdAt,jdbcType=TIMESTAMP} ,
             updated_at = #{updatedAt,jdbcType=TIMESTAMP} ,
-            user_id = #{userId,jdbcType=BIGINT} ,
+            role_id = #{roleId,jdbcType=BIGINT} ,
             resource_id = #{resourceId,jdbcType=BIGINT}
         WHERE id = #{id,jdbcType=BIGINT}
     </update>

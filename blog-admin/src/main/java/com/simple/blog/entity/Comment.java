@@ -27,6 +27,8 @@ public class Comment extends BaseEntity {
      */
     private Long userId;
 
+
+
     public String getContent() {
         return content;
     }

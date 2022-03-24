@@ -38,6 +38,8 @@ public class User extends BaseEntity {
      */
     private UserStatus status = UserStatus.OK;
 
+
+
     public String getUsername() {
         return username;
     }

@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 public class RoleController {
 
     @Autowired
-    RoleService roleService;
+    private RoleService roleService;
 
     @PostMapping(value = "/create")
     public CommonResult<Void> create(@RequestBody Role role) {

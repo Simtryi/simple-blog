@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 public class CommentController {
 
     @Autowired
-    CommentService commentService;
+    private CommentService commentService;
 
     @PostMapping(value = "/create")
     public CommonResult<Void> create(@RequestBody Comment comment) {

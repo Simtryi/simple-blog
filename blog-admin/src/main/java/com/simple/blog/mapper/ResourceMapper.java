@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * 资源管理 Mapper
  */
@@ -23,5 +25,10 @@ public interface ResourceMapper extends BaseMapper<Resource> {
             @Param("name") String name,
             @Param("url") String url
     );
+
+    /**
+     * 查询全部资源
+     */
+    List<Resource> selectAll();
 
 }

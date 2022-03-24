@@ -3,6 +3,8 @@ package com.simple.blog.service;
 import com.github.pagehelper.Page;
 import com.simple.blog.entity.Resource;
 
+import java.util.List;
+
 /**
  * 资源管理 Service
  */
@@ -32,5 +34,10 @@ public interface ResourceService {
      * 分页查询资源
      */
     Page<Resource> list(int pageNum, int pageSize, String name, String url);
+
+    /**
+     * 查询全部资源
+     */
+    List<Resource> listAll();
 
 }

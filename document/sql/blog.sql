@@ -64,17 +64,19 @@ create table `resource` (
 ) engine=InnoDB default charset=utf8 comment '资源表';
 
 -- ----------------------------
--- Table structure for user_resource_relation
+-- Table structure for role_resource_relation
 -- ----------------------------
-drop table if exists `user_resource_relation`;
-create table `user_resource_relation` (
+drop table if exists `role_resource_relation`;
+create table `role_resource_relation` (
     `id` bigint(20) not null auto_increment comment '主键',
     `created_at` datetime not null default current_timestamp comment '创建时间',
     `updated_at` datetime not null default current_timestamp on update current_timestamp comment '更新时间',
-    `user_id` bigint(20) default null comment '用户Id',
+    `role_id` bigint(20) default null comment '角色Id',
     `resource_id` bigint(20) default null comment '资源Id',
-    primary key (`id`)
-) engine=InnoDB default charset=utf8 comment '用户资源关系表';
+    primary key (`id`),
+    key `idx_role_id` (`role_id`),
+    key `idx_resource_id` (`resource_id`)
+) engine=InnoDB default charset=utf8 comment '角色资源关系表';
 
 -- ----------------------------
 -- Table structure for blog

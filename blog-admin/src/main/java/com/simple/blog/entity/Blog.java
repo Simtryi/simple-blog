@@ -52,6 +52,8 @@ public class Blog extends BaseEntity {
      */
     private Long userId;
 
+
+
     public String getTitle() {
         return title;
     }

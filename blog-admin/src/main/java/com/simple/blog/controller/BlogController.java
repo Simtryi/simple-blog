@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 public class BlogController {
 
     @Autowired
-    BlogService blogService;
+    private BlogService blogService;
 
     @PostMapping(value = "/create")
     public CommonResult<Void> create(@RequestBody Blog blog) {
