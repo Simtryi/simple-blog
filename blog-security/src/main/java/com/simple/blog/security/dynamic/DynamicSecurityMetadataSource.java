@@ -1,4 +1,4 @@
-package com.simple.blog.security.component;
+package com.simple.blog.security.dynamic;
 
 import cn.hutool.core.util.URLUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +15,12 @@ import java.util.Iterator;
 import java.util.Map;
 
 /**
- * 动态权限数据源
+ * 资源元数据
  */
 public class DynamicSecurityMetadataSource implements FilterInvocationSecurityMetadataSource {
 
     /**
-     * 缓存资源
+     * 资源的缓存，resourceUrl => ConfigAttribute(resourceId:resourceName)
      */
     private static Map<String, ConfigAttribute> configAttributeMap = null;
 
@@ -44,7 +44,7 @@ public class DynamicSecurityMetadataSource implements FilterInvocationSecurityMe
     }
 
     /**
-     * 获取当前访问路径所需资源
+     * 获取 url 对应的 ConfigAttribute 集合
      */
     @Override
     public Collection<ConfigAttribute> getAttributes(Object o) throws IllegalArgumentException {
@@ -59,7 +59,7 @@ public class DynamicSecurityMetadataSource implements FilterInvocationSecurityMe
         String path = URLUtil.getPath(url);
         PathMatcher pathMatcher = new AntPathMatcher();
 
-        //  获取访问该路径所需资源
+        //  获取访问该路径对应的 ConfigAttribute
         Iterator<String> iterator = configAttributeMap.keySet().iterator();
         while (iterator.hasNext()) {
             String pattern = iterator.next();
@@ -68,7 +68,6 @@ public class DynamicSecurityMetadataSource implements FilterInvocationSecurityMe
             }
         }
 
-        //  未设置操作请求权限，返回空集合
         return configAttributes;
     }
 

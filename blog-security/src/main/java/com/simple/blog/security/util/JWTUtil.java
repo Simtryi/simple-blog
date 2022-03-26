@@ -1,6 +1,5 @@
 package com.simple.blog.security.util;
 
-import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
 import com.simple.blog.common.constants.Constants;
 import io.jsonwebtoken.Claims;
@@ -80,7 +79,7 @@ public class JWTUtil {
      * 判断 token 是否过期
      */
     private static boolean isTokenExpired(String token) {
-        Date expiredDate = getExpiredDateFromToken(token);
+        Date expiredDate = getExpirationDateFromToken(token);
         return expiredDate.before(new Date());
     }
 
@@ -101,7 +100,7 @@ public class JWTUtil {
     /**
      * 从 token 中获取过期时间
      */
-    private static Date getExpiredDateFromToken(String token) {
+    private static Date getExpirationDateFromToken(String token) {
         Claims claims = getClaimsFromToken(token);
         return claims.getExpiration();
     }
@@ -125,13 +124,14 @@ public class JWTUtil {
 
     /**
      * 刷新 token
+     * @param authorization 请求头中 Authorization 的值
      */
-    public static String refreshToken(String oldToken) {
-        if (StrUtil.isEmpty(oldToken)) {
+    public static String refreshToken(String authorization) {
+        if (StrUtil.isEmpty(authorization)) {
             return null;
         }
 
-        String token = oldToken.substring(Constants.JWT_TOKEN_HEAD.length());
+        String token = authorization.substring(Constants.JWT_AUTHENTICATION_SCHEMA.length());
         if (StrUtil.isEmpty(token)) {
             return null;
         }
@@ -146,23 +146,8 @@ public class JWTUtil {
             return null;
         }
 
-        //  判断 token 是否在30分钟内刷新过
-        if (isTokenRefreshBefore(token, 30 * 60)) {
-            return token;
-        } else {
-            claims.put(CLAIM_KEY_CREATED, new Date());
-            return generateToken(claims);
-        }
-    }
-
-    /**
-     * 判断 token 是否在指定时间内刷新过
-     */
-    private static boolean isTokenRefreshBefore(String token, int time) {
-        Claims claims = getClaimsFromToken(token);
-        Date created = claims.get(CLAIM_KEY_CREATED, Date.class);
-        Date refreshDate = new Date();
-        return refreshDate.after(created) && refreshDate.before(DateUtil.offsetSecond(created, time));
+        claims.put(CLAIM_KEY_CREATED, new Date());
+        return generateToken(claims);
     }
 
 }

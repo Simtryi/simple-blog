@@ -18,6 +18,9 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
+    /**
+     * 添加分类
+     */
     @PostMapping(value = "/create")
     public CommonResult<Void> create(@RequestBody Category category) {
         int count = categoryService.create(category);
@@ -28,12 +31,18 @@ public class CategoryController {
         }
     }
 
+    /**
+     * 删除分类
+     */
     @RequestMapping(value = "/delete/{id}")
     public CommonResult<Void> delete(@PathVariable long id) {
         categoryService.delete(id);
         return CommonResult.success();
     }
 
+    /**
+     * 修改分类
+     */
     @PostMapping(value = "/update")
     public CommonResult<Void> update(@RequestBody Category category) {
         int count = categoryService.update(category);
@@ -44,12 +53,18 @@ public class CategoryController {
         }
     }
 
+    /**
+     * 查找分类
+     */
     @RequestMapping(value = "/detail/{id}")
     public CommonResult<Category> detail(@PathVariable long id) {
         Category result = categoryService.detail(id);
         return CommonResult.success(result);
     }
 
+    /**
+     * 分页
+     */
     @RequestMapping(value = "/list")
     public CommonResult<CommonPage<Category>> list(
             @RequestParam(defaultValue = "1") int pageNum,

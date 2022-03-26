@@ -2,9 +2,12 @@ package com.simple.blog.entity;
 
 import com.simple.blog.enums.UserStatus;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Spring Security 自定义用户信息
@@ -16,16 +19,24 @@ public class AdminUserDetails implements UserDetails {
      */
     private User user;
 
-    public AdminUserDetails(User user) {
+    /**
+     * 用户可访问的资源
+     */
+    private List<Resource> resourceList;
+
+    public AdminUserDetails(User user, List<Resource> resourceList) {
         this.user = user;
+        this.resourceList = resourceList;
     }
 
     /**
-     * 获取用户的权限集
+     * 获取用户的权限
      */
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return resourceList.stream()
+                .map(resource -> new SimpleGrantedAuthority(resource.getId() + ":" + resource.getName()))
+                .collect(Collectors.toList());
     }
 
     /**

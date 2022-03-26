@@ -1,6 +1,7 @@
 package com.simple.blog.security.component;
 
 import cn.hutool.json.JSONUtil;
+import com.simple.blog.common.api.CommonResult;
 import com.simple.blog.common.api.ResultCode;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
@@ -11,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * 自定义返回结果：无权限访问时
+ * 处理 AccessDeniedException 异常
  */
 public class RestfulAccessDeniedHandler implements AccessDeniedHandler {
 
@@ -21,7 +22,7 @@ public class RestfulAccessDeniedHandler implements AccessDeniedHandler {
         response.setHeader("Cache-Control","no-cache");
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json");
-        response.getWriter().println(JSONUtil.parse(ResultCode.UNAUTHORIZED.getMessage()));
+        response.getWriter().println(JSONUtil.parse(CommonResult.failed(ResultCode.FORBIDDEN, ResultCode.FORBIDDEN.getMessage())));
         response.getWriter().flush();
     }
 

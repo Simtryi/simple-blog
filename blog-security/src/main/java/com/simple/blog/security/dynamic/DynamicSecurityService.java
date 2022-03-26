@@ -1,16 +1,16 @@
-package com.simple.blog.security.component;
+package com.simple.blog.security.dynamic;
 
 import org.springframework.security.access.ConfigAttribute;
 
 import java.util.Map;
 
 /**
- * 动态权限相关业务类
+ * 动态权限 Service
  */
 public interface DynamicSecurityService {
 
     /**
-     * 加载资源 Ant 通配符和资源对应 Map
+     * 获取全部资源，resourceUrl => ConfigAttribute(resourceId:resourceName)
      */
     Map<String, ConfigAttribute> loadDataSource();
 

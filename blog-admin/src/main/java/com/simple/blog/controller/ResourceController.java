@@ -4,7 +4,7 @@ import com.github.pagehelper.Page;
 import com.simple.blog.common.api.CommonPage;
 import com.simple.blog.common.api.CommonResult;
 import com.simple.blog.entity.Resource;
-import com.simple.blog.security.component.DynamicSecurityMetadataSource;
+import com.simple.blog.security.dynamic.DynamicSecurityMetadataSource;
 import com.simple.blog.service.ResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +22,9 @@ public class ResourceController {
     @Autowired
     private DynamicSecurityMetadataSource dynamicSecurityMetadataSource;
 
+    /**
+     * 添加资源
+     */
     @PostMapping(value = "/create")
     public CommonResult<Void> create(@RequestBody Resource resource) {
         int count = resourceService.create(resource);
@@ -34,6 +37,9 @@ public class ResourceController {
         }
     }
 
+    /**
+     * 删除资源
+     */
     @RequestMapping(value = "/delete/{id}")
     public CommonResult<Void> delete(@PathVariable long id) {
         resourceService.delete(id);
@@ -42,6 +48,9 @@ public class ResourceController {
         return CommonResult.success();
     }
 
+    /**
+     * 修改资源
+     */
     @PostMapping(value = "/update")
     public CommonResult<Void> update(@RequestBody Resource resource) {
         int count = resourceService.update(resource);
@@ -54,12 +63,18 @@ public class ResourceController {
         }
     }
 
+    /**
+     * 查找资源
+     */
     @RequestMapping(value = "/detail/{id}")
     public CommonResult<Resource> detail(@PathVariable long id) {
         Resource result = resourceService.detail(id);
         return CommonResult.success(result);
     }
 
+    /**
+     * 分页
+     */
     @RequestMapping(value = "/list")
     public CommonResult<CommonPage<Resource>> list(
             @RequestParam(defaultValue = "1") int pageNum,

@@ -13,13 +13,13 @@ public interface Constants {
     Long JWT_EXPIRATION = 604800L;
 
     /**
-     * JWT 负载中拿到的开头
-     */
-    String JWT_TOKEN_HEAD = "Bearer";
-
-    /**
      * JWT 请求头
      */
-    String JWT_TOKEN_HEADER = "Authorization";
+    String JWT_HEADER = "Authorization";
+
+    /**
+     * JWT 身份验证模式
+     */
+    String JWT_AUTHENTICATION_SCHEMA = "Bearer";
 
 }

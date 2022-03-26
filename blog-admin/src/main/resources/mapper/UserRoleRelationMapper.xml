@@ -58,6 +58,11 @@
         </choose>
     </delete>
 
+    <delete id="deleteByUserId" parameterType="java.lang.Long">
+        DELETE FROM user_role_relation
+        WHERE user_id = #{userId,jdbcType=BIGINT}
+    </delete>
+
     <update id="update" parameterType="com.simple.blog.entity.UserRoleRelation">
         UPDATE user_role_relation
         SET
@@ -91,6 +96,34 @@
                 </foreach>
             </otherwise>
         </choose>
+    </select>
+
+    <select id="selectRoleList" parameterType="java.lang.Long" resultMap="com.simple.blog.mapper.RoleMapper.BaseResultMap">
+        SELECT
+            role.id id,
+            role.created_at created_at,
+            role.name name,
+            role.description description,
+            role.count count,
+            role.status status
+        FROM user_role_relation urr
+        LEFT JOIN role ON urr.role_id = role.id
+        WHERE urr.user_id = #{userId,jdbcType=BIGINT} AND role.id IS NOT NULL
+    </select>
+
+    <select id="selectResourceList" parameterType="java.lang.Long" resultMap="com.simple.blog.mapper.ResourceMapper.BaseResultMap">
+        SELECT
+            resource.id id,
+            resource.created_at created_at,
+            resource.updated_at updated_at,
+            resource.name name,
+            resource.url url,
+            resource.description description
+        FROM user_role_relation urr
+            LEFT JOIN role ON urr.role_id = role.id
+            LEFT JOIN role_resource_relation rrr ON role.id = rrr.role_id
+            LEFT JOIN resource ON rrr.resource_id = resource.id
+        WHERE urr.user_id = #{userId,jdbcType=BIGINT} AND resource.id IS NOT NULL
     </select>
 
 </mapper>

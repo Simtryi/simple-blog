@@ -1,12 +1,13 @@
-package com.simple.blog.Config;
+package com.simple.blog.config;
 
 import com.simple.blog.entity.AdminUserDetails;
 import com.simple.blog.entity.Resource;
 import com.simple.blog.entity.User;
-import com.simple.blog.security.component.DynamicSecurityService;
+import com.simple.blog.mapper.ResourceMapper;
+import com.simple.blog.mapper.UserMapper;
+import com.simple.blog.mapper.UserRoleRelationMapper;
+import com.simple.blog.security.dynamic.DynamicSecurityService;
 import com.simple.blog.security.config.SecurityConfig;
-import com.simple.blog.service.ResourceService;
-import com.simple.blog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,10 +29,13 @@ import java.util.concurrent.ConcurrentHashMap;
 public class AdminSecurityConfig extends SecurityConfig {
 
     @Autowired
-    private UserService userService;
+    private UserMapper userMapper;
 
     @Autowired
-    private ResourceService resourceService;
+    private UserRoleRelationMapper userRoleRelationMapper;
+
+    @Autowired
+    private ResourceMapper resourceMapper;
 
     /**
      * 获取登录用户信息
@@ -39,19 +43,26 @@ public class AdminSecurityConfig extends SecurityConfig {
     @Bean
     public UserDetailsService userDetailsService() {
         return username -> {
-            User user = userService.getUserByUsername(username);
+            //  todo 缓存用户信息
+            //  根据用户名查找用户
+            User user = userMapper.selectByUsername(username);
             if (null != user) {
-                return new AdminUserDetails(user);
+                //  根据用户Id获取用户的资源列表
+                List<Resource> resourceList = userRoleRelationMapper.selectResourceList(user.getId());
+                return new AdminUserDetails(user, resourceList);
             }
-            throw new UsernameNotFoundException("用户名或密码错误");
+            throw new UsernameNotFoundException("用户不存在");
         };
     }
 
+    /**
+     * 获取全部资源
+     */
     @Bean
     public DynamicSecurityService dynamicSecurityService() {
         return () -> {
             ConcurrentHashMap<String, ConfigAttribute> map = new ConcurrentHashMap<>();
-            List<Resource> resources = resourceService.listAll();
+            List<Resource> resources = resourceMapper.selectAll();
             for (Resource resource : resources) {
                 map.put(resource.getUrl(), new org.springframework.security.access.SecurityConfig(resource.getId() + ":" + resource.getName()));
             }

@@ -18,6 +18,9 @@ public class BlogController {
     @Autowired
     private BlogService blogService;
 
+    /**
+     * 添加博客
+     */
     @PostMapping(value = "/create")
     public CommonResult<Void> create(@RequestBody Blog blog) {
         int count = blogService.create(blog);
@@ -28,12 +31,18 @@ public class BlogController {
         }
     }
 
+    /**
+     * 删除博客
+     */
     @RequestMapping(value = "/delete/{id}")
     public CommonResult<Void> delete(@PathVariable long id) {
         blogService.delete(id);
         return CommonResult.success();
     }
 
+    /**
+     * 修改博客
+     */
     @PostMapping(value = "/update")
     public CommonResult<Void> update(@RequestBody Blog blog) {
         int count = blogService.update(blog);
@@ -44,12 +53,18 @@ public class BlogController {
         }
     }
 
+    /**
+     * 查找博客
+     */
     @RequestMapping(value = "/detail/{id}")
     public CommonResult<Blog> detail(@PathVariable long id) {
         Blog result = blogService.detail(id);
         return CommonResult.success(result);
     }
 
+    /**
+     * 分页
+     */
     @RequestMapping(value = "/list")
     public CommonResult<CommonPage<Blog>> list(
             @RequestParam(defaultValue = "1") int pageNum,

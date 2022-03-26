@@ -1,4 +1,4 @@
-package com.simple.blog.security.component;
+package com.simple.blog.security.dynamic;
 
 import cn.hutool.core.collection.CollUtil;
 import org.springframework.security.access.AccessDecisionManager;
@@ -12,7 +12,7 @@ import java.util.Collection;
 import java.util.Iterator;
 
 /**
- * 动态权限决策管理器
+ * 动态权限访问决策器
  */
 public class DynamicAccessDecisionManager implements AccessDecisionManager {
 
@@ -37,6 +37,7 @@ public class DynamicAccessDecisionManager implements AccessDecisionManager {
                 }
             }
         }
+
         throw new AccessDeniedException("抱歉，您没有访问权限");
     }
 

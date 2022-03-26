@@ -12,7 +12,8 @@ public enum ResultCode {
     PARAMS_ERROR(HttpStatus.BAD_REQUEST, "请求参数错误"),
     NOT_FOUND(HttpStatus.NOT_FOUND, "内容不存在"),
     LOGIN(HttpStatus.UNAUTHORIZED, "未登录，禁止访问"),
-    UNAUTHORIZED(HttpStatus.UNAUTHORIZED, "没有权限，禁止访问"),
+    UNAUTHORIZED(HttpStatus.UNAUTHORIZED, "未授权，禁止访问"),
+    FORBIDDEN(HttpStatus.FORBIDDEN, "无权限，禁止访问"),
     UNKNOWN(HttpStatus.INTERNAL_SERVER_ERROR, "服务器未知错误"),
     ;
 

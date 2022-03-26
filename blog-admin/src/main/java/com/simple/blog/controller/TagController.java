@@ -18,6 +18,9 @@ public class TagController {
     @Autowired
     private TagService tagService;
 
+    /**
+     * 添加标签
+     */
     @PostMapping(value = "/create")
     public CommonResult<Void> create(@RequestBody Tag tag) {
         int count = tagService.create(tag);
@@ -28,12 +31,18 @@ public class TagController {
         }
     }
 
+    /**
+     * 删除标签
+     */
     @RequestMapping(value = "/delete/{id}")
     public CommonResult<Void> delete(@PathVariable long id) {
         tagService.delete(id);
         return CommonResult.success();
     }
 
+    /**
+     * 修改标签
+     */
     @PostMapping(value = "/update")
     public CommonResult<Void> update(@RequestBody Tag tag) {
         int count = tagService.update(tag);
@@ -44,12 +53,18 @@ public class TagController {
         }
     }
 
+    /**
+     * 查找标签
+     */
     @RequestMapping(value = "/detail/{id}")
     public CommonResult<Tag> detail(@PathVariable long id) {
         Tag result = tagService.detail(id);
         return CommonResult.success(result);
     }
 
+    /**
+     * 分页
+     */
     @RequestMapping(value = "/list")
     public CommonResult<CommonPage<Tag>> list(
             @RequestParam(defaultValue = "1") int pageNum,

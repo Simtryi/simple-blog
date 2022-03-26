@@ -15,7 +15,7 @@
     </sql>
 
     <insert id="insert" parameterType="com.simple.blog.entity.RoleResourceRelation" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO user_resource_relation ( created_at, updated_at, role_id, resource_id )
+        INSERT INTO role_resource_relation ( created_at, updated_at, role_id, resource_id )
         VALUES (
                    #{createdAt,jdbcType=TIMESTAMP} ,
                    #{updatedAt,jdbcType=TIMESTAMP} ,
@@ -25,7 +25,7 @@
     </insert>
 
     <insert id="insertBatch" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO user_resource_relation ( created_at, updated_at, role_id, resource_id )
+        INSERT INTO role_resource_relation ( created_at, updated_at, role_id, resource_id )
         values
         <foreach collection="list" item="item" index="index" separator=",">
             (
@@ -38,12 +38,12 @@
     </insert>
 
     <delete id="deleteById" parameterType="java.lang.Long">
-        DELETE FROM user_resource_relation
+        DELETE FROM role_resource_relation
         WHERE id = #{id,jdbcType=BIGINT}
     </delete>
 
     <delete id="deleteByIds" parameterType="java.util.List">
-        DELETE FROM user_resource_relation
+        DELETE FROM role_resource_relation
         WHERE
         <choose>
             <when test="list==null || list.isEmpty()">
@@ -58,8 +58,13 @@
         </choose>
     </delete>
 
+    <delete id="deleteByRoleId" parameterType="java.lang.Long">
+        DELETE FROM role_resource_relation
+        WHERE role_id = #{roleId,jdbcType=BIGINT}
+    </delete>
+
     <update id="update" parameterType="com.simple.blog.entity.RoleResourceRelation">
-        UPDATE user_resource_relation
+        UPDATE role_resource_relation
         SET
             created_at = #{createdAt,jdbcType=TIMESTAMP} ,
             updated_at = #{updatedAt,jdbcType=TIMESTAMP} ,
@@ -71,14 +76,14 @@
     <select id="selectById" parameterType="java.lang.Long" resultMap="BaseResultMap">
         SELECT
         <include refid="AllColumns" />
-        FROM user_resource_relation
+        FROM role_resource_relation
         WHERE id = #{id,jdbcType=BIGINT}
     </select>
 
     <select id="selectByIds" parameterType="java.util.List" resultMap="BaseResultMap">
         SELECT
         <include refid="AllColumns" />
-        FROM user_resource_relation
+        FROM role_resource_relation
         WHERE
         <choose>
             <when test="list==null || list.isEmpty()">
@@ -91,6 +96,19 @@
                 </foreach>
             </otherwise>
         </choose>
+    </select>
+
+    <select id="selectResourceList" parameterType="java.lang.Long" resultMap="com.simple.blog.mapper.ResourceMapper.BaseResultMap">
+        SELECT
+            resource.id id,
+            resource.created_at created_at,
+            resource.updated_at updated_at,
+            resource.name name,
+            resource.url url,
+            resource.description description
+        FROM role_resource_relation rrr
+        LEFT JOIN resource ON rrr.resource_id = resource.id
+        WHERE rrr.role_id = #{roleId,jdbcType=BIGINT} AND resource.id IS NOT NULL
     </select>
 
 </mapper>

@@ -12,17 +12,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-
     /**
      * 处理自定义 API 异常
      */
     @ResponseBody
     @ExceptionHandler(value = ApiException.class)
     public CommonResult<Void> handleApiException(ApiException e) {
-        if (null != e.getCode()) {
-            return CommonResult.failed(e.getCode(), e.getMessage());
-        }
-        return CommonResult.failed(ResultCode.UNKNOWN, e.getMessage());
+        return CommonResult.failed(e.getCode(), e.getMessage());
     }
 
     /**

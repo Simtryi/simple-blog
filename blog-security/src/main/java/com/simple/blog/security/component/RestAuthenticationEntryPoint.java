@@ -1,6 +1,7 @@
 package com.simple.blog.security.component;
 
 import cn.hutool.json.JSONUtil;
+import com.simple.blog.common.api.CommonResult;
 import com.simple.blog.common.api.ResultCode;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
@@ -11,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * 自定义返回结果：未登录或登录过期时
+ * 处理 AuthenticationException 异常
  */
 public class RestAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
@@ -21,7 +22,7 @@ public class RestAuthenticationEntryPoint implements AuthenticationEntryPoint {
         response.setHeader("Cache-Control","no-cache");
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json");
-        response.getWriter().println(JSONUtil.parse(ResultCode.UNAUTHORIZED.getMessage()));
+        response.getWriter().println(JSONUtil.parse(CommonResult.failed(ResultCode.UNAUTHORIZED, ResultCode.UNAUTHORIZED.getMessage())));
         response.getWriter().flush();
     }
 

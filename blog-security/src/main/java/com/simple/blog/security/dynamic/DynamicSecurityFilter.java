@@ -1,4 +1,4 @@
-package com.simple.blog.security.component;
+package com.simple.blog.security.dynamic;
 
 import com.simple.blog.security.config.IgnoreURLConfig;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,7 +56,7 @@ public class DynamicSecurityFilter extends AbstractSecurityInterceptor implement
             }
         }
 
-        //  调用 AccessDecisionManager 中的 decide 方法进行鉴权
+        //  调用 AccessDecisionManager 中的 decide 方法判断用户是否由访问权限
         InterceptorStatusToken token = super.beforeInvocation(invocation);
         try {
             invocation.getChain().doFilter(invocation.getRequest(), invocation.getResponse());

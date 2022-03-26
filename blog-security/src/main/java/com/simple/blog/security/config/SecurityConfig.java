@@ -1,8 +1,9 @@
 package com.simple.blog.security.config;
 
 import com.simple.blog.security.component.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import com.simple.blog.security.dynamic.DynamicAccessDecisionManager;
+import com.simple.blog.security.dynamic.DynamicSecurityFilter;
+import com.simple.blog.security.dynamic.DynamicSecurityMetadataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,11 +22,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
  */
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired(required = false)
-    private DynamicSecurityService dynamicSecurityService;
-
     /**
-     * 配置需要拦截的 URL 路径、JWT 过滤器及出现异常后的处理器
+     * 配置安全过滤器
      */
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
@@ -36,34 +34,36 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             registry.antMatchers(url).permitAll();
         }
 
-        //  允许跨域请求的 OPTIONS 请求
+        //  允许跨域的 OPTIONS 请求
         registry.antMatchers(HttpMethod.OPTIONS).permitAll();
 
-        //  任何其他请求都需要身份认证
+        //  测试，全部放行
+        registry.antMatchers("/**").permitAll();
+
+        //  其他任何请求都需要身份认证
         registry.and()
                 .authorizeRequests()
                 .anyRequest()
                 .authenticated()
 
                 .and()
-                .csrf() //  关闭跨站请求防护
+                .csrf() //  由于采用 token，不需要跨站请求防护
                 .disable()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS) //  不使用 session
+                .sessionManagement()    //  由于采用 token，不使用 session
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 
                 .and()
-                .exceptionHandling()
-                .accessDeniedHandler(restfulAccessDeniedHandler())    //  自定义未授权返回结果
-                .authenticationEntryPoint(restAuthenticationEntryPoint()) //  自定义未登录返回结果
+                .exceptionHandling()    //  自定义异常处理
+                .accessDeniedHandler(restfulAccessDeniedHandler())    //    处理 AccessDeniedException 异常
+                .authenticationEntryPoint(restAuthenticationEntryPoint());  //    处理 AuthenticationException 异常
 
-                .and()
-                .addFilterBefore(jwtAuthenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class);   //  自定义 JWT 登录授权过滤器
+        //  添加 JWT 登录授权过滤器
+        registry.and()
+                .addFilterBefore(jwtAuthenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 
-        //  有动态权限配置时添加动态权限校验过滤器
-        if (null != dynamicSecurityService) {
-            registry.and()
-                    .addFilterBefore(dynamicSecurityFilter(), FilterSecurityInterceptor.class);
-        }
+        //  添加动态权限过滤器
+        registry.and()
+                .addFilterBefore(dynamicSecurityFilter(), FilterSecurityInterceptor.class);
     }
 
     /**
@@ -96,30 +96,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new JwtAuthenticationTokenFilter();
     }
 
-    /**
-     * 采用 bcrypt 密码编码方式
-     */
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
-    @ConditionalOnBean(name = "dynamicSecurityService")
-    @Bean
-    public DynamicAccessDecisionManager dynamicAccessDecisionManager() {
-        return new DynamicAccessDecisionManager();
-    }
-
-    @ConditionalOnBean(name = "dynamicSecurityService")
     @Bean
     public DynamicSecurityFilter dynamicSecurityFilter() {
         return new DynamicSecurityFilter();
     }
 
-    @ConditionalOnBean(name = "dynamicSecurityService")
+    @Bean
+    public DynamicAccessDecisionManager dynamicAccessDecisionManager() {
+        return new DynamicAccessDecisionManager();
+    }
+
     @Bean
     public DynamicSecurityMetadataSource dynamicSecurityMetadataSource() {
         return new DynamicSecurityMetadataSource();
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 
     @Bean

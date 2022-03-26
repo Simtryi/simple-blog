@@ -8,11 +8,13 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
+    <name>blog-security</name>
+    <description>blog-security</description>
+
     <parent>
         <groupId>com.simple.blog</groupId>
         <artifactId>blog</artifactId>
         <version>1.0-SNAPSHOT</version>
-        <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
     <dependencies>
