@@ -10,12 +10,12 @@ public interface Constants {
     /**
      * OSS 用户标识
      */
-    String OSS_ACCESS_KEY_ID = "LTAI5tBFpQYtAWaTVCo6t6yY";
+    String OSS_ACCESS_KEY_ID = "access_key_id";
 
     /**
      * OSS 验证签名字符串的密钥
      */
-    String OSS_ACCESS_KEY_SECRET = "haTy4X0SSc5tX9LkRabwwW8jKLmIti";
+    String OSS_ACCESS_KEY_SECRET = "access_key_secret";
 
     /**
      * OSS 存储空间名称
