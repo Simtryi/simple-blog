@@ -3,7 +3,7 @@ package com.simple.blog.common.service;
 import java.util.List;
 
 /**
- * Redis相关操作
+ * Redis 相关操作
  */
 public interface RedisService {
 

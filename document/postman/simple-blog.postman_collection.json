@@ -6,10 +6,91 @@
 	},
 	"item": [
 		{
+			"name": "admin",
+			"item": [
+				{
+					"name": "注册",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/admin/register",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "登录",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/admin/login?username&password",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"login"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": null
+								},
+								{
+									"key": "password",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "刷新token",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/admin/token/refresh",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"token",
+								"refresh"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "更新密码",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "user",
 			"item": [
 				{
-					"name": "create",
+					"name": "添加用户",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -37,7 +118,7 @@
 					"response": []
 				},
 				{
-					"name": "delete",
+					"name": "删除用户",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -57,7 +138,7 @@
 					"response": []
 				},
 				{
-					"name": "update",
+					"name": "修改用户",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -85,7 +166,7 @@
 					"response": []
 				},
 				{
-					"name": "detail",
+					"name": "查找用户",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -105,7 +186,7 @@
 					"response": []
 				},
 				{
-					"name": "list",
+					"name": "分页",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -132,6 +213,389 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "获取用户的角色列表",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/user/role/list/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								"role",
+								"list",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "获取用户的资源列表",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/user/resource/list/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								"resource",
+								"list",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "为用户分配角色",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/user/role/assign?userId=1&roleIds=1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								"role",
+								"assign"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "1"
+								},
+								{
+									"key": "roleIds",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "role",
+			"item": [
+				{
+					"name": "添加角色",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"admin\",\n    \"description\": \"管理员\",\n    \"status\": \"OK\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/role/create",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"role",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "删除角色",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/role/delete/3",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"role",
+								"delete",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "修改角色",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"1\",\n    \"name\": \"admin\",\n    \"description\": \"管理员\",\n    \"status\": \"OK\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/role/update",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"role",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查找角色",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/role/detail/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"role",
+								"detail",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "分页",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/role/list?pageNum=1&pageSize=10",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"role",
+								"list"
+							],
+							"query": [
+								{
+									"key": "pageNum",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "获取角色的资源列表",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/role/resource/list/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"role",
+								"resource",
+								"list",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "为角色分配资源",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/role/resource/assign?roleId=1&resourceIds=1,2",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"role",
+								"resource",
+								"assign"
+							],
+							"query": [
+								{
+									"key": "roleId",
+									"value": "1"
+								},
+								{
+									"key": "resourceIds",
+									"value": "1,2"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "resource",
+			"item": [
+				{
+					"name": "添加资源",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"user_create\",\n    \"url\": \"/user/create\",\n    \"description\": \"用户管理-添加用户\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/resource/create",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"resource",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "删除资源",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/resource/delete/3",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"resource",
+								"delete",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "修改资源",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"1\",\n    \"name\": \"user_create\",\n    \"url\": \"/user/create\",\n    \"description\": \"用户管理-添加用户\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/resource/update",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"resource",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查找资源",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/resource/detail/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"resource",
+								"detail",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "分页",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/resource/list?pageNum=1&pageSize=10",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"resource",
+								"list"
+							],
+							"query": [
+								{
+									"key": "pageNum",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -139,7 +603,7 @@
 			"name": "blog",
 			"item": [
 				{
-					"name": "create",
+					"name": "添加博客",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -167,7 +631,7 @@
 					"response": []
 				},
 				{
-					"name": "delete",
+					"name": "删除博客",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -187,7 +651,7 @@
 					"response": []
 				},
 				{
-					"name": "update",
+					"name": "修改博客",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -215,7 +679,7 @@
 					"response": []
 				},
 				{
-					"name": "detail",
+					"name": "查找博客",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -235,7 +699,7 @@
 					"response": []
 				},
 				{
-					"name": "list",
+					"name": "分页",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -269,7 +733,7 @@
 			"name": "category",
 			"item": [
 				{
-					"name": "create",
+					"name": "添加分类",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -297,7 +761,7 @@
 					"response": []
 				},
 				{
-					"name": "delete",
+					"name": "删除分类",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -317,7 +781,7 @@
 					"response": []
 				},
 				{
-					"name": "update",
+					"name": "修改分类",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -345,7 +809,7 @@
 					"response": []
 				},
 				{
-					"name": "detail",
+					"name": "查找分类",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -365,7 +829,7 @@
 					"response": []
 				},
 				{
-					"name": "list",
+					"name": "分页",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -399,7 +863,7 @@
 			"name": "tag",
 			"item": [
 				{
-					"name": "create",
+					"name": "添加标签",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -427,7 +891,7 @@
 					"response": []
 				},
 				{
-					"name": "delete",
+					"name": "删除标签",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -447,7 +911,7 @@
 					"response": []
 				},
 				{
-					"name": "update",
+					"name": "修改标签",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -475,7 +939,7 @@
 					"response": []
 				},
 				{
-					"name": "detail",
+					"name": "查找标签",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -495,7 +959,7 @@
 					"response": []
 				},
 				{
-					"name": "list",
+					"name": "分页",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -529,7 +993,7 @@
 			"name": "comment",
 			"item": [
 				{
-					"name": "create",
+					"name": "添加评论",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -557,7 +1021,7 @@
 					"response": []
 				},
 				{
-					"name": "delete",
+					"name": "删除评论",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -577,7 +1041,7 @@
 					"response": []
 				},
 				{
-					"name": "update",
+					"name": "修改评论",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -605,7 +1069,7 @@
 					"response": []
 				},
 				{
-					"name": "detail",
+					"name": "查找评论",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -625,7 +1089,7 @@
 					"response": []
 				},
 				{
-					"name": "list",
+					"name": "分页",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -647,6 +1111,90 @@
 								{
 									"key": "pageSize",
 									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "oss",
+			"item": [
+				{
+					"name": "上传文件",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "multipartFile",
+									"type": "file",
+									"src": "/Users/luyi/Pictures/IMG_0636(20200228-184736).JPG"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:8080/oss/upload",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"oss",
+								"upload"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "下载文件",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/oss/download?url=http://simple-oss-1.oss-cn-shanghai.aliyuncs.com/blog/images/20220327/ec3f6369-aabb-429a-b72c-da502ec6c49e.JPG",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"oss",
+								"download"
+							],
+							"query": [
+								{
+									"key": "url",
+									"value": "http://simple-oss-1.oss-cn-shanghai.aliyuncs.com/blog/images/20220327/ec3f6369-aabb-429a-b72c-da502ec6c49e.JPG"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "删除文件",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/oss/delete?url=http://simple-oss-1.oss-cn-shanghai.aliyuncs.com/blog/images/20220327/0c41fd22-f22f-47ad-b1a6-66e94010c5f4.JPG",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"oss",
+								"delete"
+							],
+							"query": [
+								{
+									"key": "url",
+									"value": "http://simple-oss-1.oss-cn-shanghai.aliyuncs.com/blog/images/20220327/0c41fd22-f22f-47ad-b1a6-66e94010c5f4.JPG"
 								}
 							]
 						}

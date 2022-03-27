@@ -18,7 +18,7 @@ import org.springframework.security.web.access.intercept.FilterSecurityIntercept
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
- * Spring Security 配置
+ * 安全配置
  */
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
