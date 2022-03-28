@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="true">
+
+    <!-- 引用默认日志配置 -->
+    <include resource="org/springframework/boot/logging/logback/defaults.xml" />
+    <!-- 使用默认的控制台日志输出实现 -->
+    <include resource="org/springframework/boot/logging/logback/console-appender.xml" />
+
+    <!-- 应用名称 -->
+    <springProperty scope="context" name="APP_NAME" source="spring.application.name" defaultValue="springBoot"/>
+    <!-- 日志文件保存路径 -->
+    <property name="LOG_PATH" value="${user.home}/logs/${APP_NAME}" />
+    <!-- 日志文件格式 -->
+    <property name="BLOG_LOG_PATTERN" value="${BLOG_LOG_PATTERN:-%d{yyyy-MM-dd HH:mm:ss.SSS} ${LOG_LEVEL_PATTERN:-%5p} ${PID:- } --- [%t] %-40.40logger{39} : %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}" />
+
+
+
+    <!-- 应用日志 -->
+    <property name="APPLICATION_LOG_FILE" value="${LOG_PATH}/application.log"/>
+    <appender name="APPLICATION" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${APPLICATION_LOG_FILE}</file>
+        <encoder>
+            <pattern>${BLOG_LOG_PATTERN}</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- 文件命名格式 -->
+            <fileNamePattern>${APPLICATION_LOG_FILE}.%d{yyyy-MM-dd}.%i</fileNamePattern>
+            <!-- 日志文件保留天数 -->
+            <maxHistory>7</maxHistory>
+            <!-- 日志文件大小，超过就重新生成文件 -->
+            <maxFileSize>50MB</maxFileSize>
+        </rollingPolicy>
+    </appender>
+
+
+
+    <!-- 接口访问日志 -->
+    <property name="API_LOG_FILE" value="${LOG_PATH}/api.log"/>
+    <appender name="API" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${API_LOG_FILE}</file>
+        <encoder>
+            <pattern>${BLOG_LOG_PATTERN}</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- 文件命名格式 -->
+            <fileNamePattern>${API_LOG_FILE}.%d{yyyy-MM-dd}.%i</fileNamePattern>
+            <!-- 日志文件保留天数 -->
+            <maxHistory>3</maxHistory>
+            <!-- 日志文件大小，超过就重新生成文件 -->
+            <maxFileSize>50MB</maxFileSize>
+        </rollingPolicy>
+    </appender>
+
+    <logger name="API_LOGGER" level="INFO" additivity="false">
+        <appender-ref ref="API"/>
+    </logger>
+
+
+
+    <!-- 本地环境配置，日志记录到控制台 -->
+    <root level="info">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="APPLICATION"/>
+    </root>
+
+</configuration>
