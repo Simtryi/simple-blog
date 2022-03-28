@@ -1,6 +1,6 @@
 package com.simple.blog.security.dynamic;
 
-import cn.hutool.core.util.URLUtil;
+import com.simple.blog.common.util.UrlUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.web.FilterInvocation;
@@ -56,7 +56,7 @@ public class DynamicSecurityMetadataSource implements FilterInvocationSecurityMe
 
         //  获取当前访问路径
         String url = ((FilterInvocation) o).getRequestUrl();
-        String path = URLUtil.getPath(url);
+        String path = UrlUtil.getPath(url);
         PathMatcher pathMatcher = new AntPathMatcher();
 
         //  获取访问该路径对应的 ConfigAttribute

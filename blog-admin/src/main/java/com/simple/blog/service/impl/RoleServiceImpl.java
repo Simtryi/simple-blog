@@ -4,6 +4,7 @@ import cn.hutool.core.collection.CollUtil;
 import com.github.pagehelper.Page;
 import com.simple.blog.common.api.ResultCode;
 import com.simple.blog.common.exception.Asserts;
+import com.simple.blog.common.util.StringUtil;
 import com.simple.blog.entity.Resource;
 import com.simple.blog.entity.Role;
 import com.simple.blog.entity.RoleResourceRelation;
@@ -53,7 +54,7 @@ public class RoleServiceImpl implements RoleService {
 
         Role roleDB = roleMapper.selectById(role.getId());
         if (null == roleDB) {
-            Asserts.fail(ResultCode.NOT_FOUND, "id=" + role.getId() + "对应的角色不存在");
+            Asserts.fail(ResultCode.NOT_FOUND, StringUtil.format("id={}对应的角色不存在", role.getId()));
         }
 
         role.setUpdatedAt(new Date());

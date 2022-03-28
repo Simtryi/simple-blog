@@ -3,6 +3,7 @@ package com.simple.blog.service.impl;
 import com.github.pagehelper.Page;
 import com.simple.blog.common.api.ResultCode;
 import com.simple.blog.common.exception.Asserts;
+import com.simple.blog.common.util.StringUtil;
 import com.simple.blog.entity.Resource;
 import com.simple.blog.mapper.ResourceMapper;
 import com.simple.blog.service.ResourceService;
@@ -39,7 +40,7 @@ public class ResourceServiceImpl implements ResourceService {
 
         Resource resourceDB = resourceMapper.selectById(resource.getId());
         if (null == resourceDB) {
-            Asserts.fail(ResultCode.NOT_FOUND, "id=" + resource.getId() + "对应的资源不存在");
+            Asserts.fail(ResultCode.NOT_FOUND, StringUtil.format("id={}对应的资源不存在", resource.getId()));
         }
 
         resource.setUpdatedAt(new Date());

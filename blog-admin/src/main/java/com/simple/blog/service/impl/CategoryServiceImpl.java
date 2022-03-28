@@ -3,6 +3,7 @@ package com.simple.blog.service.impl;
 import com.github.pagehelper.Page;
 import com.simple.blog.common.api.ResultCode;
 import com.simple.blog.common.exception.Asserts;
+import com.simple.blog.common.util.StringUtil;
 import com.simple.blog.entity.Category;
 import com.simple.blog.mapper.CategoryMapper;
 import com.simple.blog.service.CategoryService;
@@ -39,7 +40,7 @@ public class CategoryServiceImpl implements CategoryService {
 
         Category categoryDB = categoryMapper.selectById(category.getId());
         if (null == categoryDB) {
-            Asserts.fail(ResultCode.NOT_FOUND, "id=" + category.getId() + "对应的分类不存在");
+            Asserts.fail(ResultCode.NOT_FOUND, StringUtil.format("id={}对应的分类不存在", category.getId()));
         }
 
         category.setUpdatedAt(new Date());

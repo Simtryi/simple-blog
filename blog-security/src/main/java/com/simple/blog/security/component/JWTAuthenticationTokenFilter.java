@@ -19,7 +19,7 @@ import java.io.IOException;
 /**
  * JWT 登录授权过滤器
  */
-public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
+public class JWTAuthenticationTokenFilter extends OncePerRequestFilter {
 
     @Autowired
     UserDetailsService userDetailsService;

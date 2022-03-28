@@ -3,6 +3,7 @@ package com.simple.blog.service.impl;
 import com.github.pagehelper.Page;
 import com.simple.blog.common.api.ResultCode;
 import com.simple.blog.common.exception.Asserts;
+import com.simple.blog.common.util.StringUtil;
 import com.simple.blog.entity.Comment;
 import com.simple.blog.mapper.CommentMapper;
 import com.simple.blog.service.CommentService;
@@ -39,7 +40,7 @@ public class CommentServiceImpl implements CommentService {
 
         Comment commentDB = commentMapper.selectById(comment.getId());
         if (null == commentDB) {
-            Asserts.fail(ResultCode.NOT_FOUND, "id=" + comment.getId() + "对应的评论不存在");
+            Asserts.fail(ResultCode.NOT_FOUND, StringUtil.format("id={}对应的评论不存在", comment.getId()));
         }
 
         comment.setUpdatedAt(new Date());

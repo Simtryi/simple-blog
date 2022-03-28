@@ -1,8 +1,8 @@
 package com.simple.blog.service.impl;
 
-import cn.hutool.core.util.StrUtil;
 import com.simple.blog.common.api.ResultCode;
 import com.simple.blog.common.exception.Asserts;
+import com.simple.blog.common.util.StringUtil;
 import com.simple.blog.entity.User;
 import com.simple.blog.enums.UserStatus;
 import com.simple.blog.mapper.UserMapper;
@@ -76,8 +76,7 @@ public class AdminServiceImpl implements AdminService {
             SecurityContextHolder.getContext().setAuthentication(authentication);
             token = JWTUtil.generateToken(userDetails);
         } catch (AuthenticationException e) {
-            //  todo
-            //  LOGGER.warn("登录异常：{}", e.getMessage());
+            Asserts.fail(ResultCode.LOGIN, e.getMessage());
         }
 
         return token;
@@ -90,7 +89,7 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public void updatePassword(String username, String oldPassword, String newPassword) {
-        if (StrUtil.isEmpty(username) || StrUtil.isEmpty(oldPassword) || StrUtil.isEmpty(newPassword)) {
+        if (StringUtil.isEmpty(username) || StringUtil.isEmpty(oldPassword) || StringUtil.isEmpty(newPassword)) {
             Asserts.fail(ResultCode.BAD_REQUEST, "参数不合法");
         }
 

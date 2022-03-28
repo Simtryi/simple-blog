@@ -1,7 +1,9 @@
 package com.simple.blog.security.util;
 
-import cn.hutool.core.util.StrUtil;
+import com.simple.blog.common.api.ResultCode;
 import com.simple.blog.common.constants.Constants;
+import com.simple.blog.common.exception.Asserts;
+import com.simple.blog.common.util.StringUtil;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -116,8 +118,7 @@ public class JWTUtil {
                     .parseClaimsJws(token)
                     .getBody();
         } catch (Exception e) {
-            //  todo 打印异常信息
-            //  LOGGER.info("JWT格式验证失败：{}", token);
+            Asserts.fail(ResultCode.BAD_REQUEST, e.getMessage());
         }
         return claims;
     }
@@ -127,12 +128,12 @@ public class JWTUtil {
      * @param authorization 请求头中 Authorization 的值
      */
     public static String refreshToken(String authorization) {
-        if (StrUtil.isEmpty(authorization)) {
+        if (StringUtil.isEmpty(authorization)) {
             return null;
         }
 
         String token = authorization.substring(Constants.JWT_AUTHENTICATION_SCHEMA.length());
-        if (StrUtil.isEmpty(token)) {
+        if (StringUtil.isEmpty(token)) {
             return null;
         }
 
