@@ -1,5 +1,7 @@
 package com.simple.blog.common.log;
 
+import java.util.Date;
+
 /**
  * 接口访问日志
  */
@@ -13,7 +15,7 @@ public class ApiLog {
     /**
      * 操作时间
      */
-    private Long startTime;
+    private String startTime;
 
     /**
      * 消耗时间
@@ -58,11 +60,11 @@ public class ApiLog {
         this.username = username;
     }
 
-    public Long getStartTime() {
+    public String getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Long startTime) {
+    public void setStartTime(String startTime) {
         this.startTime = startTime;
     }
 

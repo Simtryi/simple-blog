@@ -1,6 +1,7 @@
 package com.simple.blog.service.impl;
 
 import com.simple.blog.common.api.ResultCode;
+import com.simple.blog.common.exception.ApiException;
 import com.simple.blog.common.exception.Asserts;
 import com.simple.blog.common.util.StringUtil;
 import com.simple.blog.entity.User;
@@ -76,7 +77,7 @@ public class AdminServiceImpl implements AdminService {
             SecurityContextHolder.getContext().setAuthentication(authentication);
             token = JWTUtil.generateToken(userDetails);
         } catch (AuthenticationException e) {
-            Asserts.fail(ResultCode.LOGIN, e.getMessage());
+            throw new ApiException(ResultCode.LOGIN, e.getMessage());
         }
 
         return token;

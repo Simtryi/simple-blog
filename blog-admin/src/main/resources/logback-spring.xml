@@ -16,15 +16,15 @@
 
 
     <!-- 应用日志 -->
-    <property name="APPLICATION_LOG_FILE" value="${LOG_PATH}/application.log"/>
+    <property name="APPLICATION_LOG_FILE" value="${LOG_PATH}/application"/>
     <appender name="APPLICATION" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${APPLICATION_LOG_FILE}</file>
+        <file>${APPLICATION_LOG_FILE}.log</file>
         <encoder>
             <pattern>${BLOG_LOG_PATTERN}</pattern>
         </encoder>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <!-- 文件命名格式 -->
-            <fileNamePattern>${APPLICATION_LOG_FILE}.%d{yyyy-MM-dd}.%i</fileNamePattern>
+            <fileNamePattern>${APPLICATION_LOG_FILE}.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
             <!-- 日志文件保留天数 -->
             <maxHistory>7</maxHistory>
             <!-- 日志文件大小，超过就重新生成文件 -->
@@ -35,15 +35,15 @@
 
 
     <!-- 接口访问日志 -->
-    <property name="API_LOG_FILE" value="${LOG_PATH}/api.log"/>
+    <property name="API_LOG_FILE" value="${LOG_PATH}/api"/>
     <appender name="API" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${API_LOG_FILE}</file>
+        <file>${API_LOG_FILE}.log</file>
         <encoder>
             <pattern>${BLOG_LOG_PATTERN}</pattern>
         </encoder>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <!-- 文件命名格式 -->
-            <fileNamePattern>${API_LOG_FILE}.%d{yyyy-MM-dd}.%i</fileNamePattern>
+            <fileNamePattern>${API_LOG_FILE}.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
             <!-- 日志文件保留天数 -->
             <maxHistory>3</maxHistory>
             <!-- 日志文件大小，超过就重新生成文件 -->

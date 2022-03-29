@@ -6,6 +6,7 @@ import com.aliyun.oss.model.OSSObject;
 import com.aliyun.oss.model.ObjectMetadata;
 import com.simple.blog.common.api.ResultCode;
 import com.simple.blog.common.constants.Constants;
+import com.simple.blog.common.exception.ApiException;
 import com.simple.blog.common.exception.Asserts;
 import com.simple.blog.common.service.OSSService;
 import org.springframework.stereotype.Service;
@@ -56,7 +57,7 @@ public class OSSServiceImpl implements OSSService {
             fileName = dir + "/" + fileName + fileType;
             ossClient.putObject(Constants.OSS_BUCKET_NAME, fileName, inputStream, objectMetadata);
         } catch (IOException e) {
-            Asserts.fail(ResultCode.UNKNOWN, e.getMessage());
+            throw new ApiException(ResultCode.UNKNOWN, e.getMessage());
         } finally {
             ossClient.shutdown();
         }
@@ -83,7 +84,7 @@ public class OSSServiceImpl implements OSSService {
             }
             bufferedOutputStream.flush();
         } catch (IOException e) {
-            Asserts.fail(ResultCode.UNKNOWN, e.getMessage());
+            throw new ApiException(ResultCode.UNKNOWN, e.getMessage());
         } finally {
             ossClient.shutdown();
         }

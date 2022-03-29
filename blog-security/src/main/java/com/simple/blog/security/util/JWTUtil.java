@@ -2,7 +2,7 @@ package com.simple.blog.security.util;
 
 import com.simple.blog.common.api.ResultCode;
 import com.simple.blog.common.constants.Constants;
-import com.simple.blog.common.exception.Asserts;
+import com.simple.blog.common.exception.ApiException;
 import com.simple.blog.common.util.StringUtil;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -118,7 +118,7 @@ public class JWTUtil {
                     .parseClaimsJws(token)
                     .getBody();
         } catch (Exception e) {
-            Asserts.fail(ResultCode.BAD_REQUEST, e.getMessage());
+            throw new ApiException(ResultCode.BAD_REQUEST, e.getMessage());
         }
         return claims;
     }

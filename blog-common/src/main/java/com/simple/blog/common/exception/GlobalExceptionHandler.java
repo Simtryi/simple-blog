@@ -22,7 +22,7 @@ public class GlobalExceptionHandler {
     @ResponseBody
     @ExceptionHandler(value = ApiException.class)
     public CommonResult<Void> handleApiException(ApiException e) {
-        log.error(e.getMessage());
+        log.error("业务异常: {}", e.getMessage());
         return CommonResult.failed(e.getCode(), e.getMessage());
     }
 
@@ -32,7 +32,7 @@ public class GlobalExceptionHandler {
     @ResponseBody
     @ExceptionHandler(value = IllegalArgumentException.class)
     public CommonResult<Void> handleArgumentException(IllegalArgumentException e) {
-        log.error(e.getMessage());
+        log.error("参数异常: {}", e.getMessage());
         return CommonResult.failed(ResultCode.PARAMS_ERROR, e.getMessage());
     }
 
@@ -42,7 +42,7 @@ public class GlobalExceptionHandler {
     @ResponseBody
     @ExceptionHandler(value = Throwable.class)
     public CommonResult<Void> handleThrowable(Throwable e) {
-        log.error(e.getMessage());
+        log.error("未知异常: {}", e.getMessage());
         return CommonResult.failed(ResultCode.UNKNOWN, e.getMessage());
     }
 

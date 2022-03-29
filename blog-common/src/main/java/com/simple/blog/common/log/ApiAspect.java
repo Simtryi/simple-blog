@@ -1,5 +1,6 @@
 package com.simple.blog.common.log;
 
+import com.simple.blog.common.util.DateUtil;
 import com.simple.blog.common.util.JsonUtil;
 import com.simple.blog.common.util.StringUtil;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -54,7 +55,7 @@ public class ApiAspect {
         //  请求日志
         ApiLog apiLog = new ApiLog();
         apiLog.setUsername(request.getRemoteUser());
-        apiLog.setStartTime(startTime);
+        apiLog.setStartTime(DateUtil.convertTimestampToString(startTime));
         apiLog.setSpendTime((int) (endTime - startTime));
         apiLog.setUrl(request.getRequestURL().toString());
         apiLog.setUri(request.getRequestURI());
