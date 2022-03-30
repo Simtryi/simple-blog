@@ -11,6 +11,7 @@ import com.simple.blog.entity.RoleResourceRelation;
 import com.simple.blog.mapper.RoleMapper;
 import com.simple.blog.mapper.RoleResourceRelationMapper;
 import com.simple.blog.service.RoleService;
+import com.simple.blog.service.UserCacheService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +31,9 @@ public class RoleServiceImpl implements RoleService {
     @Autowired
     private RoleResourceRelationMapper roleResourceRelationMapper;
 
+    @Autowired
+    private UserCacheService userCacheService;
+
     @Override
     public int create(Role role) {
         role.setCreatedAt(new Date());
@@ -39,9 +43,11 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public void delete(Long id) {
+        //  删除用户资源缓存
+        userCacheService.delResourceCacheByRoleId(id);
+
         //  删除角色资源关系
         roleResourceRelationMapper.deleteByRoleId(id);
-
         //  删除角色
         roleMapper.deleteById(id);
     }
@@ -92,6 +98,9 @@ public class RoleServiceImpl implements RoleService {
             });
             roleResourceRelationMapper.insertBatch(list);
         }
+
+        //  由于角色资源更新，删除用户资源缓存
+        userCacheService.delResourceCacheByRoleId(roleId);
     }
 
 }

@@ -98,6 +98,22 @@
         </choose>
     </select>
 
+    <select id="selectUserIdsByRoleId" parameterType="java.lang.Long" resultType="java.lang.Long">
+        SELECT
+        DISTINCT user_id
+        FROM user_role_relation
+        WHERE role_id = #{roleId,jdbcType=BIGINT}
+    </select>
+
+    <select id="selectUserIdsByResourceId" parameterType="java.lang.Long" resultType="java.lang.Long">
+        SELECT
+        DISTINCT urr.user_id
+        FROM role_resource_relation rrr
+            LEFT JOIN role ON rrr.role_id = role.id
+            LEFT JOIN user_role_relation urr ON role.id = urr.role_id
+        WHERE rrr.resource_id = #{resourceId,jdbcType=BIGINT} AND urr.user_id IS NOT NULL
+    </select>
+
     <select id="selectRoleList" parameterType="java.lang.Long" resultMap="com.simple.blog.mapper.RoleMapper.BaseResultMap">
         SELECT
             role.id id,

@@ -22,7 +22,7 @@ import java.util.Map;
  *  signature：基于 header 和 payload 生成的签名，一旦 header 和 payload 被篡改，验证将失败。
  * </p>
  */
-public class JWTUtil {
+public class JwtUtil {
 
     /**
      * 用户名声明

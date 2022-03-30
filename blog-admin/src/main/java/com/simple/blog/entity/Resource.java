@@ -2,6 +2,8 @@ package com.simple.blog.entity;
 
 import com.simple.blog.common.base.BaseEntity;
 
+import java.io.Serializable;
+
 /**
  * 资源
  * <p>
@@ -9,7 +11,7 @@ import com.simple.blog.common.base.BaseEntity;
  * 如果接口被添加到资源，用户访问该接口时需要进行鉴权。
  * </p>
  */
-public class Resource extends BaseEntity {
+public class Resource extends BaseEntity implements Serializable {
 
     /**
      * 资源名称

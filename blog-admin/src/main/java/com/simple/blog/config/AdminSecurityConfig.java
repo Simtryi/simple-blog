@@ -4,10 +4,9 @@ import com.simple.blog.entity.AdminUserDetails;
 import com.simple.blog.entity.Resource;
 import com.simple.blog.entity.User;
 import com.simple.blog.mapper.ResourceMapper;
-import com.simple.blog.mapper.UserMapper;
-import com.simple.blog.mapper.UserRoleRelationMapper;
 import com.simple.blog.security.dynamic.DynamicSecurityService;
 import com.simple.blog.security.config.SecurityConfig;
+import com.simple.blog.service.UserCacheService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,10 +28,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class AdminSecurityConfig extends SecurityConfig {
 
     @Autowired
-    private UserMapper userMapper;
-
-    @Autowired
-    private UserRoleRelationMapper userRoleRelationMapper;
+    private UserCacheService userCacheService;
 
     @Autowired
     private ResourceMapper resourceMapper;
@@ -43,14 +39,14 @@ public class AdminSecurityConfig extends SecurityConfig {
     @Bean
     public UserDetailsService userDetailsService() {
         return username -> {
-            //  todo 缓存用户信息
-            //  根据用户名查找用户
-            User user = userMapper.selectByUsername(username);
+            //  从Redis缓存中获取用户
+            User user = userCacheService.getUserCache(username);
             if (null != user) {
-                //  根据用户Id获取用户的资源列表
-                List<Resource> resourceList = userRoleRelationMapper.selectResourceList(user.getId());
+                //  从Redis缓存中获取用户的资源列表
+                List<Resource> resourceList = userCacheService.getResourceCache(user.getId());
                 return new AdminUserDetails(user, resourceList);
             }
+
             throw new UsernameNotFoundException("用户不存在");
         };
     }

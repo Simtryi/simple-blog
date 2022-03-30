@@ -5,6 +5,7 @@ import com.simple.blog.entity.Resource;
 import com.simple.blog.entity.Role;
 import com.simple.blog.entity.UserRoleRelation;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -30,5 +31,15 @@ public interface UserRoleRelationMapper extends BaseMapper<UserRoleRelation> {
      * 根据用户Id删除所有用户角色关系
      */
     int deleteByUserId(Long userId);
+
+    /**
+     * 根据角色Id查找与角色关联的用户Id列表
+     */
+    List<Long> selectUserIdsByRoleId(Long roleId);
+
+    /**
+     * 根据资源Id查找与资源关联的用户Id列表
+     */
+    List<Long> selectUserIdsByResourceId(Long resourceId);
 
 }

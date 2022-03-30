@@ -30,6 +30,23 @@ public interface Constants {
 
 
     /**
+     * Redis 用户缓存 key 前缀
+     */
+    String REDIS_USER_PREFIX = "blog_user_";
+
+    /**
+     * Redis 资源缓存 key 前缀
+     */
+    String REDIS_RESOURCE_PREFIX = "blog_resource_";
+
+    /**
+     * Redis 缓存时间(s) (24*60*60)
+     */
+    Long REDIS_EXPIRATION = 86400L;
+
+
+
+    /**
      * JWT 加解密使用的密钥
      */
     String JWT_SECRET = "simple-blog-secret";

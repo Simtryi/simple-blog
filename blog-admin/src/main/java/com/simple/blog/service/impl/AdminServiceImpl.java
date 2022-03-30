@@ -7,8 +7,9 @@ import com.simple.blog.common.util.StringUtil;
 import com.simple.blog.entity.User;
 import com.simple.blog.enums.UserStatus;
 import com.simple.blog.mapper.UserMapper;
-import com.simple.blog.security.util.JWTUtil;
+import com.simple.blog.security.util.JwtUtil;
 import com.simple.blog.service.AdminService;
+import com.simple.blog.service.UserCacheService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
@@ -31,6 +32,9 @@ public class AdminServiceImpl implements AdminService {
 
     @Autowired
     private UserDetailsService userDetailsService;
+
+    @Autowired
+    private UserCacheService userCacheService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -58,24 +62,20 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public String login(String username, String password) {
-        String token = null;
+        String token;
 
         try {
-            User user = userMapper.selectByUsername(username);
-            if (null == user) {
-                Asserts.fail(ResultCode.LOGIN, "用户不存在");
-            }
-            if (!passwordEncoder.matches(password, user.getPassword())) {
+            UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+            if (!passwordEncoder.matches(password, userDetails.getPassword())) {
                 Asserts.fail(ResultCode.LOGIN, "密码错误");
             }
-            if (!user.getStatus().equals(UserStatus.OK)) {
+            if (!userDetails.isEnabled()) {
                 Asserts.fail(ResultCode.LOGIN, "账号已被禁用");
             }
 
-            UserDetails userDetails = userDetailsService.loadUserByUsername(username);
             UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);
-            token = JWTUtil.generateToken(userDetails);
+            token = JwtUtil.generateToken(userDetails);
         } catch (AuthenticationException e) {
             throw new ApiException(ResultCode.LOGIN, e.getMessage());
         }
@@ -85,7 +85,7 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public String refreshToken(String authorization) {
-        return JWTUtil.refreshToken(authorization);
+        return JwtUtil.refreshToken(authorization);
     }
 
     @Override
@@ -111,6 +111,9 @@ public class AdminServiceImpl implements AdminService {
         user.setPassword(encodePassword);
         user.setUpdatedAt(new Date());
         userMapper.update(user);
+
+        //  由于用户密码更新，删除用户缓存
+        userCacheService.delUserCache(user.getId());
     }
 
 }

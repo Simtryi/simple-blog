@@ -1,7 +1,7 @@
 package com.simple.blog.security.component;
 
 import com.simple.blog.common.constants.Constants;
-import com.simple.blog.security.util.JWTUtil;
+import com.simple.blog.security.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,7 +19,7 @@ import java.io.IOException;
 /**
  * JWT 登录授权过滤器
  */
-public class JWTAuthenticationTokenFilter extends OncePerRequestFilter {
+public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
     @Autowired
     UserDetailsService userDetailsService;
@@ -31,7 +31,7 @@ public class JWTAuthenticationTokenFilter extends OncePerRequestFilter {
         if (null != header && header.startsWith(Constants.JWT_AUTHENTICATION_SCHEMA)) {
             //  获取 token 和用户名
             String token = header.substring(Constants.JWT_AUTHENTICATION_SCHEMA.length());
-            String username = JWTUtil.getUsernameFromToken(token);
+            String username = JwtUtil.getUsernameFromToken(token);
 
             //  username 不为空，并且未认证
             if (null != username && null == SecurityContextHolder.getContext().getAuthentication()) {
@@ -39,7 +39,7 @@ public class JWTAuthenticationTokenFilter extends OncePerRequestFilter {
                 UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 
                 //  判断 token 是否有效
-                if (JWTUtil.validateToken(token, userDetails)) {
+                if (JwtUtil.validateToken(token, userDetails)) {
                     //  根据用户信息生成 authentication，并将 authentication 放入安全上下文
                     UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                     authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));

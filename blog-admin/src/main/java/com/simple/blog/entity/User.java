@@ -3,10 +3,12 @@ package com.simple.blog.entity;
 import com.simple.blog.common.base.BaseEntity;
 import com.simple.blog.enums.UserStatus;
 
+import java.io.Serializable;
+
 /**
  * 用户
  */
-public class User extends BaseEntity {
+public class User extends BaseEntity implements Serializable {
 
     /**
      * 用户名，全局唯一

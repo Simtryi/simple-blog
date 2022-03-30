@@ -25,4 +25,5 @@ public interface RoleResourceRelationMapper extends BaseMapper<RoleResourceRelat
      */
     int deleteByRoleId(Long roleId);
 
+
 }

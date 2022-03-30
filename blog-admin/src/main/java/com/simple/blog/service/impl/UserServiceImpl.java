@@ -11,6 +11,7 @@ import com.simple.blog.entity.UserRoleRelation;
 import com.simple.blog.mapper.UserMapper;
 import com.simple.blog.mapper.UserRoleRelationMapper;
 import com.simple.blog.service.AdminService;
+import com.simple.blog.service.UserCacheService;
 import com.simple.blog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -36,6 +37,9 @@ public class UserServiceImpl implements UserService {
     private AdminService adminService;
 
     @Autowired
+    private UserCacheService userCacheService;
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Override
@@ -45,9 +49,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void delete(Long id) {
+        //  删除用户缓存
+        userCacheService.delUserCache(id);
+        //  删除用户资源缓存
+        userCacheService.delResourceCacheByUserId(id);
+
         //  删除用户角色关系
         userRoleRelationMapper.deleteByUserId(id);
-
         //  删除用户
         userMapper.deleteById(id);
     }
@@ -78,6 +86,10 @@ public class UserServiceImpl implements UserService {
         String encodePassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodePassword);
         user.setUpdatedAt(new Date());
+
+        //  由于用户更新，删除用户缓存
+        userCacheService.delUserCache(user.getId());
+
         return userMapper.update(user);
     }
 
@@ -117,6 +129,9 @@ public class UserServiceImpl implements UserService {
             });
             userRoleRelationMapper.insertBatch(list);
         }
+
+        //  由于用户角色更新，删除用户资源缓存
+        userCacheService.delResourceCacheByUserId(userId);
     }
 
 }

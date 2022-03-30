@@ -7,6 +7,7 @@ import com.simple.blog.common.util.StringUtil;
 import com.simple.blog.entity.Resource;
 import com.simple.blog.mapper.ResourceMapper;
 import com.simple.blog.service.ResourceService;
+import com.simple.blog.service.UserCacheService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,9 @@ public class ResourceServiceImpl implements ResourceService {
     @Autowired
     private ResourceMapper resourceMapper;
 
+    @Autowired
+    private UserCacheService userCacheService;
+
     @Override
     public int create(Resource resource) {
         resource.setCreatedAt(new Date());
@@ -29,6 +33,9 @@ public class ResourceServiceImpl implements ResourceService {
 
     @Override
     public int delete(Long id) {
+        //  删除用户资源缓存
+        userCacheService.delResourceCacheByResourceId(id);
+
         return resourceMapper.deleteById(id);
     }
 
@@ -44,6 +51,10 @@ public class ResourceServiceImpl implements ResourceService {
         }
 
         resource.setUpdatedAt(new Date());
+
+        //  由于资源更新，删除用户资源缓存
+        userCacheService.delResourceCacheByResourceId(resource.getId());
+
         return resourceMapper.update(resource);
     }
 

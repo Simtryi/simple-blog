@@ -37,8 +37,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         //  允许跨域的 OPTIONS 请求
         registry.antMatchers(HttpMethod.OPTIONS).permitAll();
 
-        //  测试，全部放行
-        registry.antMatchers("/**").permitAll();
+        ////  测试，全部放行
+        //registry.antMatchers("/**").permitAll();
 
         //  其他任何请求都需要身份认证
         registry.and()
@@ -92,8 +92,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public JWTAuthenticationTokenFilter jwtAuthenticationTokenFilter() {
-        return new JWTAuthenticationTokenFilter();
+    public JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter() {
+        return new JwtAuthenticationTokenFilter();
     }
 
     @Bean
