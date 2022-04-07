@@ -42,6 +42,14 @@ public class CommonPage<T> {
         data = page;
     }
 
+    public CommonPage(org.springframework.data.domain.Page<T> page) {
+        pageNum = page.getNumber();
+        pageSize = page.getSize();
+        total = page.getTotalElements();
+        totalPage = page.getTotalPages();
+        data = page.getContent();
+    }
+
     public long getPageNum() {
         return pageNum;
     }

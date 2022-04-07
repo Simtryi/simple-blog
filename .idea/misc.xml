@@ -7,6 +7,7 @@
         <option value="$PROJECT_DIR$/blog-admin/pom.xml" />
         <option value="$PROJECT_DIR$/blog-common/pom.xml" />
         <option value="$PROJECT_DIR$/blog-security/pom.xml" />
+        <option value="$PROJECT_DIR$/blog-search/pom.xml" />
       </list>
     </option>
   </component>

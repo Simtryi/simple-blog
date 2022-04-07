@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/blog-admin/blog-admin.iml" filepath="$PROJECT_DIR$/blog-admin/blog-admin.iml" />
       <module fileurl="file://$PROJECT_DIR$/blog-common/blog-common.iml" filepath="$PROJECT_DIR$/blog-common/blog-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/blog-search/blog-search.iml" filepath="$PROJECT_DIR$/blog-search/blog-search.iml" />
       <module fileurl="file://$PROJECT_DIR$/blog-security/blog-security.iml" filepath="$PROJECT_DIR$/blog-security/blog-security.iml" />
       <module fileurl="file://$PROJECT_DIR$/simple-blog.iml" filepath="$PROJECT_DIR$/simple-blog.iml" />
     </modules>
