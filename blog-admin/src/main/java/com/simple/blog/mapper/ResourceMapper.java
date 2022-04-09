@@ -29,6 +29,6 @@ public interface ResourceMapper extends BaseMapper<Resource> {
     /**
      * 查询全部资源
      */
-    List<Resource> selectAll();
+    List<Resource> findAll();
 
 }

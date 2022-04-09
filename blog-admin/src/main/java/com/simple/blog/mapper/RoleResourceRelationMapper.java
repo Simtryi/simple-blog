@@ -18,7 +18,7 @@ public interface RoleResourceRelationMapper extends BaseMapper<RoleResourceRelat
     /**
      * 根据角色Id查找角色的资源列表
      */
-    List<Resource> selectResourceList(Long roleId);
+    List<Resource> findResourceList(Long roleId);
 
     /**
      * 根据角色Id删除所有角色资源关系

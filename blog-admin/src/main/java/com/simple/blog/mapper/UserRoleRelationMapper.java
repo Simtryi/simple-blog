@@ -20,12 +20,12 @@ public interface UserRoleRelationMapper extends BaseMapper<UserRoleRelation> {
     /**
      * 根据用户Id查找用户的角色列表
      */
-    List<Role> selectRoleList(Long userId);
+    List<Role> findRoleList(Long userId);
 
     /**
      * 根据用户Id查找用户的资源列表
      */
-    List<Resource> selectResourceList(Long userId);
+    List<Resource> findResourceList(Long userId);
 
     /**
      * 根据用户Id删除所有用户角色关系
@@ -35,11 +35,11 @@ public interface UserRoleRelationMapper extends BaseMapper<UserRoleRelation> {
     /**
      * 根据角色Id查找与角色关联的用户Id列表
      */
-    List<Long> selectUserIdsByRoleId(Long roleId);
+    List<Long> findUserIdsByRoleId(Long roleId);
 
     /**
      * 根据资源Id查找与资源关联的用户Id列表
      */
-    List<Long> selectUserIdsByResourceId(Long resourceId);
+    List<Long> findUserIdsByResourceId(Long resourceId);
 
 }

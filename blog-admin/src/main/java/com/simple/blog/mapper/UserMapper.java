@@ -28,12 +28,12 @@ public interface UserMapper extends BaseMapper<User> {
     /**
      * 根据用户名查找用户
      */
-    User selectByUsername(String username);
+    User findByUsername(String username);
 
     /**
      * 根据用户名和密码查找用户
      */
-    User selectByUsernameAndPassword(
+    User findByUsernameAndPassword(
             @Param("username") String username,
             @Param("password") String password
     );

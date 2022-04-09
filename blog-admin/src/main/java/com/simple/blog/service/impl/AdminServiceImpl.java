@@ -45,7 +45,7 @@ public class AdminServiceImpl implements AdminService {
             Asserts.fail(ResultCode.BAD_REQUEST, "用户名不能为空");
         }
 
-        User userDB = userMapper.selectByUsername(user.getUsername());
+        User userDB = userMapper.findByUsername(user.getUsername());
         if (null != userDB) {
             Asserts.fail(ResultCode.BAD_REQUEST, "用户名已存在");
         }
@@ -94,7 +94,7 @@ public class AdminServiceImpl implements AdminService {
             Asserts.fail(ResultCode.BAD_REQUEST, "参数不合法");
         }
 
-        User user = userMapper.selectByUsername(username);
+        User user = userMapper.findByUsername(username);
         if (null == user) {
             Asserts.fail(ResultCode.BAD_REQUEST, "用户不存在");
         }

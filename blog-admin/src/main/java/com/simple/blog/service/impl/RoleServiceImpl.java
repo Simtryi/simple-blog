@@ -79,7 +79,7 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public List<Resource> getResourceList(Long roleId) {
-        return roleResourceRelationMapper.selectResourceList(roleId);
+        return roleResourceRelationMapper.findResourceList(roleId);
     }
 
     @Override

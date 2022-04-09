@@ -76,7 +76,7 @@ public class UserServiceImpl implements UserService {
         }
 
         if (!user.getUsername().equals(userDB.getUsername())) {
-            User userDB2 = userMapper.selectByUsername(user.getUsername());
+            User userDB2 = userMapper.findByUsername(user.getUsername());
             if (null != userDB2) {
                 Asserts.fail(ResultCode.BAD_REQUEST, "用户名已存在");
             }
@@ -105,12 +105,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<Role> getRoleList(Long userId) {
-        return userRoleRelationMapper.selectRoleList(userId);
+        return userRoleRelationMapper.findRoleList(userId);
     }
 
     @Override
     public List<Resource> getResourceList(Long userId) {
-        return userRoleRelationMapper.selectResourceList(userId);
+        return userRoleRelationMapper.findResourceList(userId);
     }
 
     @Override

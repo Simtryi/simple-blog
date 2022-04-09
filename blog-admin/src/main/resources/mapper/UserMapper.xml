@@ -109,14 +109,14 @@
         </choose>
     </select>
 
-    <select id="selectByUsername" resultMap="BaseResultMap">
+    <select id="findByUsername" resultMap="BaseResultMap">
         SELECT
         <include refid="AllColumns" />
         FROM user
         WHERE username = #{username,jdbcType=VARCHAR}
     </select>
 
-    <select id="selectByUsernameAndPassword" resultMap="BaseResultMap">
+    <select id="findByUsernameAndPassword" resultMap="BaseResultMap">
         SELECT
         <include refid="AllColumns" />
         FROM user

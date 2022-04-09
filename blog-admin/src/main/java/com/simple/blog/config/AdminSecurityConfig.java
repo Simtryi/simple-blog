@@ -4,7 +4,7 @@ import com.simple.blog.entity.AdminUserDetails;
 import com.simple.blog.entity.Resource;
 import com.simple.blog.entity.User;
 import com.simple.blog.mapper.ResourceMapper;
-import com.simple.blog.security.dynamic.DynamicSecurityService;
+import com.simple.blog.security.authorization.DynamicSecurityService;
 import com.simple.blog.security.config.SecurityConfig;
 import com.simple.blog.service.UserCacheService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,7 +58,7 @@ public class AdminSecurityConfig extends SecurityConfig {
     public DynamicSecurityService dynamicSecurityService() {
         return () -> {
             ConcurrentHashMap<String, ConfigAttribute> map = new ConcurrentHashMap<>();
-            List<Resource> resources = resourceMapper.selectAll();
+            List<Resource> resources = resourceMapper.findAll();
             for (Resource resource : resources) {
                 map.put(resource.getUrl(), new org.springframework.security.access.SecurityConfig(resource.getId() + ":" + resource.getName()));
             }

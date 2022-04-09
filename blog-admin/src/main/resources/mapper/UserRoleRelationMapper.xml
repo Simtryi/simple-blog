@@ -98,14 +98,14 @@
         </choose>
     </select>
 
-    <select id="selectUserIdsByRoleId" parameterType="java.lang.Long" resultType="java.lang.Long">
+    <select id="findUserIdsByRoleId" parameterType="java.lang.Long" resultType="java.lang.Long">
         SELECT
         DISTINCT user_id
         FROM user_role_relation
         WHERE role_id = #{roleId,jdbcType=BIGINT}
     </select>
 
-    <select id="selectUserIdsByResourceId" parameterType="java.lang.Long" resultType="java.lang.Long">
+    <select id="findUserIdsByResourceId" parameterType="java.lang.Long" resultType="java.lang.Long">
         SELECT
         DISTINCT urr.user_id
         FROM role_resource_relation rrr
@@ -114,7 +114,7 @@
         WHERE rrr.resource_id = #{resourceId,jdbcType=BIGINT} AND urr.user_id IS NOT NULL
     </select>
 
-    <select id="selectRoleList" parameterType="java.lang.Long" resultMap="com.simple.blog.mapper.RoleMapper.BaseResultMap">
+    <select id="findRoleList" parameterType="java.lang.Long" resultMap="com.simple.blog.mapper.RoleMapper.BaseResultMap">
         SELECT
             role.id id,
             role.created_at created_at,
@@ -127,7 +127,7 @@
         WHERE urr.user_id = #{userId,jdbcType=BIGINT} AND role.id IS NOT NULL
     </select>
 
-    <select id="selectResourceList" parameterType="java.lang.Long" resultMap="com.simple.blog.mapper.ResourceMapper.BaseResultMap">
+    <select id="findResourceList" parameterType="java.lang.Long" resultMap="com.simple.blog.mapper.ResourceMapper.BaseResultMap">
         SELECT
             resource.id id,
             resource.created_at created_at,

@@ -47,6 +47,13 @@ public interface Constants {
 
 
     /**
+     * Elasticsearch URI
+     */
+    String ELASTICSEARCH_URI = "localhost:9200";
+
+
+
+    /**
      * JWT 加解密使用的密钥
      */
     String JWT_SECRET = "simple-blog-secret";

@@ -98,7 +98,7 @@
         </choose>
     </select>
 
-    <select id="selectResourceList" parameterType="java.lang.Long" resultMap="com.simple.blog.mapper.ResourceMapper.BaseResultMap">
+    <select id="findResourceList" parameterType="java.lang.Long" resultMap="com.simple.blog.mapper.ResourceMapper.BaseResultMap">
         SELECT
             resource.id id,
             resource.created_at created_at,

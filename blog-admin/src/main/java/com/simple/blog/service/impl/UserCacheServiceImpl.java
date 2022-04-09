@@ -40,7 +40,7 @@ public class UserCacheServiceImpl implements UserCacheService {
         }
 
         //  用户缓存不存在，从数据库中查找用户
-        user = userMapper.selectByUsername(username);
+        user = userMapper.findByUsername(username);
         if (null != user) {
             //  数据库中存在用户，放入Redis缓存
             setUserCache(user);
@@ -75,7 +75,7 @@ public class UserCacheServiceImpl implements UserCacheService {
         }
 
         //  用户的资源缓存不存在，从数据库中查找
-        resourceList = userRoleRelationMapper.selectResourceList(userId);
+        resourceList = userRoleRelationMapper.findResourceList(userId);
         if (CollUtil.isNotEmpty(resourceList)) {
             //  数据库中存在用户的资源，放入Redis缓存
             setResourceCache(userId, resourceList);
@@ -98,7 +98,7 @@ public class UserCacheServiceImpl implements UserCacheService {
 
     @Override
     public void delResourceCacheByRoleId(Long roleId) {
-        List<Long> userIds = userRoleRelationMapper.selectUserIdsByRoleId(roleId);
+        List<Long> userIds = userRoleRelationMapper.findUserIdsByRoleId(roleId);
         if (CollUtil.isNotEmpty(userIds)) {
             List<String> keys = userIds.stream()
                     .map(userId -> Constants.REDIS_RESOURCE_PREFIX + userId)
@@ -109,7 +109,7 @@ public class UserCacheServiceImpl implements UserCacheService {
 
     @Override
     public void delResourceCacheByResourceId(Long resourceId) {
-        List<Long> userIds = userRoleRelationMapper.selectUserIdsByResourceId(resourceId);
+        List<Long> userIds = userRoleRelationMapper.findUserIdsByResourceId(resourceId);
         if (CollUtil.isNotEmpty(userIds)) {
             List<String> keys = userIds.stream()
                     .map(userId -> Constants.REDIS_RESOURCE_PREFIX + userId)
