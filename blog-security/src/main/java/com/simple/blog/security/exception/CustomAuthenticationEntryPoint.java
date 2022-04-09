@@ -1,4 +1,4 @@
-package com.simple.blog.security.component;
+package com.simple.blog.security.exception;
 
 import cn.hutool.json.JSONUtil;
 import com.simple.blog.common.api.CommonResult;
@@ -12,9 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * 处理 AuthenticationException 异常
+ * 处理认证异常
  */
-public class RestAuthenticationEntryPoint implements AuthenticationEntryPoint {
+public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {

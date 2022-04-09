@@ -1,4 +1,4 @@
-package com.simple.blog.security.dynamic;
+package com.simple.blog.security.authorization;
 
 import com.simple.blog.security.config.IgnoreURLConfig;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +16,9 @@ import java.io.IOException;
 
 
 /**
- * 动态权限过滤器
+ * 动态权限授权拦截器
  */
-public class DynamicSecurityFilter extends AbstractSecurityInterceptor implements Filter {
+public class DynamicSecurityInterceptor extends AbstractSecurityInterceptor implements Filter {
 
     @Autowired
     private DynamicSecurityMetadataSource dynamicSecurityMetadataSource;
@@ -41,13 +41,13 @@ public class DynamicSecurityFilter extends AbstractSecurityInterceptor implement
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         FilterInvocation invocation = new FilterInvocation(servletRequest, servletResponse, filterChain);
 
-        //  OPTIONS 请求直接放行
+        //  跨域的 OPTIONS 请求，直接放行
         if (request.getMethod().equals(HttpMethod.OPTIONS.toString())) {
             invocation.getChain().doFilter(invocation.getRequest(), invocation.getResponse());
             return;
         }
 
-        //  白名单请求直接放行
+        //  白名单请求，直接放行
         PathMatcher pathMatcher = new AntPathMatcher();
         for (String url : ignoreURLConfig.getUrls()) {
             if (pathMatcher.match(url, request.getRequestURI())) {
@@ -56,7 +56,7 @@ public class DynamicSecurityFilter extends AbstractSecurityInterceptor implement
             }
         }
 
-        //  调用 AccessDecisionManager 中的 decide 方法判断用户是否由访问权限
+        //  调用 AccessDecisionManager 中的 decide 方法判断用户是否有访问权限
         InterceptorStatusToken token = super.beforeInvocation(invocation);
         try {
             invocation.getChain().doFilter(invocation.getRequest(), invocation.getResponse());

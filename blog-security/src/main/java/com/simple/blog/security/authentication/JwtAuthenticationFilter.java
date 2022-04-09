@@ -1,4 +1,4 @@
-package com.simple.blog.security.component;
+package com.simple.blog.security.authentication;
 
 import com.simple.blog.common.constants.Constants;
 import com.simple.blog.security.util.JwtUtil;
@@ -17,9 +17,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * JWT 登录授权过滤器
+ * JWT 认证过滤器
  */
-public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
+public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Autowired
     UserDetailsService userDetailsService;

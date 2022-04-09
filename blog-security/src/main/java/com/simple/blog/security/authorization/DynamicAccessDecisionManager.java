@@ -1,4 +1,4 @@
-package com.simple.blog.security.dynamic;
+package com.simple.blog.security.authorization;
 
 import cn.hutool.core.collection.CollUtil;
 import org.springframework.security.access.AccessDecisionManager;
@@ -12,7 +12,7 @@ import java.util.Collection;
 import java.util.Iterator;
 
 /**
- * 动态权限访问决策器
+ * 动态权限访问决策管理器
  */
 public class DynamicAccessDecisionManager implements AccessDecisionManager {
 

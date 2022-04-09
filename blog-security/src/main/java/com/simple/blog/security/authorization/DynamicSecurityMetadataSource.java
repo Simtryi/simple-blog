@@ -1,4 +1,4 @@
-package com.simple.blog.security.dynamic;
+package com.simple.blog.security.authorization;
 
 import com.simple.blog.common.util.UrlUtil;
 import org.springframework.beans.factory.annotation.Autowired;

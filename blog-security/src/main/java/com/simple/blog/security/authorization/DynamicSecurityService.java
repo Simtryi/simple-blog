@@ -1,4 +1,4 @@
-package com.simple.blog.security.dynamic;
+package com.simple.blog.security.authorization;
 
 import org.springframework.security.access.ConfigAttribute;
 

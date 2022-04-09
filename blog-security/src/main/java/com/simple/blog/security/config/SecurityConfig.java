@@ -1,9 +1,11 @@
 package com.simple.blog.security.config;
 
-import com.simple.blog.security.component.*;
-import com.simple.blog.security.dynamic.DynamicAccessDecisionManager;
-import com.simple.blog.security.dynamic.DynamicSecurityFilter;
-import com.simple.blog.security.dynamic.DynamicSecurityMetadataSource;
+import com.simple.blog.security.authentication.JwtAuthenticationFilter;
+import com.simple.blog.security.exception.CustomAuthenticationEntryPoint;
+import com.simple.blog.security.authorization.DynamicAccessDecisionManager;
+import com.simple.blog.security.authorization.DynamicSecurityInterceptor;
+import com.simple.blog.security.authorization.DynamicSecurityMetadataSource;
+import com.simple.blog.security.exception.CustomAccessDeniedHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -29,13 +31,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry registry = httpSecurity.authorizeRequests();
 
-        //  不需要拦截的 URL 路径
+        //  跨域的 OPTIONS 请求，直接放行
+        registry.antMatchers(HttpMethod.OPTIONS).permitAll();
+
+        //  白名单请求，直接放行
         for (String url : ignoreURLConfig().getUrls()) {
             registry.antMatchers(url).permitAll();
         }
-
-        //  允许跨域的 OPTIONS 请求
-        registry.antMatchers(HttpMethod.OPTIONS).permitAll();
 
         ////  测试，全部放行
         //registry.antMatchers("/**").permitAll();
@@ -54,16 +56,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .and()
                 .exceptionHandling()    //  自定义异常处理
-                .accessDeniedHandler(restfulAccessDeniedHandler())    //    处理 AccessDeniedException 异常
-                .authenticationEntryPoint(restAuthenticationEntryPoint());  //    处理 AuthenticationException 异常
+                .authenticationEntryPoint(customAuthenticationEntryPoint())   //    处理认证异常
+                .accessDeniedHandler(customAccessDeniedHandler()); //    处理授权异常
 
-        //  添加 JWT 登录授权过滤器
+        //  添加 JWT 认证过滤器
         registry.and()
-                .addFilterBefore(jwtAuthenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 
-        //  添加动态权限过滤器
+        //  添加动态权限授权拦截器
         registry.and()
-                .addFilterBefore(dynamicSecurityFilter(), FilterSecurityInterceptor.class);
+                .addFilterBefore(dynamicSecurityInterceptor(), FilterSecurityInterceptor.class);
     }
 
     /**
@@ -82,23 +84,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public RestfulAccessDeniedHandler restfulAccessDeniedHandler() {
-        return new RestfulAccessDeniedHandler();
+    public CustomAuthenticationEntryPoint customAuthenticationEntryPoint() {
+        return new CustomAuthenticationEntryPoint();
     }
 
     @Bean
-    public RestAuthenticationEntryPoint restAuthenticationEntryPoint() {
-        return new RestAuthenticationEntryPoint();
+    public CustomAccessDeniedHandler customAccessDeniedHandler() {
+        return new CustomAccessDeniedHandler();
     }
 
     @Bean
-    public JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter() {
-        return new JwtAuthenticationTokenFilter();
+    public JwtAuthenticationFilter jwtAuthenticationFilter() {
+        return new JwtAuthenticationFilter();
     }
 
     @Bean
-    public DynamicSecurityFilter dynamicSecurityFilter() {
-        return new DynamicSecurityFilter();
+    public DynamicSecurityInterceptor dynamicSecurityInterceptor() {
+        return new DynamicSecurityInterceptor();
     }
 
     @Bean

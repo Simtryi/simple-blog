@@ -1,4 +1,4 @@
-package com.simple.blog.security.component;
+package com.simple.blog.security.exception;
 
 import cn.hutool.json.JSONUtil;
 import com.simple.blog.common.api.CommonResult;
@@ -12,9 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * 处理 AccessDeniedException 异常
+ * 处理授权异常
  */
-public class RestfulAccessDeniedHandler implements AccessDeniedHandler {
+public class CustomAccessDeniedHandler implements AccessDeniedHandler {
 
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
