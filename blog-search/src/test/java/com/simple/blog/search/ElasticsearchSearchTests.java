@@ -31,25 +31,34 @@ public class ElasticsearchSearchTests extends BlogSearchApplicationTests {
     @Test
     public void testQuery() throws IOException {
         //  搜索所有
+        System.out.println("---------- 搜索所有 ----------");
         query(QueryBuilders.matchAllQuery());
+
         //  关键词搜索
+        System.out.println("---------- 关键词搜索 ----------");
         query(QueryBuilders.termQuery("description", "苹果"));
+
         //  范围搜索
+        System.out.println("---------- 范围搜索 ----------");
         query(QueryBuilders.rangeQuery("price").gte(1).lte(10));
+
         //  前缀搜索
+        System.out.println("---------- 前缀搜素 ----------");
         query(QueryBuilders.prefixQuery("title", "苹果"));
+
         //  通配符搜索 ?: 任意一个字符 *: 任意多个字符
+        System.out.println("---------- 通配符搜索 ----------");
         query(QueryBuilders.wildcardQuery("title", "苹果*"));
+
         //  多个指定Id搜索
+        System.out.println("---------- 多个指定Id搜索 ----------");
         query(QueryBuilders.idsQuery().addIds("1").addIds("2"));
+
         //  多字段搜索
+        System.out.println("---------- 多字段搜索 ----------");
         query(QueryBuilders.multiMatchQuery("非常", "title", "description"));
     }
 
-    /**
-     * 复杂搜索
-     * @param queryBuilder 搜索条件
-     */
     private void query(QueryBuilder queryBuilder) throws IOException {
         //  搜素请求对象
         SearchRequest searchRequest = new SearchRequest("products");
@@ -71,7 +80,6 @@ public class ElasticsearchSearchTests extends BlogSearchApplicationTests {
             System.out.println("_score:" + hit.getScore());
             System.out.println("_source:" + hit.getSourceAsString());
         }
-        restHighLevelClient.close();
     }
 
     /**
