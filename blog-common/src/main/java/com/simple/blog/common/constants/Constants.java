@@ -52,6 +52,16 @@ public interface Constants {
     String ELASTICSEARCH_URI = "localhost:9200";
 
     /**
+     * Elasticsearch 用户名
+     */
+    String ELASTICSEARCH_USERNAME = "elastic";
+
+    /**
+     * Elasticsearch 密码
+     */
+    String ELASTICSEARCH_PASSWORD = "12345678";
+
+    /**
      * Elasticsearch 博客索引
      */
     String ELASTICSEARCH_INDEX_BLOG = "simple-blog-blog";

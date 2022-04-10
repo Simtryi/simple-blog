@@ -17,8 +17,10 @@ public class RestClientConfig extends AbstractElasticsearchConfiguration {
     @Bean
     @Override
     public RestHighLevelClient elasticsearchClient() {
+
         final ClientConfiguration clientConfiguration = ClientConfiguration.builder()
                 .connectedTo(Constants.ELASTICSEARCH_URI)
+                .withBasicAuth(Constants.ELASTICSEARCH_USERNAME, Constants.ELASTICSEARCH_PASSWORD)
                 .build();
         return RestClients.create(clientConfiguration).rest();
     }
