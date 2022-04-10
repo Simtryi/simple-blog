@@ -1,4 +1,4 @@
-package com.simple.blog.search;
+package com.simple.blog.admin;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.elasticsearch.action.index.IndexRequest;
@@ -24,7 +24,7 @@ import java.util.Map;
 /**
  * Elasticsearch 操作对象测试
  */
-public class ElasticsearchObjectTests extends BlogSearchApplicationTests {
+public class ElasticsearchObjectTests extends BlogAdminApplicationTests {
 
     @Autowired
     private RestHighLevelClient restHighLevelClient;

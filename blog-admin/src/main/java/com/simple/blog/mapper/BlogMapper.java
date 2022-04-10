@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * 博客管理 Mapper
  */
@@ -22,5 +24,10 @@ public interface BlogMapper extends BaseMapper<Blog> {
             @Param("pageSize") int pageSize,
             @Param("title") String title
     );
+
+    /**
+     * 查询所有博客
+     */
+    List<Blog> findAll();
 
 }

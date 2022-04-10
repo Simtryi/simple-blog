@@ -44,6 +44,13 @@
                 <version>${simple-blog.version}</version>
             </dependency>
 
+            <!-- blog-search -->
+            <dependency>
+                <groupId>com.simple.blog</groupId>
+                <artifactId>blog-search</artifactId>
+                <version>${simple-blog.version}</version>
+            </dependency>
+
             <!-- blog-security -->
             <dependency>
                 <groupId>com.simple.blog</groupId>

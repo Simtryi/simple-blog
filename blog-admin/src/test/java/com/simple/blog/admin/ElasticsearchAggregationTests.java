@@ -1,12 +1,10 @@
-package com.simple.blog.search;
+package com.simple.blog.admin;
 
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.index.query.QueryBuilders;
-import org.elasticsearch.search.aggregations.Aggregation;
-import org.elasticsearch.search.aggregations.AggregationBuilder;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
 import org.elasticsearch.search.aggregations.Aggregations;
 import org.elasticsearch.search.aggregations.bucket.terms.ParsedDoubleTerms;
@@ -25,7 +23,7 @@ import java.util.List;
 /**
  * Elasticsearch 聚合测试
  */
-public class ElasticsearchAggregationTests extends BlogSearchApplicationTests {
+public class ElasticsearchAggregationTests extends BlogAdminApplicationTests {
 
     @Autowired
     private RestHighLevelClient restHighLevelClient;

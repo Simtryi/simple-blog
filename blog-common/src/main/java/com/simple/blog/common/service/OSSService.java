@@ -5,7 +5,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.OutputStream;
 
 /**
- * OSS 相关操作
+ * OSS 服务
  */
 public interface OSSService {
 

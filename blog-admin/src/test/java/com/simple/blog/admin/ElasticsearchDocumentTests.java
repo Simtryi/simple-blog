@@ -1,5 +1,8 @@
-package com.simple.blog.search;
+package com.simple.blog.admin;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.elasticsearch.action.bulk.BulkRequest;
+import org.elasticsearch.action.bulk.BulkResponse;
 import org.elasticsearch.action.delete.DeleteRequest;
 import org.elasticsearch.action.delete.DeleteResponse;
 import org.elasticsearch.action.get.GetRequest;
@@ -19,7 +22,7 @@ import java.io.IOException;
 /**
  * Elasticsearch 文档测试
  */
-public class ElasticsearchDocumentTests extends BlogSearchApplicationTests {
+public class ElasticsearchDocumentTests extends BlogAdminApplicationTests {
 
     @Autowired
     private RestHighLevelClient restHighLevelClient;
@@ -28,7 +31,7 @@ public class ElasticsearchDocumentTests extends BlogSearchApplicationTests {
      * 索引文档
      */
     @Test
-    public void testCreateDocument() throws IOException {
+    public void testIndexDocument() throws IOException {
         //  索引请求对象
         IndexRequest indexRequest = new IndexRequest("products");
         //  指定文档Id
@@ -43,6 +46,39 @@ public class ElasticsearchDocumentTests extends BlogSearchApplicationTests {
         //  索引文档
         IndexResponse indexResponse = restHighLevelClient.index(indexRequest, RequestOptions.DEFAULT);
         System.out.println("索引文档状态：" + indexResponse.status());
+        restHighLevelClient.close();
+    }
+
+    /**
+     * 批量索引文档
+     */
+    @Test
+    public void testBulkDocument() throws IOException {
+        Product product1 = new Product();
+        product1.setId(5);
+        product1.setTitle("橘子");
+        product1.setPrice(3.0);
+        product1.setDescription("橘子非常好吃！");
+
+        Product product2 = new Product();
+        product2.setId(6);
+        product2.setTitle("橙子");
+        product2.setPrice(5.0);
+        product2.setDescription("橙子非常好吃！");
+
+        IndexRequest indexRequest1 = new IndexRequest("products");
+        indexRequest1.id("5")
+                .source(new ObjectMapper().writeValueAsString(product1), XContentType.JSON);
+
+        IndexRequest indexRequest2 = new IndexRequest("products");
+        indexRequest2.id("6")
+                .source(new ObjectMapper().writeValueAsString(product2), XContentType.JSON);
+
+        BulkRequest bulkRequest = new BulkRequest();
+        bulkRequest.add(indexRequest1).add(indexRequest2);
+
+        BulkResponse bulkResponse = restHighLevelClient.bulk(bulkRequest, RequestOptions.DEFAULT);
+        System.out.println(bulkResponse.status());
         restHighLevelClient.close();
     }
 

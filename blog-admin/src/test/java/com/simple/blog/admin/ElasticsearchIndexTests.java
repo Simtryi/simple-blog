@@ -1,4 +1,4 @@
-package com.simple.blog.search;
+package com.simple.blog.admin;
 
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
 import org.elasticsearch.action.support.master.AcknowledgedResponse;
@@ -17,7 +17,7 @@ import java.io.IOException;
 /**
  * Elasticsearch 索引测试
  */
-public class ElasticsearchIndexTests extends BlogSearchApplicationTests {
+public class ElasticsearchIndexTests extends BlogAdminApplicationTests {
 
     @Autowired
     private RestHighLevelClient restHighLevelClient;

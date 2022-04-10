@@ -121,6 +121,12 @@
         </choose>
     </select>
 
+    <select id="findAll" resultMap="BaseResultMap">
+        SELECT
+        <include refid="AllColumns" />
+        FROM blog
+    </select>
+
     <select id="page" resultMap="BaseResultMap">
         SELECT
         <include refid="AllColumns" />

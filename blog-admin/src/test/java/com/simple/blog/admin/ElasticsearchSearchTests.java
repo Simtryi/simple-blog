@@ -1,4 +1,4 @@
-package com.simple.blog.search;
+package com.simple.blog.admin;
 
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
@@ -20,7 +20,7 @@ import java.util.Map;
 /**
  * Elasticsearch 搜索测试
  */
-public class ElasticsearchSearchTests extends BlogSearchApplicationTests {
+public class ElasticsearchSearchTests extends BlogAdminApplicationTests {
 
     @Autowired
     private RestHighLevelClient restHighLevelClient;

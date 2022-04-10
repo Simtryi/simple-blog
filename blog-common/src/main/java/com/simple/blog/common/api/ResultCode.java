@@ -20,7 +20,7 @@ public enum ResultCode {
     private HttpStatus httpStatus;
     private String message;
 
-    private ResultCode(HttpStatus httpStatus, String message) {
+    ResultCode(HttpStatus httpStatus, String message) {
         this.httpStatus = httpStatus;
         this.message = message;
     }

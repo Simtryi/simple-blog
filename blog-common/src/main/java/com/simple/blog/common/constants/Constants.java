@@ -51,6 +51,11 @@ public interface Constants {
      */
     String ELASTICSEARCH_URI = "localhost:9200";
 
+    /**
+     * Elasticsearch 博客索引
+     */
+    String ELASTICSEARCH_INDEX_BLOG = "simple-blog-blog";
+
 
 
     /**

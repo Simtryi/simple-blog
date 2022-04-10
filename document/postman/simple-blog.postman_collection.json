@@ -1202,6 +1202,102 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "elasticsearch",
+			"item": [
+				{
+					"name": "索引所有博客",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/es/blog/bulk",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"es",
+								"blog",
+								"bulk"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "删除博客",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/es/blog/delete/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"es",
+								"blog",
+								"delete",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "更新博客",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 1,\n    \"title\": \"hello elasticsearch\",\n    \"cover\": \"http:localhost:8080/blog/1.jpg\",\n    \"mdContent\": \"# hello\",\n    \"htmlContent\": \"<p>hello world</p>\",\n    \"view\": 1,\n    \"categoryId\": 1,\n    \"userId\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/es/blog/update",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"es",
+								"blog",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查询博客",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/es/blog/get/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"es",
+								"blog",
+								"get",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }
