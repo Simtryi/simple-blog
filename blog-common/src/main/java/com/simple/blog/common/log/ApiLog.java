@@ -1,7 +1,5 @@
 package com.simple.blog.common.log;
 
-import java.util.Date;
-
 /**
  * 接口访问日志
  */

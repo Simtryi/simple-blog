@@ -3,6 +3,7 @@ package com.simple.blog.common.log;
 import com.simple.blog.common.util.DateUtil;
 import com.simple.blog.common.util.JsonUtil;
 import com.simple.blog.common.util.StringUtil;
+import net.logstash.logback.marker.Markers;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -64,7 +65,12 @@ public class ApiAspect {
         apiLog.setResult(result);
         apiLog.setIp(request.getRemoteAddr());
 
-        log.info(JsonUtil.parse(apiLog).toString());
+        Map<String, Object> logMap = new HashMap<>();
+        logMap.put("url", apiLog.getUrl());
+        logMap.put("method", apiLog.getMethod());
+        logMap.put("parameter", apiLog.getParameter());
+        logMap.put("spendTime", apiLog.getSpendTime());
+        log.info(Markers.appendEntries(logMap), JsonUtil.parse(apiLog).toString());
         return result;
     }
 

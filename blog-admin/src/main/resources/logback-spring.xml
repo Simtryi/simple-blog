@@ -12,6 +12,8 @@
     <property name="LOG_PATH" value="${user.home}/logs/${APP_NAME}" />
     <!-- 日志文件格式 -->
     <property name="BLOG_LOG_PATTERN" value="${BLOG_LOG_PATTERN:-%d{yyyy-MM-dd HH:mm:ss.SSS} ${LOG_LEVEL_PATTERN:-%5p} ${PID:- } --- [%t] %-40.40logger{39} : %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}" />
+    <!-- Logstash 地址 -->
+    <springProperty scope="context" name="LOGSTASH_HOST" source="logstash.host" defaultValue="localhost" />
 
 
 
@@ -51,16 +53,35 @@
         </rollingPolicy>
     </appender>
 
+
+
+    <!-- 应用日志 Logstash -->
+    <appender name="APPLICATION_LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+        <destination>${LOGSTASH_HOST}:4560</destination>
+        <encoder charset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder" />
+    </appender>
+
+
+
+    <!-- 接口访问日志 Logstash -->
+    <appender name="API_LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+        <destination>${LOGSTASH_HOST}:4561</destination>
+        <encoder charset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder" />
+    </appender>
+
+
+
     <logger name="API_LOGGER" level="INFO" additivity="false">
         <appender-ref ref="API"/>
+        <appender-ref ref="API_LOGSTASH"/>
     </logger>
 
 
 
-    <!-- 本地环境配置，日志记录到控制台 -->
     <root level="info">
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="APPLICATION"/>
+<!--        <appender-ref ref="APPLICATION_LOGSTASH"/>-->
     </root>
 
 </configuration>

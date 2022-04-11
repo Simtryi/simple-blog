@@ -53,6 +53,12 @@
             <artifactId>aliyun-sdk-oss</artifactId>
         </dependency>
 
+        <!-- logstash-logback -->
+        <dependency>
+            <groupId>net.logstash.logback</groupId>
+            <artifactId>logstash-logback-encoder</artifactId>
+        </dependency>
+
         <!-- hutool -->
         <dependency>
             <groupId>cn.hutool</groupId>
