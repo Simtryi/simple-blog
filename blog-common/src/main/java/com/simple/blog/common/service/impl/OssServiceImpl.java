@@ -1,14 +1,14 @@
 package com.simple.blog.common.service.impl;
 
 import com.aliyun.oss.OSS;
-import com.aliyun.oss.OSSClientBuilder;
 import com.aliyun.oss.model.OSSObject;
 import com.aliyun.oss.model.ObjectMetadata;
 import com.simple.blog.common.api.ResultCode;
-import com.simple.blog.common.constants.Constants;
 import com.simple.blog.common.exception.ApiException;
 import com.simple.blog.common.exception.Asserts;
-import com.simple.blog.common.service.OSSService;
+import com.simple.blog.common.properties.OssProperties;
+import com.simple.blog.common.service.OssService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,7 +21,13 @@ import java.util.UUID;
  * OSSService 实现类
  */
 @Service
-public class OSSServiceImpl implements OSSService {
+public class OssServiceImpl implements OssService {
+
+    @Autowired
+    private OSS ossClient;
+
+    @Autowired
+    private OssProperties ossProperties;
 
     @Override
     public String uploadFile(MultipartFile multipartFile) {
@@ -29,12 +35,9 @@ public class OSSServiceImpl implements OSSService {
             Asserts.fail(ResultCode.BAD_REQUEST, "上传文件错误");
         }
 
-        //  创建 OSSClient 实例
-        OSS ossClient = new OSSClientBuilder().build(Constants.OSS_ENDPOINT, Constants.OSS_ACCESS_KEY_ID, Constants.OSS_ACCESS_KEY_SECRET);
-
         //  存储目录
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-        String dir = Constants.OSS_DIR_PREFIX + sdf.format(new Date());
+        String dir = ossProperties.getDirPrefix() + sdf.format(new Date());
 
         //  文件类型
         String originalFilename = multipartFile.getOriginalFilename();
@@ -55,11 +58,9 @@ public class OSSServiceImpl implements OSSService {
 
             //  上传文件
             fileName = dir + "/" + fileName + fileType;
-            ossClient.putObject(Constants.OSS_BUCKET_NAME, fileName, inputStream, objectMetadata);
+            ossClient.putObject(ossProperties.getBucketName(), fileName, inputStream, objectMetadata);
         } catch (IOException e) {
             throw new ApiException(ResultCode.UNKNOWN, e.getMessage());
-        } finally {
-            ossClient.shutdown();
         }
 
         return fileName;
@@ -67,11 +68,8 @@ public class OSSServiceImpl implements OSSService {
 
     @Override
     public void downloadFile(OutputStream outputStream, String objectName) {
-        //  创建 OSSClient 实例
-        OSS ossClient = new OSSClientBuilder().build(Constants.OSS_ENDPOINT, Constants.OSS_ACCESS_KEY_ID, Constants.OSS_ACCESS_KEY_SECRET);
-
         //  ossObject 包含文件所在的存储空间名称、文件名称、文件元信息以及一个输入流
-        OSSObject ossObject = ossClient.getObject(Constants.OSS_BUCKET_NAME, objectName);
+        OSSObject ossObject = ossClient.getObject(ossProperties.getBucketName(), objectName);
 
         //  读取文件内容
         BufferedInputStream bufferedInputStream = new BufferedInputStream(ossObject.getObjectContent());
@@ -85,18 +83,13 @@ public class OSSServiceImpl implements OSSService {
             bufferedOutputStream.flush();
         } catch (IOException e) {
             throw new ApiException(ResultCode.UNKNOWN, e.getMessage());
-        } finally {
-            ossClient.shutdown();
         }
     }
 
     @Override
     public void deleteFile(String objectName) {
-        //  创建 OSSClient 实例
-        OSS ossClient = new OSSClientBuilder().build(Constants.OSS_ENDPOINT, Constants.OSS_ACCESS_KEY_ID, Constants.OSS_ACCESS_KEY_SECRET);
         //  删除文件或目录，如果要删除目录，目录必须为空
-        ossClient.deleteObject(Constants.OSS_BUCKET_NAME, objectName);
-        ossClient.shutdown();
+        ossClient.deleteObject(ossProperties.getBucketName(), objectName);
     }
 
 }

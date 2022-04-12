@@ -9,5 +9,10 @@ spring:
     port: 6379
     timeout: 300ms
 
+elasticsearch:
+  uri: localhost:9200
+  username: elastic
+  password: 12345678
+
 logstash:
   host: localhost

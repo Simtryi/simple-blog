@@ -1,6 +1,6 @@
 package com.simple.blog.security.authorization;
 
-import com.simple.blog.security.config.IgnoreURLConfig;
+import com.simple.blog.common.properties.SecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.access.SecurityMetadataSource;
@@ -24,7 +24,7 @@ public class DynamicSecurityInterceptor extends AbstractSecurityInterceptor impl
     private DynamicSecurityMetadataSource dynamicSecurityMetadataSource;
 
     @Autowired
-    private IgnoreURLConfig ignoreURLConfig;
+    private SecurityProperties securityProperties;
 
     @Autowired
     public void setMyAccessDecisionManager(DynamicAccessDecisionManager dynamicAccessDecisionManager) {
@@ -49,7 +49,7 @@ public class DynamicSecurityInterceptor extends AbstractSecurityInterceptor impl
 
         //  白名单请求，直接放行
         PathMatcher pathMatcher = new AntPathMatcher();
-        for (String url : ignoreURLConfig.getUrls()) {
+        for (String url : securityProperties.getWhiteList()) {
             if (pathMatcher.match(url, request.getRequestURI())) {
                 invocation.getChain().doFilter(invocation.getRequest(), invocation.getResponse());
                 return;

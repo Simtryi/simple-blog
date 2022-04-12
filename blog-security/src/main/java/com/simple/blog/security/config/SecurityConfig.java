@@ -1,11 +1,13 @@
 package com.simple.blog.security.config;
 
+import com.simple.blog.common.properties.SecurityProperties;
 import com.simple.blog.security.authentication.JwtAuthenticationFilter;
 import com.simple.blog.security.exception.CustomAuthenticationEntryPoint;
 import com.simple.blog.security.authorization.DynamicAccessDecisionManager;
 import com.simple.blog.security.authorization.DynamicSecurityInterceptor;
 import com.simple.blog.security.authorization.DynamicSecurityMetadataSource;
 import com.simple.blog.security.exception.CustomAccessDeniedHandler;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -24,6 +26,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
  */
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    @Autowired
+    private SecurityProperties securityProperties;
+
     /**
      * 配置安全过滤器
      */
@@ -35,7 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         registry.antMatchers(HttpMethod.OPTIONS).permitAll();
 
         //  白名单请求，直接放行
-        for (String url : ignoreURLConfig().getUrls()) {
+        for (String url : securityProperties.getWhiteList()) {
             registry.antMatchers(url).permitAll();
         }
 
@@ -76,11 +81,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         //  配置 UserDetailsService 及 PasswordEncoder
         auth.userDetailsService(userDetailsService())
                 .passwordEncoder(passwordEncoder());
-    }
-
-    @Bean
-    public IgnoreURLConfig ignoreURLConfig() {
-        return new IgnoreURLConfig();
     }
 
     @Bean

@@ -7,7 +7,7 @@ import java.io.OutputStream;
 /**
  * OSS 服务
  */
-public interface OSSService {
+public interface OssService {
 
     /**
      * 上传文件
