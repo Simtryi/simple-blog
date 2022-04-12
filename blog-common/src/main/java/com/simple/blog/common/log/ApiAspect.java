@@ -1,6 +1,7 @@
 package com.simple.blog.common.log;
 
 import com.simple.blog.common.util.DateUtil;
+import com.simple.blog.common.util.IpUtil;
 import com.simple.blog.common.util.JsonUtil;
 import com.simple.blog.common.util.StringUtil;
 import net.logstash.logback.marker.Markers;
@@ -20,10 +21,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 接口访问切面
@@ -34,10 +32,18 @@ public class ApiAspect {
 
     private static final Logger log = LoggerFactory.getLogger("API_LOGGER");
 
+    /**
+     * 切入点
+     */
     @Pointcut("execution(public * com.simple.blog.controller.*.*(..)) || execution(public * com.simple.blog.*.controller.*.*(..))")
-    public void apiLog() {}
+    public void api() {}
 
-    @Around("apiLog()")
+    /**
+     * 环绕操作
+     * @param joinPoint 切入点
+     * @return  原方法返回值
+     */
+    @Around("api()")
     public Object doAround(ProceedingJoinPoint joinPoint) throws Throwable {
         //  请求开始时间
         long startTime = System.currentTimeMillis();
@@ -47,7 +53,7 @@ public class ApiAspect {
 
         //  获取请求对象
         ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-        HttpServletRequest request = servletRequestAttributes.getRequest();
+        HttpServletRequest request = Objects.requireNonNull(servletRequestAttributes).getRequest();
 
         //  获取请求方法
         MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
@@ -63,7 +69,7 @@ public class ApiAspect {
         apiLog.setMethod(request.getMethod());
         apiLog.setParameter(getRequestParameter(method, joinPoint.getArgs()));
         apiLog.setResult(result);
-        apiLog.setIp(request.getRemoteAddr());
+        apiLog.setIp(IpUtil.getIp(request));
 
         Map<String, Object> logMap = new HashMap<>();
         logMap.put("url", apiLog.getUrl());
