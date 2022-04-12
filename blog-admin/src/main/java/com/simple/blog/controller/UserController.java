@@ -10,6 +10,7 @@ import com.simple.blog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -26,7 +27,7 @@ public class UserController {
      * 添加用户
      */
     @PostMapping(value = "/create")
-    public CommonResult<User> create(@RequestBody User user) {
+    public CommonResult<User> create(@Valid @RequestBody User user) {
         User registerUser = userService.create(user);
         return CommonResult.success(registerUser);
     }
@@ -44,7 +45,7 @@ public class UserController {
      * 修改用户
      */
     @PostMapping(value = "/update")
-    public CommonResult<Void> update(@RequestBody User user) {
+    public CommonResult<Void> update(@Valid @RequestBody User user) {
         int count = userService.update(user);
         if (count > 0) {
             return CommonResult.success();

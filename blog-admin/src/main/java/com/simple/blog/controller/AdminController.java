@@ -6,9 +6,12 @@ import com.simple.blog.common.constants.Constants;
 import com.simple.blog.entity.User;
 import com.simple.blog.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,6 +20,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/admin")
+@Validated
 public class AdminController {
 
     @Autowired
@@ -26,7 +30,7 @@ public class AdminController {
      * 注册
      */
     @PostMapping("/register")
-    public CommonResult<User> register(@RequestBody User user) {
+    public CommonResult<User> register(@Valid @RequestBody User user) {
         User registerUser = adminService.register(user);
         if (null == registerUser) {
             CommonResult.failed();
@@ -75,9 +79,9 @@ public class AdminController {
      */
     @RequestMapping("/password/update")
     public CommonResult<Void> updatePassword(
-            @RequestParam String username,
-            @RequestParam String oldPassword,
-            @RequestParam String newPassword
+            @NotBlank(message = "用户名不能为空") @RequestParam String username,
+            @NotBlank(message = "原密码不能为空") @RequestParam String oldPassword,
+            @NotBlank(message = "新密码不能为空") @RequestParam String newPassword
     ) {
         adminService.updatePassword(username, oldPassword, newPassword);
         return CommonResult.success();

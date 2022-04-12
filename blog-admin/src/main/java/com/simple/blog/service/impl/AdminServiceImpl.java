@@ -41,10 +41,6 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public User register(User user) {
-        if (null == user.getUsername()) {
-            Asserts.fail(ResultCode.BAD_REQUEST, "用户名不能为空");
-        }
-
         User userDB = userMapper.findByUsername(user.getUsername());
         if (null != userDB) {
             Asserts.fail(ResultCode.BAD_REQUEST, "用户名已存在");
@@ -90,10 +86,6 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public void updatePassword(String username, String oldPassword, String newPassword) {
-        if (StringUtil.isEmpty(username) || StringUtil.isEmpty(oldPassword) || StringUtil.isEmpty(newPassword)) {
-            Asserts.fail(ResultCode.BAD_REQUEST, "参数不合法");
-        }
-
         User user = userMapper.findByUsername(username);
         if (null == user) {
             Asserts.fail(ResultCode.BAD_REQUEST, "用户不存在");

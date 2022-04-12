@@ -66,10 +66,6 @@ public class UserServiceImpl implements UserService {
             Asserts.fail(ResultCode.BAD_REQUEST, "编辑时Id必填！");
         }
 
-        if (null == user.getUsername()) {
-            Asserts.fail(ResultCode.BAD_REQUEST, "用户名不能为空");
-        }
-
         User userDB = userMapper.selectById(user.getId());
         if (null == userDB) {
             Asserts.fail(ResultCode.NOT_FOUND, "id=" + user.getId() + "对应的用户不存在");
