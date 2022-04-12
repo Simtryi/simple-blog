@@ -89,29 +89,23 @@ public class JwtUtil {
      * 从 token 中获取用户名
      */
     public static String getUsernameFromToken(String token) {
-        String username;
-        try {
-            Claims claims = getClaimsFromToken(token);
-            username = claims.getSubject();
-        } catch (Exception e) {
-            username = null;
-        }
-        return username;
+        Claims claims = parseToken(token);
+        return claims.getSubject();
     }
 
     /**
      * 从 token 中获取过期时间
      */
     private static Date getExpirationDateFromToken(String token) {
-        Claims claims = getClaimsFromToken(token);
+        Claims claims = parseToken(token);
         return claims.getExpiration();
     }
 
     /**
      * 解析 token
      */
-    private static Claims getClaimsFromToken(String token) {
-        Claims claims = null;
+    private static Claims parseToken(String token) {
+        Claims claims;
         try {
             claims = Jwts.parser()
                     .setSigningKey(Constants.JWT_SECRET)
@@ -137,7 +131,7 @@ public class JwtUtil {
             return null;
         }
 
-        Claims claims = getClaimsFromToken(token);
+        Claims claims = parseToken(token);
         if (null == claims) {
             return null;
         }

@@ -4,6 +4,7 @@ import com.simple.blog.common.api.CommonResult;
 import com.simple.blog.common.api.ResultCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.validation.BindException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -33,6 +34,16 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = IllegalArgumentException.class)
     public CommonResult<Void> handleArgumentException(IllegalArgumentException e) {
         log.error("参数异常: {}", e.getMessage());
+        return CommonResult.failed(ResultCode.PARAMS_ERROR, e.getMessage());
+    }
+
+    /**
+     * 处理校验异常
+     */
+    @ResponseBody
+    @ExceptionHandler(value = BindException.class)
+    public CommonResult<Void> handleValidException(BindException e) {
+        log.error("校验异常：{}", e.getMessage());
         return CommonResult.failed(ResultCode.PARAMS_ERROR, e.getMessage());
     }
 

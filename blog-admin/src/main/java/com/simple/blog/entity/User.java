@@ -3,6 +3,9 @@ package com.simple.blog.entity;
 import com.simple.blog.common.base.BaseEntity;
 import com.simple.blog.enums.UserStatus;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -13,11 +16,13 @@ public class User extends BaseEntity implements Serializable {
     /**
      * 用户名，全局唯一
      */
+    @NotEmpty
     private String username;
 
     /**
      * 密码
      */
+    @NotEmpty
     private String password;
 
     /**
@@ -28,6 +33,7 @@ public class User extends BaseEntity implements Serializable {
     /**
      * 邮箱
      */
+    @Email
     private String email;
 
     /**

@@ -18,13 +18,13 @@ mybatis:
 aliyun:
   oss:
     endpoint: https://oss-cn-shanghai.aliyuncs.com
-    accessKeyId: access_key_id
-    accessKeySecret: access_key_secret
-    bucketName: simple-oss-1
-    dirPrefix: blog/images/
+    access-key-id: access_key_id
+    access-key-secret: access_key_secret
+    bucket-name: simple-oss-1
+    dir-prefix: blog/images/
 
 security:
-  whiteList:
+  white-list:
     - /**/*.js
     - /**/*.css
     - /**/*.png
