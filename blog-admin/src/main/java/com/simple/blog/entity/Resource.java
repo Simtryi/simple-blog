@@ -2,6 +2,7 @@ package com.simple.blog.entity;
 
 import com.simple.blog.common.base.BaseEntity;
 
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 /**
@@ -16,11 +17,13 @@ public class Resource extends BaseEntity implements Serializable {
     /**
      * 资源名称
      */
+    @NotBlank(message = "资源名称不能为空")
     private String name;
 
     /**
      * 资源 URL，支持 Ant 路径匹配规则
      */
+    @NotBlank(message = "资源URL不能为空")
     private String url;
 
     /**

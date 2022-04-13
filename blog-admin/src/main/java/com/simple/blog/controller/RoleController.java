@@ -9,6 +9,7 @@ import com.simple.blog.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -25,7 +26,7 @@ public class RoleController {
      * 添加角色
      */
     @PostMapping(value = "/create")
-    public CommonResult<Void> create(@RequestBody Role role) {
+    public CommonResult<Void> create(@Valid @RequestBody Role role) {
         int count = roleService.create(role);
         if (count > 0) {
             return CommonResult.success();
@@ -47,7 +48,7 @@ public class RoleController {
      * 修改角色
      */
     @PostMapping(value = "/update")
-    public CommonResult<Void> update(@RequestBody Role role) {
+    public CommonResult<Void> update(@Valid @RequestBody Role role) {
         int count = roleService.update(role);
         if (count > 0) {
             return CommonResult.success();

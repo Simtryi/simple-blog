@@ -8,6 +8,8 @@ import com.simple.blog.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 /**
  * 分类管理 Controller
  */
@@ -22,7 +24,7 @@ public class CategoryController {
      * 添加分类
      */
     @PostMapping(value = "/create")
-    public CommonResult<Void> create(@RequestBody Category category) {
+    public CommonResult<Void> create(@Valid @RequestBody Category category) {
         int count = categoryService.create(category);
         if (count > 0) {
             return CommonResult.success();
@@ -44,7 +46,7 @@ public class CategoryController {
      * 修改分类
      */
     @PostMapping(value = "/update")
-    public CommonResult<Void> update(@RequestBody Category category) {
+    public CommonResult<Void> update(@Valid @RequestBody Category category) {
         int count = categoryService.update(category);
         if (count > 0) {
             return CommonResult.success();

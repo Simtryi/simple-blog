@@ -3,6 +3,8 @@ package com.simple.blog.entity;
 import com.simple.blog.common.base.BaseEntity;
 import com.simple.blog.enums.RoleStatus;
 
+import javax.validation.constraints.NotBlank;
+
 /**
  * 角色
  */
@@ -11,6 +13,7 @@ public class Role extends BaseEntity {
     /**
      * 角色名称
      */
+    @NotBlank(message = "角色名称不能为空")
     private String name;
 
     /**

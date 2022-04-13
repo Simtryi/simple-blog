@@ -8,6 +8,8 @@ import com.simple.blog.service.BlogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 /**
  * 博客管理 Controller
  */
@@ -22,7 +24,7 @@ public class BlogController {
      * 添加博客
      */
     @PostMapping(value = "/create")
-    public CommonResult<Void> create(@RequestBody Blog blog) {
+    public CommonResult<Void> create(@Valid @RequestBody Blog blog) {
         int count = blogService.create(blog);
         if (count > 0) {
             return CommonResult.success();
@@ -44,7 +46,7 @@ public class BlogController {
      * 修改博客
      */
     @PostMapping(value = "/update")
-    public CommonResult<Void> update(@RequestBody Blog blog) {
+    public CommonResult<Void> update(@Valid @RequestBody Blog blog) {
         int count = blogService.update(blog);
         if (count > 0) {
             return CommonResult.success();

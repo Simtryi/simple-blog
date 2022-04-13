@@ -2,6 +2,8 @@ package com.simple.blog.entity;
 
 import com.simple.blog.common.base.BaseEntity;
 
+import javax.validation.constraints.NotBlank;
+
 /**
  * 评论
  */
@@ -10,6 +12,7 @@ public class Comment extends BaseEntity {
     /**
      * 评论内容
      */
+    @NotBlank(message = "评论内容不能为空")
     private String content;
 
     /**

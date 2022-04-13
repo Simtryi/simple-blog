@@ -9,6 +9,8 @@ import com.simple.blog.service.ResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 /**
  * 资源管理 Controller
  */
@@ -26,7 +28,7 @@ public class ResourceController {
      * 添加资源
      */
     @PostMapping(value = "/create")
-    public CommonResult<Void> create(@RequestBody Resource resource) {
+    public CommonResult<Void> create(@Valid @RequestBody Resource resource) {
         int count = resourceService.create(resource);
         //  当资源发生变化时，清空缓存资源
         dynamicSecurityMetadataSource.clearDataSource();
@@ -52,7 +54,7 @@ public class ResourceController {
      * 修改资源
      */
     @PostMapping(value = "/update")
-    public CommonResult<Void> update(@RequestBody Resource resource) {
+    public CommonResult<Void> update(@Valid @RequestBody Resource resource) {
         int count = resourceService.update(resource);
         //  当资源发生变化时，清空缓存资源
         dynamicSecurityMetadataSource.clearDataSource();

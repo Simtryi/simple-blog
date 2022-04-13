@@ -8,6 +8,8 @@ import com.simple.blog.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 /**
  * 评论管理 Controller
  */
@@ -22,7 +24,7 @@ public class CommentController {
      * 添加评论
      */
     @PostMapping(value = "/create")
-    public CommonResult<Void> create(@RequestBody Comment comment) {
+    public CommonResult<Void> create(@Valid @RequestBody Comment comment) {
         int count = commentService.create(comment);
         if (count > 0) {
             return CommonResult.success();
@@ -44,7 +46,7 @@ public class CommentController {
      * 修改评论
      */
     @PostMapping(value = "/update")
-    public CommonResult<Void> update(@RequestBody Comment comment) {
+    public CommonResult<Void> update(@Valid @RequestBody Comment comment) {
         int count = commentService.update(comment);
         if (count > 0) {
             return CommonResult.success();

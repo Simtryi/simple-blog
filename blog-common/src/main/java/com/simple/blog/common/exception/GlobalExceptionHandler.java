@@ -44,7 +44,7 @@ public class GlobalExceptionHandler {
     }
 
     /**
-     * 处理校验异常(普通参数)
+     * 处理参数校验异常(普通参数)
      */
     @ResponseBody
     @ExceptionHandler(value = ConstraintViolationException.class)
@@ -54,12 +54,12 @@ public class GlobalExceptionHandler {
         for (ConstraintViolation<?> violation : violations) {
             message.append(violation.getMessage()).append(",");
         }
-        log.error("校验异常：{}", message);
+        log.error("参数校验异常：{}", message);
         return CommonResult.failed(ResultCode.PARAMS_ERROR, message.toString());
     }
 
     /**
-     * 处理校验异常(对象参数)
+     * 处理参数校验异常(对象参数)
      */
     @ResponseBody
     @ExceptionHandler(value = BindException.class)
@@ -69,7 +69,7 @@ public class GlobalExceptionHandler {
         for (FieldError fieldError : fieldErrors) {
             message.append(fieldError.getDefaultMessage()).append(",");
         }
-        log.error("校验异常：{}", message);
+        log.error("参数校验异常：{}", message);
         return CommonResult.failed(ResultCode.PARAMS_ERROR, message.toString());
     }
 

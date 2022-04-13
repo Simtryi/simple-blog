@@ -8,6 +8,8 @@ import com.simple.blog.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 /**
  * 标签管理 Controller
  */
@@ -22,7 +24,7 @@ public class TagController {
      * 添加标签
      */
     @PostMapping(value = "/create")
-    public CommonResult<Void> create(@RequestBody Tag tag) {
+    public CommonResult<Void> create(@Valid @RequestBody Tag tag) {
         int count = tagService.create(tag);
         if (count > 0) {
             return CommonResult.success();
@@ -44,7 +46,7 @@ public class TagController {
      * 修改标签
      */
     @PostMapping(value = "/update")
-    public CommonResult<Void> update(@RequestBody Tag tag) {
+    public CommonResult<Void> update(@Valid @RequestBody Tag tag) {
         int count = tagService.update(tag);
         if (count > 0) {
             return CommonResult.success();
