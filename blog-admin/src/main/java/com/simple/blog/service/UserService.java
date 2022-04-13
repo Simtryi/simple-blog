@@ -1,9 +1,9 @@
 package com.simple.blog.service;
 
 import com.github.pagehelper.Page;
-import com.simple.blog.entity.Resource;
-import com.simple.blog.entity.Role;
-import com.simple.blog.entity.User;
+import com.simple.blog.data.entity.Resource;
+import com.simple.blog.data.entity.Role;
+import com.simple.blog.data.entity.User;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;

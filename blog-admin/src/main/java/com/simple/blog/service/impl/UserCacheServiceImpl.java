@@ -1,11 +1,11 @@
 package com.simple.blog.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
-import com.simple.blog.common.service.RedisService;
-import com.simple.blog.entity.Resource;
-import com.simple.blog.entity.User;
-import com.simple.blog.mapper.UserMapper;
-import com.simple.blog.mapper.UserRoleRelationMapper;
+import com.simple.blog.data.entity.Resource;
+import com.simple.blog.data.entity.User;
+import com.simple.blog.data.mapper.UserMapper;
+import com.simple.blog.data.mapper.UserRoleRelationMapper;
+import com.simple.blog.data.service.RedisService;
 import com.simple.blog.service.UserCacheService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

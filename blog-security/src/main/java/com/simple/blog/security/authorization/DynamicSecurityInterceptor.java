@@ -1,6 +1,6 @@
 package com.simple.blog.security.authorization;
 
-import com.simple.blog.common.properties.SecurityProperties;
+import com.simple.blog.security.properties.SecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.access.SecurityMetadataSource;

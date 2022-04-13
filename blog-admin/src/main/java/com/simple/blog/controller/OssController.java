@@ -1,8 +1,8 @@
 package com.simple.blog.controller;
 
 import com.simple.blog.common.api.CommonResult;
-import com.simple.blog.common.properties.OssProperties;
-import com.simple.blog.common.service.OssService;
+import com.simple.blog.data.properties.OssProperties;
+import com.simple.blog.data.service.OssService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;

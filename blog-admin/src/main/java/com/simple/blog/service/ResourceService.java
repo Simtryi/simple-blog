@@ -1,7 +1,7 @@
 package com.simple.blog.service;
 
 import com.github.pagehelper.Page;
-import com.simple.blog.entity.Resource;
+import com.simple.blog.data.entity.Resource;
 import org.springframework.transaction.annotation.Transactional;
 
 /**

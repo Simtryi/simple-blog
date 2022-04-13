@@ -1,7 +1,8 @@
 package com.simple.blog.service;
 
 import com.github.pagehelper.Page;
-import com.simple.blog.entity.Tag;
+import com.simple.blog.data.entity.Tag;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 标签管理 Service
@@ -16,6 +17,7 @@ public interface TagService {
     /**
      * 删除标签
      */
+    @Transactional
     int delete(Long id);
 
     /**

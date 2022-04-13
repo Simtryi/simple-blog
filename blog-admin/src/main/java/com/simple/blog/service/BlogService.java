@@ -1,7 +1,8 @@
 package com.simple.blog.service;
 
 import com.github.pagehelper.Page;
-import com.simple.blog.entity.Blog;
+import com.simple.blog.data.entity.Blog;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 博客管理 Service
@@ -16,6 +17,7 @@ public interface BlogService {
     /**
      * 删除博客
      */
+    @Transactional
     int delete(Long id);
 
     /**

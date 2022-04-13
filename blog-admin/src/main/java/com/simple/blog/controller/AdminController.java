@@ -3,7 +3,7 @@ package com.simple.blog.controller;
 import com.simple.blog.common.api.CommonResult;
 import com.simple.blog.common.api.ResultCode;
 import com.simple.blog.common.constants.Constants;
-import com.simple.blog.entity.User;
+import com.simple.blog.data.entity.User;
 import com.simple.blog.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -55,6 +55,15 @@ public class AdminController {
         tokenMap.put("token", token);
         tokenMap.put("authenticationSchema", Constants.JWT_AUTHENTICATION_SCHEMA);
         return CommonResult.success(tokenMap);
+    }
+
+    /**
+     * 注销
+     */
+    @RequestMapping("/logout")
+    public CommonResult<Void> logout() {
+        //  todo
+        return CommonResult.success();
     }
 
     /**

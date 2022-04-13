@@ -3,7 +3,7 @@ package com.simple.blog.controller;
 import com.github.pagehelper.Page;
 import com.simple.blog.common.api.CommonPage;
 import com.simple.blog.common.api.CommonResult;
-import com.simple.blog.entity.Tag;
+import com.simple.blog.data.entity.Tag;
 import com.simple.blog.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

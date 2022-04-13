@@ -1,9 +1,9 @@
 package com.simple.blog.controller;
 
 import com.simple.blog.common.api.CommonResult;
-import com.simple.blog.entity.Blog;
-import com.simple.blog.mapper.BlogMapper;
-import com.simple.blog.search.service.ElasticsearchService;
+import com.simple.blog.data.entity.Blog;
+import com.simple.blog.data.mapper.BlogMapper;
+import com.simple.blog.data.service.ElasticsearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

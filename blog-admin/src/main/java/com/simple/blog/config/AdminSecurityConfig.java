@@ -1,9 +1,9 @@
 package com.simple.blog.config;
 
+import com.simple.blog.data.entity.Resource;
+import com.simple.blog.data.entity.User;
+import com.simple.blog.data.mapper.ResourceMapper;
 import com.simple.blog.entity.AdminUserDetails;
-import com.simple.blog.entity.Resource;
-import com.simple.blog.entity.User;
-import com.simple.blog.mapper.ResourceMapper;
 import com.simple.blog.security.authorization.DynamicSecurityService;
 import com.simple.blog.security.config.SecurityConfig;
 import com.simple.blog.service.UserCacheService;

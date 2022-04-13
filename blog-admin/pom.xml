@@ -29,28 +29,16 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- mysql -->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-        </dependency>
-
-        <!-- blog-search -->
+        <!-- blog-data -->
         <dependency>
             <groupId>com.simple.blog</groupId>
-            <artifactId>blog-search</artifactId>
+            <artifactId>blog-data</artifactId>
         </dependency>
 
         <!-- blog-security -->
         <dependency>
             <groupId>com.simple.blog</groupId>
             <artifactId>blog-security</artifactId>
-        </dependency>
-
-        <!-- blog-common -->
-        <dependency>
-            <groupId>com.simple.blog</groupId>
-            <artifactId>blog-common</artifactId>
         </dependency>
     </dependencies>
 

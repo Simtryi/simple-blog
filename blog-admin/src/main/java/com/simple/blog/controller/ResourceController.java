@@ -3,7 +3,7 @@ package com.simple.blog.controller;
 import com.github.pagehelper.Page;
 import com.simple.blog.common.api.CommonPage;
 import com.simple.blog.common.api.CommonResult;
-import com.simple.blog.entity.Resource;
+import com.simple.blog.data.entity.Resource;
 import com.simple.blog.security.authorization.DynamicSecurityMetadataSource;
 import com.simple.blog.service.ResourceService;
 import org.springframework.beans.factory.annotation.Autowired;

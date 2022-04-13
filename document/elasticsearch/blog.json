@@ -21,11 +21,7 @@
       "cover": {
         "type": "text"
       },
-      "mdContent": {
-        "type": "text",
-        "analyzer": "ik_max_word"
-      },
-      "htmlContent": {
+      "content": {
         "type": "text",
         "analyzer": "ik_max_word"
       },

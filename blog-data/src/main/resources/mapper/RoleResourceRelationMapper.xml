@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.simple.blog.data.mapper.RoleResourceRelationMapper">
+
+    <resultMap id="BaseResultMap" type="com.simple.blog.data.entity.RoleResourceRelation">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
+        <result column="updated_at" jdbcType="TIMESTAMP" property="updatedAt" />
+        <result column="role_id" jdbcType="BIGINT" property="roleId" />
+        <result column="resource_id" jdbcType="BIGINT" property="resourceId" />
+    </resultMap>
+
+    <sql id="AllColumns">
+        id, created_at, updated_at, role_id, resource_id
+    </sql>
+
+    <insert id="save" parameterType="com.simple.blog.data.entity.RoleResourceRelation" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO role_resource_relation ( created_at, updated_at, role_id, resource_id )
+        VALUES (
+                   #{createdAt,jdbcType=TIMESTAMP} ,
+                   #{updatedAt,jdbcType=TIMESTAMP} ,
+                   #{roleId,jdbcType=BIGINT} ,
+                   #{resourceId,jdbcType=BIGINT}
+               )
+    </insert>
+
+    <insert id="saveAll" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO role_resource_relation ( created_at, updated_at, role_id, resource_id )
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.createdAt,jdbcType=TIMESTAMP} ,
+            #{item.updatedAt,jdbcType=TIMESTAMP} ,
+            #{item.roleId,jdbcType=BIGINT} ,
+            #{item.resourceId,jdbcType=BIGINT}
+            )
+        </foreach>
+    </insert>
+
+    <delete id="deleteById" parameterType="java.lang.Long">
+        DELETE FROM role_resource_relation
+        WHERE id = #{id,jdbcType=BIGINT}
+    </delete>
+
+    <delete id="deleteByIds" parameterType="java.util.List">
+        DELETE FROM role_resource_relation
+        WHERE
+        <choose>
+            <when test="list==null || list.isEmpty()">
+                1 = 0
+            </when>
+            <otherwise>
+                id IN
+                <foreach collection="list" item="id" index="index" open="(" close=")" separator=",">
+                    #{id}
+                </foreach>
+            </otherwise>
+        </choose>
+    </delete>
+
+    <delete id="deleteByRoleId" parameterType="java.lang.Long">
+        DELETE FROM role_resource_relation
+        WHERE role_id = #{roleId,jdbcType=BIGINT}
+    </delete>
+
+    <delete id="deleteByResourceId" parameterType="java.lang.Long">
+        DELETE FROM role_resource_ralation
+        WHERE resource_id = #{resourceId,jdbcType=BIGINT}
+    </delete>
+
+    <update id="update" parameterType="com.simple.blog.data.entity.RoleResourceRelation">
+        UPDATE role_resource_relation
+        SET
+            created_at = #{createdAt,jdbcType=TIMESTAMP} ,
+            updated_at = #{updatedAt,jdbcType=TIMESTAMP} ,
+            role_id = #{roleId,jdbcType=BIGINT} ,
+            resource_id = #{resourceId,jdbcType=BIGINT}
+        WHERE id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <select id="findById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        SELECT
+        <include refid="AllColumns" />
+        FROM role_resource_relation
+        WHERE id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <select id="findByIds" parameterType="java.util.List" resultMap="BaseResultMap">
+        SELECT
+        <include refid="AllColumns" />
+        FROM role_resource_relation
+        WHERE
+        <choose>
+            <when test="list==null || list.isEmpty()">
+                1 = 0
+            </when>
+            <otherwise>
+                id IN
+                <foreach collection="list" item="id" index="index" open="(" close=")" separator=",">
+                    #{id}
+                </foreach>
+            </otherwise>
+        </choose>
+    </select>
+
+    <select id="findResourceList" parameterType="java.lang.Long" resultMap="com.simple.blog.data.mapper.ResourceMapper.BaseResultMap">
+        SELECT
+            resource.id id,
+            resource.created_at created_at,
+            resource.updated_at updated_at,
+            resource.name name,
+            resource.url url,
+            resource.description description
+        FROM role_resource_relation rrr
+        LEFT JOIN resource ON rrr.resource_id = resource.id
+        WHERE rrr.role_id = #{roleId,jdbcType=BIGINT} AND resource.id IS NOT NULL
+    </select>
+
+</mapper>

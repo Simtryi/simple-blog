@@ -6,15 +6,21 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="blog-data" />
+        <module name="blog-admin" />
+      </profile>
+      <profile name="Annotation profile for blog" enabled="true">
+        <sourceOutputDir name="../target/generated-sources/annotations" />
+        <sourceTestOutputDir name="../target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
         <module name="blog-security" />
         <module name="blog-common" />
-        <module name="blog-search" />
-        <module name="blog-admin" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="blog-admin" target="1.8" />
       <module name="blog-common" target="1.8" />
+      <module name="blog-data" target="1.8" />
       <module name="blog-search" target="1.8" />
       <module name="blog-security" target="1.8" />
       <module name="simple-blog" target="1.8" />
@@ -24,6 +30,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="blog-admin" options="-parameters" />
       <module name="blog-common" options="-parameters" />
+      <module name="blog-data" options="-parameters" />
       <module name="blog-search" options="-parameters" />
       <module name="blog-security" options="-parameters" />
       <module name="simple-blog" options="-parameters" />

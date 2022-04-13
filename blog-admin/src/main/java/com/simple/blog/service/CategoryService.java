@@ -1,7 +1,7 @@
 package com.simple.blog.service;
 
 import com.github.pagehelper.Page;
-import com.simple.blog.entity.Category;
+import com.simple.blog.data.entity.Category;
 
 /**
  * 分类管理 Service

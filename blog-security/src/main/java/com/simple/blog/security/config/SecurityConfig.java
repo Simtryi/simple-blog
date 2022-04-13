@@ -1,6 +1,6 @@
 package com.simple.blog.security.config;
 
-import com.simple.blog.common.properties.SecurityProperties;
+import com.simple.blog.security.properties.SecurityProperties;
 import com.simple.blog.security.authentication.JwtAuthenticationFilter;
 import com.simple.blog.security.exception.CustomAuthenticationEntryPoint;
 import com.simple.blog.security.authorization.DynamicAccessDecisionManager;

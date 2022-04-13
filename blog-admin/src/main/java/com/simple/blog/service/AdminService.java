@@ -1,6 +1,6 @@
 package com.simple.blog.service;
 
-import com.simple.blog.entity.User;
+import com.simple.blog.data.entity.User;
 
 /**
  * 后台管理 Service

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.simple.blog.data.mapper.UserRoleRelationMapper">
+
+    <resultMap id="BaseResultMap" type="com.simple.blog.data.entity.UserRoleRelation">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
+        <result column="updated_at" jdbcType="TIMESTAMP" property="updatedAt" />
+        <result column="user_id" jdbcType="BIGINT" property="userId" />
+        <result column="role_id" jdbcType="BIGINT" property="roleId" />
+    </resultMap>
+
+    <sql id="AllColumns">
+        id, created_at, updated_at, user_id, role_id
+    </sql>
+
+    <insert id="save" parameterType="com.simple.blog.data.entity.UserRoleRelation" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO user_role_relation ( created_at, updated_at, user_id, role_id )
+        VALUES (
+                   #{createdAt,jdbcType=TIMESTAMP} ,
+                   #{updatedAt,jdbcType=TIMESTAMP} ,
+                   #{userId,jdbcType=BIGINT} ,
+                   #{roleId,jdbcType=BIGINT}
+               )
+    </insert>
+
+    <insert id="saveAll" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO user_role_relation ( created_at, updated_at, user_id, role_id )
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+                #{item.createdAt,jdbcType=TIMESTAMP} ,
+                #{item.updatedAt,jdbcType=TIMESTAMP} ,
+                #{item.userId,jdbcType=BIGINT} ,
+                #{item.roleId,jdbcType=BIGINT}
+            )
+        </foreach>
+    </insert>
+
+    <delete id="deleteById" parameterType="java.lang.Long">
+        DELETE FROM user_role_relation
+        WHERE id = #{id,jdbcType=BIGINT}
+    </delete>
+
+    <delete id="deleteByIds" parameterType="java.util.List">
+        DELETE FROM user_role_relation
+        WHERE
+        <choose>
+            <when test="list==null || list.isEmpty()">
+                1 = 0
+            </when>
+            <otherwise>
+                id IN
+                <foreach collection="list" item="id" index="index" open="(" close=")" separator=",">
+                    #{id}
+                </foreach>
+            </otherwise>
+        </choose>
+    </delete>
+
+    <delete id="deleteByUserId" parameterType="java.lang.Long">
+        DELETE FROM user_role_relation
+        WHERE user_id = #{userId,jdbcType=BIGINT}
+    </delete>
+
+    <delete id="deleteByRoleId" parameterType="java.lang.Long">
+        DELETE FROM user_role_ralation
+        WHERE role_id = #{roleId,jdbcType=BIGINT}
+    </delete>
+
+    <update id="update" parameterType="com.simple.blog.data.entity.UserRoleRelation">
+        UPDATE user_role_relation
+        SET
+            created_at = #{createdAt,jdbcType=TIMESTAMP} ,
+            updated_at = #{updatedAt,jdbcType=TIMESTAMP} ,
+            user_id = #{userId,jdbcType=BIGINT} ,
+            role_id = #{roleId,jdbcType=BIGINT}
+        WHERE id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <select id="findById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        SELECT
+        <include refid="AllColumns" />
+        FROM user_role_relation
+        WHERE id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <select id="findByIds" parameterType="java.util.List" resultMap="BaseResultMap">
+        SELECT
+        <include refid="AllColumns" />
+        FROM user_role_relation
+        WHERE
+        <choose>
+            <when test="list==null || list.isEmpty()">
+                1 = 0
+            </when>
+            <otherwise>
+                id IN
+                <foreach collection="list" item="id" index="index" open="(" close=")" separator=",">
+                    #{id}
+                </foreach>
+            </otherwise>
+        </choose>
+    </select>
+
+    <select id="findUserIdsByRoleId" parameterType="java.lang.Long" resultType="java.lang.Long">
+        SELECT
+        DISTINCT user_id
+        FROM user_role_relation
+        WHERE role_id = #{roleId,jdbcType=BIGINT}
+    </select>
+
+    <select id="findUserIdsByResourceId" parameterType="java.lang.Long" resultType="java.lang.Long">
+        SELECT
+        DISTINCT urr.user_id
+        FROM role_resource_relation rrr
+            LEFT JOIN role ON rrr.role_id = role.id
+            LEFT JOIN user_role_relation urr ON role.id = urr.role_id
+        WHERE rrr.resource_id = #{resourceId,jdbcType=BIGINT} AND urr.user_id IS NOT NULL
+    </select>
+
+    <select id="findRoleList" parameterType="java.lang.Long" resultMap="com.simple.blog.data.mapper.RoleMapper.BaseResultMap">
+        SELECT
+            role.id id,
+            role.created_at created_at,
+            role.name name,
+            role.description description,
+            role.count count,
+            role.status status
+        FROM user_role_relation urr
+        LEFT JOIN role ON urr.role_id = role.id
+        WHERE urr.user_id = #{userId,jdbcType=BIGINT} AND role.id IS NOT NULL
+    </select>
+
+    <select id="findResourceList" parameterType="java.lang.Long" resultMap="com.simple.blog.data.mapper.ResourceMapper.BaseResultMap">
+        SELECT
+            resource.id id,
+            resource.created_at created_at,
+            resource.updated_at updated_at,
+            resource.name name,
+            resource.url url,
+            resource.description description
+        FROM user_role_relation urr
+            LEFT JOIN role ON urr.role_id = role.id
+            LEFT JOIN role_resource_relation rrr ON role.id = rrr.role_id
+            LEFT JOIN resource ON rrr.resource_id = resource.id
+        WHERE urr.user_id = #{userId,jdbcType=BIGINT} AND resource.id IS NOT NULL
+    </select>
+
+</mapper>

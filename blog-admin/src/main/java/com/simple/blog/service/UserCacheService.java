@@ -1,7 +1,7 @@
 package com.simple.blog.service;
 
-import com.simple.blog.entity.Resource;
-import com.simple.blog.entity.User;
+import com.simple.blog.data.entity.Resource;
+import com.simple.blog.data.entity.User;
 
 import java.util.List;
 

@@ -1,6 +1,8 @@
 package com.simple.blog.entity;
 
-import com.simple.blog.enums.UserStatus;
+import com.simple.blog.data.entity.Resource;
+import com.simple.blog.data.entity.User;
+import com.simple.blog.data.enums.UserStatus;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

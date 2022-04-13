@@ -4,8 +4,9 @@ import com.github.pagehelper.Page;
 import com.simple.blog.common.api.ResultCode;
 import com.simple.blog.common.exception.Asserts;
 import com.simple.blog.common.util.StringUtil;
-import com.simple.blog.entity.Tag;
-import com.simple.blog.mapper.TagMapper;
+import com.simple.blog.data.entity.Tag;
+import com.simple.blog.data.mapper.BlogTagRelationMapper;
+import com.simple.blog.data.mapper.TagMapper;
 import com.simple.blog.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,9 @@ public class TagServiceImpl implements TagService {
     @Autowired
     private TagMapper tagMapper;
 
+    @Autowired
+    private BlogTagRelationMapper blogTagRelationMapper;
+
     @Override
     public int create(Tag tag) {
         tag.setCreatedAt(new Date());
@@ -29,6 +33,9 @@ public class TagServiceImpl implements TagService {
 
     @Override
     public int delete(Long id) {
+        //  删除博客标签关系
+        blogTagRelationMapper.deleteByTagId(id);
+        //  删除标签
         return tagMapper.deleteById(id);
     }
 
