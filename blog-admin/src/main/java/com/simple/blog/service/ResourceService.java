@@ -2,6 +2,7 @@ package com.simple.blog.service;
 
 import com.github.pagehelper.Page;
 import com.simple.blog.entity.Resource;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 资源管理 Service
@@ -16,7 +17,8 @@ public interface ResourceService {
     /**
      * 删除资源
      */
-    int delete(Long id);
+    @Transactional
+    void delete(Long id);
 
     /**
      * 修改资源

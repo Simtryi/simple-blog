@@ -24,7 +24,7 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public int create(Comment comment) {
         comment.setCreatedAt(new Date());
-        return commentMapper.insert(comment);
+        return commentMapper.save(comment);
     }
 
     @Override
@@ -38,7 +38,7 @@ public class CommentServiceImpl implements CommentService {
             Asserts.fail(ResultCode.BAD_REQUEST, "编辑时Id必填");
         }
 
-        Comment commentDB = commentMapper.selectById(comment.getId());
+        Comment commentDB = commentMapper.findById(comment.getId());
         if (null == commentDB) {
             Asserts.fail(ResultCode.NOT_FOUND, StringUtil.format("id={}对应的评论不存在", comment.getId()));
         }
@@ -49,7 +49,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public Comment detail(Long id) {
-        return commentMapper.selectById(id);
+        return commentMapper.findById(id);
     }
 
     @Override

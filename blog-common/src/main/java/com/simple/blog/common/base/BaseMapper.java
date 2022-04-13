@@ -9,12 +9,12 @@ public interface BaseMapper<T> {
     /**
      * 插入对象
      */
-    int insert(T t);
+    int save(T t);
 
     /**
      * 批量插入对象
      */
-    int insertBatch(@Param("list") List<T> list);
+    int saveAll(@Param("list") List<T> list);
 
     /**
      * 根据Id删除数据
@@ -34,11 +34,11 @@ public interface BaseMapper<T> {
     /**
      * 根据Id查询数据
      */
-    T selectById(Long id);
+    T findById(Long id);
 
     /**
      * 根据Id列表查询数据
      */
-    List<T> selectByIds(@Param("list") List<Long> list);
+    List<T> findByIds(@Param("list") List<Long> list);
 
 }

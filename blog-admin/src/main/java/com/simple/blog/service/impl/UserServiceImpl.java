@@ -49,9 +49,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void delete(Long id) {
-        //  删除用户缓存
+        //  由于用户删除，删除用户缓存
         userCacheService.delUserCache(id);
-        //  删除用户资源缓存
+        //  由于用户删除，删除用户的资源缓存
         userCacheService.delResourceCacheByUserId(id);
 
         //  删除用户角色关系
@@ -66,7 +66,7 @@ public class UserServiceImpl implements UserService {
             Asserts.fail(ResultCode.BAD_REQUEST, "编辑时Id必填！");
         }
 
-        User userDB = userMapper.selectById(user.getId());
+        User userDB = userMapper.findById(user.getId());
         if (null == userDB) {
             Asserts.fail(ResultCode.NOT_FOUND, "id=" + user.getId() + "对应的用户不存在");
         }
@@ -91,7 +91,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User detail(Long id) {
-        return userMapper.selectById(id);
+        return userMapper.findById(id);
     }
 
     @Override
@@ -123,10 +123,10 @@ public class UserServiceImpl implements UserService {
                 userRoleRelation.setRoleId(roleId);
                 list.add(userRoleRelation);
             });
-            userRoleRelationMapper.insertBatch(list);
+            userRoleRelationMapper.saveAll(list);
         }
 
-        //  由于用户角色更新，删除用户资源缓存
+        //  由于用户角色更新，删除用户的资源缓存
         userCacheService.delResourceCacheByUserId(userId);
     }
 

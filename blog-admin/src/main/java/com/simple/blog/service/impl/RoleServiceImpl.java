@@ -10,6 +10,7 @@ import com.simple.blog.entity.Role;
 import com.simple.blog.entity.RoleResourceRelation;
 import com.simple.blog.mapper.RoleMapper;
 import com.simple.blog.mapper.RoleResourceRelationMapper;
+import com.simple.blog.mapper.UserRoleRelationMapper;
 import com.simple.blog.service.RoleService;
 import com.simple.blog.service.UserCacheService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,9 @@ public class RoleServiceImpl implements RoleService {
     private RoleMapper roleMapper;
 
     @Autowired
+    private UserRoleRelationMapper userRoleRelationMapper;
+
+    @Autowired
     private RoleResourceRelationMapper roleResourceRelationMapper;
 
     @Autowired
@@ -38,14 +42,16 @@ public class RoleServiceImpl implements RoleService {
     public int create(Role role) {
         role.setCreatedAt(new Date());
         role.setCount(0);
-        return roleMapper.insert(role);
+        return roleMapper.save(role);
     }
 
     @Override
     public void delete(Long id) {
-        //  删除用户资源缓存
+        //  由于角色删除，删除用户的资源缓存
         userCacheService.delResourceCacheByRoleId(id);
 
+        //  删除用户角色关系
+        userRoleRelationMapper.deleteByRoleId(id);
         //  删除角色资源关系
         roleResourceRelationMapper.deleteByRoleId(id);
         //  删除角色
@@ -58,7 +64,7 @@ public class RoleServiceImpl implements RoleService {
             Asserts.fail(ResultCode.BAD_REQUEST, "编辑时Id必填");
         }
 
-        Role roleDB = roleMapper.selectById(role.getId());
+        Role roleDB = roleMapper.findById(role.getId());
         if (null == roleDB) {
             Asserts.fail(ResultCode.NOT_FOUND, StringUtil.format("id={}对应的角色不存在", role.getId()));
         }
@@ -69,7 +75,7 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public Role detail(Long id) {
-        return roleMapper.selectById(id);
+        return roleMapper.findById(id);
     }
 
     @Override
@@ -96,10 +102,10 @@ public class RoleServiceImpl implements RoleService {
                 roleResourceRelation.setResourceId(resourceId);
                 list.add(roleResourceRelation);
             });
-            roleResourceRelationMapper.insertBatch(list);
+            roleResourceRelationMapper.saveAll(list);
         }
 
-        //  由于角色资源更新，删除用户资源缓存
+        //  由于角色资源更新，删除用户的资源缓存
         userCacheService.delResourceCacheByRoleId(roleId);
     }
 

@@ -3,16 +3,12 @@ package com.simple.blog.mapper;
 import com.simple.blog.common.base.BaseMapper;
 import com.simple.blog.entity.Resource;
 import com.simple.blog.entity.RoleResourceRelation;
-import org.apache.ibatis.annotations.Mapper;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 /**
  * 角色资源关系 Mapper
  */
-@Mapper
-@Repository
 public interface RoleResourceRelationMapper extends BaseMapper<RoleResourceRelation> {
 
     /**
@@ -25,5 +21,9 @@ public interface RoleResourceRelationMapper extends BaseMapper<RoleResourceRelat
      */
     int deleteByRoleId(Long roleId);
 
+    /**
+     * 根据资源Id删除所有角色资源关系
+     */
+    int deleteByResourceId(Long resourceId);
 
 }

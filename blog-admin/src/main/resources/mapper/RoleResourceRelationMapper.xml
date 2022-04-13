@@ -14,7 +14,7 @@
         id, created_at, updated_at, role_id, resource_id
     </sql>
 
-    <insert id="insert" parameterType="com.simple.blog.entity.RoleResourceRelation" useGeneratedKeys="true" keyProperty="id">
+    <insert id="save" parameterType="com.simple.blog.entity.RoleResourceRelation" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO role_resource_relation ( created_at, updated_at, role_id, resource_id )
         VALUES (
                    #{createdAt,jdbcType=TIMESTAMP} ,
@@ -24,7 +24,7 @@
                )
     </insert>
 
-    <insert id="insertBatch" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+    <insert id="saveAll" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO role_resource_relation ( created_at, updated_at, role_id, resource_id )
         values
         <foreach collection="list" item="item" index="index" separator=",">
@@ -63,6 +63,11 @@
         WHERE role_id = #{roleId,jdbcType=BIGINT}
     </delete>
 
+    <delete id="deleteByResourceId" parameterType="java.lang.Long">
+        DELETE FROM role_resource_ralation
+        WHERE resource_id = #{resourceId,jdbcType=BIGINT}
+    </delete>
+
     <update id="update" parameterType="com.simple.blog.entity.RoleResourceRelation">
         UPDATE role_resource_relation
         SET
@@ -73,14 +78,14 @@
         WHERE id = #{id,jdbcType=BIGINT}
     </update>
 
-    <select id="selectById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <select id="findById" parameterType="java.lang.Long" resultMap="BaseResultMap">
         SELECT
         <include refid="AllColumns" />
         FROM role_resource_relation
         WHERE id = #{id,jdbcType=BIGINT}
     </select>
 
-    <select id="selectByIds" parameterType="java.util.List" resultMap="BaseResultMap">
+    <select id="findByIds" parameterType="java.util.List" resultMap="BaseResultMap">
         SELECT
         <include refid="AllColumns" />
         FROM role_resource_relation

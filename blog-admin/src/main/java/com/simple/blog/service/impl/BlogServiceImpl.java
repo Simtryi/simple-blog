@@ -24,7 +24,7 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public int create(Blog blog) {
         blog.setCreatedAt(new Date());
-        return blogMapper.insert(blog);
+        return blogMapper.save(blog);
     }
 
     @Override
@@ -38,7 +38,7 @@ public class BlogServiceImpl implements BlogService {
             Asserts.fail(ResultCode.BAD_REQUEST, "编辑时Id必填");
         }
 
-        Blog blogDB = blogMapper.selectById(blog.getId());
+        Blog blogDB = blogMapper.findById(blog.getId());
         if (null == blogDB) {
             Asserts.fail(ResultCode.NOT_FOUND, StringUtil.format("id={}对应的博客不存在", blog.getId()));
         }
@@ -49,7 +49,7 @@ public class BlogServiceImpl implements BlogService {
 
     @Override
     public Blog detail(Long id) {
-        return blogMapper.selectById(id);
+        return blogMapper.findById(id);
     }
 
     @Override

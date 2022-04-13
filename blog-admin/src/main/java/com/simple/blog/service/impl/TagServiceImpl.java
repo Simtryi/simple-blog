@@ -24,7 +24,7 @@ public class TagServiceImpl implements TagService {
     @Override
     public int create(Tag tag) {
         tag.setCreatedAt(new Date());
-        return tagMapper.insert(tag);
+        return tagMapper.save(tag);
     }
 
     @Override
@@ -38,7 +38,7 @@ public class TagServiceImpl implements TagService {
             Asserts.fail(ResultCode.BAD_REQUEST, "编辑时Id必填");
         }
 
-        Tag tagDB = tagMapper.selectById(tag.getId());
+        Tag tagDB = tagMapper.findById(tag.getId());
         if (null == tagDB) {
             Asserts.fail(ResultCode.NOT_FOUND, StringUtil.format("id={}对应的标签不存在", tag.getId()));
         }
@@ -49,7 +49,7 @@ public class TagServiceImpl implements TagService {
 
     @Override
     public Tag detail(Long id) {
-        return tagMapper.selectById(id);
+        return tagMapper.findById(id);
     }
 
     @Override

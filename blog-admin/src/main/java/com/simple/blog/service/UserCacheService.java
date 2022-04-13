@@ -36,17 +36,17 @@ public interface UserCacheService {
     void setResourceCache(Long userId, List<Resource> resourceList);
 
     /**
-     * 当用户信息改变时，删除用户资源缓存
+     * 当用户信息改变时，删除用户的资源缓存
      */
     void delResourceCacheByUserId(Long userId);
 
     /**
-     * 当角色信息改变时，删除用户资源缓存
+     * 当角色信息改变时，删除用户的资源缓存
      */
     void delResourceCacheByRoleId(Long roleId);
 
     /**
-     * 当资源信息改变时，删除用户资源缓存
+     * 当资源信息改变时，删除用户的资源缓存
      */
     void delResourceCacheByResourceId(Long resourceId);
 

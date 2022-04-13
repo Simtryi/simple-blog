@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * 后台管理安全配置
+ * 后台应用安全配置
  */
 @Configuration
 @EnableWebSecurity

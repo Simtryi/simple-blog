@@ -50,6 +50,8 @@ public class ApiLog {
      */
     private String ip;
 
+
+
     public String getUsername() {
         return username;
     }

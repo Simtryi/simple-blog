@@ -18,7 +18,7 @@
         id, created_at, updated_at, username, password, nickname, email, avatar, status
     </sql>
 
-    <insert id="insert" parameterType="com.simple.blog.entity.User" useGeneratedKeys="true" keyProperty="id">
+    <insert id="save" parameterType="com.simple.blog.entity.User" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO user ( created_at, updated_at, username, password, nickname, email, avatar, status )
         VALUES (
                    #{createdAt,jdbcType=TIMESTAMP} ,
@@ -32,7 +32,7 @@
                )
     </insert>
 
-    <insert id="insertBatch" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+    <insert id="saveAll" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO user ( created_at, updated_at, username, password, nickname, email, avatar, status )
         values
         <foreach collection="list" item="item" index="index" separator=",">
@@ -84,14 +84,14 @@
         WHERE id = #{id,jdbcType=BIGINT}
     </update>
 
-    <select id="selectById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <select id="findById" parameterType="java.lang.Long" resultMap="BaseResultMap">
         SELECT
         <include refid="AllColumns" />
         FROM user
         WHERE id = #{id,jdbcType=BIGINT}
     </select>
 
-    <select id="selectByIds" parameterType="java.util.List" resultMap="BaseResultMap">
+    <select id="findByIds" parameterType="java.util.List" resultMap="BaseResultMap">
         SELECT
         <include refid="AllColumns" />
         FROM user

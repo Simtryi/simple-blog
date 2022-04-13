@@ -15,7 +15,7 @@
         id, created_at, updated_at, name, url, description
     </sql>
 
-    <insert id="insert" parameterType="com.simple.blog.entity.Resource" useGeneratedKeys="true" keyProperty="id">
+    <insert id="save" parameterType="com.simple.blog.entity.Resource" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO resource ( created_at, updated_at, name, url, description )
         VALUES (
                    #{createdAt,jdbcType=TIMESTAMP} ,
@@ -26,7 +26,7 @@
                )
     </insert>
 
-    <insert id="insertBatch" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+    <insert id="saveAll" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO resource ( created_at, updated_at, name, url, description )
         values
         <foreach collection="list" item="item" index="index" separator=",">
@@ -72,14 +72,14 @@
         WHERE id = #{id,jdbcType=BIGINT}
     </update>
 
-    <select id="selectById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <select id="findById" parameterType="java.lang.Long" resultMap="BaseResultMap">
         SELECT
         <include refid="AllColumns" />
         FROM resource
         WHERE id = #{id,jdbcType=BIGINT}
     </select>
 
-    <select id="selectByIds" parameterType="java.util.List" resultMap="BaseResultMap">
+    <select id="findByIds" parameterType="java.util.List" resultMap="BaseResultMap">
         SELECT
         <include refid="AllColumns" />
         FROM resource

@@ -51,7 +51,7 @@ public class AdminServiceImpl implements AdminService {
         user.setPassword(encodePassword);
         user.setCreatedAt(new Date());
         user.setStatus(UserStatus.OK);
-        userMapper.insert(user);
+        userMapper.save(user);
 
         return user;
     }

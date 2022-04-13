@@ -24,7 +24,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public int create(Category category) {
         category.setCreatedAt(new Date());
-        return categoryMapper.insert(category);
+        return categoryMapper.save(category);
     }
 
     @Override
@@ -38,7 +38,7 @@ public class CategoryServiceImpl implements CategoryService {
             Asserts.fail(ResultCode.BAD_REQUEST, "编辑时Id必填");
         }
 
-        Category categoryDB = categoryMapper.selectById(category.getId());
+        Category categoryDB = categoryMapper.findById(category.getId());
         if (null == categoryDB) {
             Asserts.fail(ResultCode.NOT_FOUND, StringUtil.format("id={}对应的分类不存在", category.getId()));
         }
@@ -49,7 +49,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category detail(Long id) {
-        return categoryMapper.selectById(id);
+        return categoryMapper.findById(id);
     }
 
     @Override

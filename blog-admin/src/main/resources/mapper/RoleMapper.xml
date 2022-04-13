@@ -16,7 +16,7 @@
         id, created_at, updated_at, name, description, count, status
     </sql>
 
-    <insert id="insert" parameterType="com.simple.blog.entity.Role" useGeneratedKeys="true" keyProperty="id">
+    <insert id="save" parameterType="com.simple.blog.entity.Role" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO role ( created_at, updated_at, name, description, count, status )
         VALUES (
                    #{createdAt,jdbcType=TIMESTAMP} ,
@@ -28,7 +28,7 @@
                )
     </insert>
 
-    <insert id="insertBatch" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+    <insert id="saveAll" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO role ( created_at, updated_at, name, description, count, status )
         values
         <foreach collection="list" item="item" index="index" separator=",">
@@ -77,14 +77,14 @@
         WHERE id = #{id,jdbcType=BIGINT}
     </update>
 
-    <select id="selectById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <select id="findById" parameterType="java.lang.Long" resultMap="BaseResultMap">
         SELECT
         <include refid="AllColumns" />
         FROM role
         WHERE id = #{id,jdbcType=BIGINT}
     </select>
 
-    <select id="selectByIds" parameterType="java.util.List" resultMap="BaseResultMap">
+    <select id="findByIds" parameterType="java.util.List" resultMap="BaseResultMap">
         SELECT
         <include refid="AllColumns" />
         FROM role

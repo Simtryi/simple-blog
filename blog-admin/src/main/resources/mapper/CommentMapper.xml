@@ -16,7 +16,7 @@
         id, created_at, updated_at, content, pid, blog_id, user_id
     </sql>
 
-    <insert id="insert" parameterType="com.simple.blog.entity.Comment" useGeneratedKeys="true" keyProperty="id">
+    <insert id="save" parameterType="com.simple.blog.entity.Comment" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO comment ( created_at, updated_at, content, pid, blog_id, user_id )
         VALUES (
                    #{createdAt,jdbcType=TIMESTAMP} ,
@@ -28,7 +28,7 @@
                )
     </insert>
 
-    <insert id="insertBatch" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+    <insert id="saveAll" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
 
         INSERT INTO comment ( created_at, updated_at, content, pid, blog_id, user_id )
         values
@@ -77,14 +77,14 @@
         WHERE id = #{id,jdbcType=BIGINT}
     </update>
 
-    <select id="selectById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <select id="findById" parameterType="java.lang.Long" resultMap="BaseResultMap">
         SELECT
         <include refid="AllColumns" />
         FROM comment
         WHERE id = #{id,jdbcType=BIGINT}
     </select>
 
-    <select id="selectByIds" parameterType="java.util.List" resultMap="BaseResultMap">
+    <select id="findByIds" parameterType="java.util.List" resultMap="BaseResultMap">
         SELECT
         <include refid="AllColumns" />
         FROM comment

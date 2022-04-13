@@ -71,7 +71,7 @@ public class UserCacheServiceImpl implements UserCacheService {
 
     @Override
     public void delUserCache(Long userId) {
-        User user = userMapper.selectById(userId);
+        User user = userMapper.findById(userId);
         if (null != user) {
             String key = REDIS_USER_PREFIX + user.getUsername();
             redisService.del(key);
