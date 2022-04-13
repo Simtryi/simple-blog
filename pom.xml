@@ -10,6 +10,7 @@
 
     <modules>
         <module>blog-admin</module>
+        <module>blog-portal</module>
         <module>blog-data</module>
         <module>blog-security</module>
         <module>blog-common</module>
@@ -38,13 +39,6 @@
     <dependencyManagement>
         <dependencies>
             <!-- ########## 自身模块依赖 开始 ########## -->
-
-            <!-- blog-admin -->
-            <dependency>
-                <groupId>com.simple.blog</groupId>
-                <artifactId>blog-admin</artifactId>
-                <version>${simple-blog.version}</version>
-            </dependency>
 
             <!-- blog-data -->
             <dependency>

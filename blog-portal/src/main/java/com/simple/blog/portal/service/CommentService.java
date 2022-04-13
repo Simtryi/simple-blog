@@ -1,4 +1,4 @@
-package com.simple.blog.service;
+package com.simple.blog.portal.service;
 
 import com.github.pagehelper.Page;
 import com.simple.blog.data.entity.Comment;

@@ -1,4 +1,4 @@
-package com.simple.blog.service.impl;
+package com.simple.blog.portal.service.impl;
 
 import com.github.pagehelper.Page;
 import com.simple.blog.common.api.ResultCode;
@@ -6,7 +6,7 @@ import com.simple.blog.common.exception.Asserts;
 import com.simple.blog.common.util.StringUtil;
 import com.simple.blog.data.entity.Comment;
 import com.simple.blog.data.mapper.CommentMapper;
-import com.simple.blog.service.CommentService;
+import com.simple.blog.portal.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

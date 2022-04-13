@@ -44,8 +44,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             registry.antMatchers(url).permitAll();
         }
 
-        //  测试，全部放行
-        registry.antMatchers("/**").permitAll();
+        ////  测试，全部放行
+        //registry.antMatchers("/**").permitAll();
 
         //  其他任何请求都需要身份认证
         registry.and()
