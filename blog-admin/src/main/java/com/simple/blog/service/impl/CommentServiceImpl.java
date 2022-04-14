@@ -1,4 +1,4 @@
-package com.simple.blog.portal.service.impl;
+package com.simple.blog.service.impl;
 
 import com.github.pagehelper.Page;
 import com.simple.blog.common.api.ResultCode;
@@ -6,14 +6,14 @@ import com.simple.blog.common.exception.Asserts;
 import com.simple.blog.common.util.StringUtil;
 import com.simple.blog.data.entity.Comment;
 import com.simple.blog.data.mapper.CommentMapper;
-import com.simple.blog.portal.service.CommentService;
+import com.simple.blog.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 
 /**
- * 评论管理 Service 实现类
+ * 评论展示 Service 实现类
  */
 @Service
 public class CommentServiceImpl implements CommentService {

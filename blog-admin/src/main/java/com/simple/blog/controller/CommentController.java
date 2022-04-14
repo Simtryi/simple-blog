@@ -1,17 +1,17 @@
-package com.simple.blog.portal.controller;
+package com.simple.blog.controller;
 
 import com.github.pagehelper.Page;
 import com.simple.blog.common.api.CommonPage;
 import com.simple.blog.common.api.CommonResult;
 import com.simple.blog.data.entity.Comment;
-import com.simple.blog.portal.service.CommentService;
+import com.simple.blog.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
 /**
- * 评论管理 Controller
+ * 评论展示 Controller
  */
 @RestController
 @RequestMapping("/comment")

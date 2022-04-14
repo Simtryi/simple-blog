@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * 博客管理 Controller
@@ -76,5 +77,17 @@ public class BlogController {
         Page<Blog> page = blogService.list(pageNum, pageSize, title);
         return CommonResult.success(new CommonPage<>(page));
     }
-    
+
+    /**
+     * 为博客分配标签
+     */
+    @PostMapping("/tag/assign")
+    public CommonResult<Void> assignTag(
+            @RequestParam Long blogId,
+            @RequestParam List<Long> tagIds
+    ) {
+        blogService.assignTag(blogId, tagIds);
+        return CommonResult.success();
+    }
+
 }

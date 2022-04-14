@@ -4,6 +4,8 @@ import com.github.pagehelper.Page;
 import com.simple.blog.data.entity.Blog;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * 博客管理 Service
  */
@@ -34,5 +36,11 @@ public interface BlogService {
      * 分页查询博客
      */
     Page<Blog> list(int pageNum, int pageSize, String title);
-    
+
+    /**
+     * 为博客分配标签
+     */
+    @Transactional
+    void assignTag(Long blogId, List<Long> tagIds);
+
 }

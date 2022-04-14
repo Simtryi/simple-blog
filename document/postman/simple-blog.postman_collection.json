@@ -993,6 +993,136 @@
 					]
 				},
 				{
+					"name": "comment",
+					"item": [
+						{
+							"name": "添加评论",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"content\": \"这里是评论内容\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/comment/create",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"comment",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "删除评论",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/blog/delete/2",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"blog",
+										"delete",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "修改评论",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": \"1\",\n    \"content\": \"这里是评论内容\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/comment/update",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"comment",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "查找评论",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/comment/detail/1",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"comment",
+										"detail",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "分页",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/comment/list?pageNum=1&pageSize=10",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"comment",
+										"list"
+									],
+									"query": [
+										{
+											"key": "pageNum",
+											"value": "1"
+										},
+										{
+											"key": "pageSize",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
 					"name": "oss",
 					"item": [
 						{
@@ -1178,128 +1308,158 @@
 			"name": "前台",
 			"item": [
 				{
-					"name": "comment",
+					"name": "blog",
 					"item": [
 						{
-							"name": "添加评论",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"content\": \"这里是评论内容\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "localhost:8080/comment/create",
-									"host": [
-										"localhost"
-									],
-									"port": "8080",
-									"path": [
-										"comment",
-										"create"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "删除评论",
+							"name": "展示博客",
 							"request": {
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "localhost:8080/blog/delete/2",
+									"raw": "localhost:8081/portal/blog/detail/1",
 									"host": [
 										"localhost"
 									],
-									"port": "8080",
+									"port": "8081",
 									"path": [
+										"portal",
 										"blog",
-										"delete",
-										"2"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "修改评论",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"id\": \"1\",\n    \"content\": \"这里是评论内容\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "localhost:8080/comment/update",
-									"host": [
-										"localhost"
-									],
-									"port": "8080",
-									"path": [
-										"comment",
-										"update"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "查找评论",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "localhost:8080/comment/detail/1",
-									"host": [
-										"localhost"
-									],
-									"port": "8080",
-									"path": [
-										"comment",
 										"detail",
 										"1"
 									]
 								}
 							},
 							"response": []
-						},
+						}
+					]
+				},
+				{
+					"name": "category",
+					"item": [
 						{
-							"name": "分页",
+							"name": "展示所有分类",
 							"request": {
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "localhost:8080/comment/list?pageNum=1&pageSize=10",
+									"raw": "localhost:8081/portal/category/all",
 									"host": [
 										"localhost"
 									],
-									"port": "8080",
+									"port": "8081",
 									"path": [
-										"comment",
-										"list"
+										"portal",
+										"category",
+										"all"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "展示随机分类",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8081/portal/category/random",
+									"host": [
+										"localhost"
 									],
-									"query": [
-										{
-											"key": "pageNum",
-											"value": "1"
-										},
-										{
-											"key": "pageSize",
-											"value": "10"
-										}
+									"port": "8081",
+									"path": [
+										"portal",
+										"category",
+										"random"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "获取分类的博客列表",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8081/portal/category/blog/list/1",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"portal",
+										"category",
+										"blog",
+										"list",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "tag",
+					"item": [
+						{
+							"name": "展示所有标签",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8081/portal/tag/all",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"portal",
+										"tag",
+										"all"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "展示随机标签",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8081/portal/tag/random",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"portal",
+										"tag",
+										"random"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "获取标签的博客列表",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8081/portal/tag/blog/list/1",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"portal",
+										"tag",
+										"blog",
+										"list",
+										"1"
 									]
 								}
 							},

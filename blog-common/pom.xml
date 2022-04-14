@@ -58,6 +58,20 @@
             <artifactId>hutool-all</artifactId>
         </dependency>
 
+        <!-- markdown -->
+        <dependency>
+            <groupId>com.atlassian.commonmark</groupId>
+            <artifactId>commonmark</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.commonmark</groupId>
+            <artifactId>commonmark-ext-heading-anchor</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.commonmark</groupId>
+            <artifactId>commonmark-ext-gfm-tables</artifactId>
+        </dependency>
+
         <!-- EasyExcel -->
         <dependency>
             <groupId>com.alibaba</groupId>

@@ -103,4 +103,22 @@
         </choose>
     </select>
 
+    <select id="findBlogList" parameterType="java.lang.Long" resultMap="com.simple.blog.data.mapper.BlogMapper.BaseResultMap">
+        SELECT
+            blog.id id,
+            blog.created_at created_at,
+            blog.updated_at updated_at,
+            blog.title title,
+            blog.cover cover,
+            blog.content content,
+            blog.view view,
+            blog.published published,
+            blog.commented commented,
+            blog.category_id category_id,
+            blog.user_id user_id
+        FROM blog_tag_relation btr
+        LEFT JOIN blog ON btr.blog_id = blog.id
+        WHERE btr.tag_id = #{tagId,jdbcType=BIGINT} AND blog.id IS NOT NULL
+    </select>
+
 </mapper>

@@ -123,6 +123,13 @@
         FROM blog
     </select>
 
+    <select id="findByCategoryId" resultMap="BaseResultMap">
+        SELECT
+        <include refid="AllColumns" />
+        FROM blog
+        WHERE category_id = #{categoryId,jdbcType=BIGINT}
+    </select>
+
     <select id="page" resultMap="BaseResultMap">
         SELECT
         <include refid="AllColumns" />

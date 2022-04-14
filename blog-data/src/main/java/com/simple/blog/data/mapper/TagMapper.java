@@ -5,6 +5,8 @@ import com.simple.blog.data.base.BaseMapper;
 import com.simple.blog.data.entity.Tag;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
  * 标签管理 Mapper
  */
@@ -18,5 +20,10 @@ public interface TagMapper extends BaseMapper<Tag> {
             @Param("pageSize") int pageSize,
             @Param("name") String name
     );
+
+    /**
+     * 查询所有标签
+     */
+    List<Tag> findAll();
 
 }

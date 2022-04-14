@@ -1,10 +1,10 @@
-package com.simple.blog.portal.service;
+package com.simple.blog.service;
 
 import com.github.pagehelper.Page;
 import com.simple.blog.data.entity.Comment;
 
 /**
- * 评论管理 Service
+ * 评论展示 Service
  */
 public interface CommentService {
 

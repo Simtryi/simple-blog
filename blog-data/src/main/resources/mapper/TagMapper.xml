@@ -89,6 +89,12 @@
         </choose>
     </select>
 
+    <select id="findAll" resultMap="BaseResultMap">
+        SELECT
+        <include refid="AllColumns" />
+        FROM tag
+    </select>
+
     <select id="page" resultMap="BaseResultMap">
         SELECT
         <include refid="AllColumns" />

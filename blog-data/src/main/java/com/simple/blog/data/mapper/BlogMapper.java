@@ -26,4 +26,9 @@ public interface BlogMapper extends BaseMapper<Blog> {
      */
     List<Blog> findAll();
 
+    /**
+     * 根据分类Id查找分类的博客列表
+     */
+    List<Blog> findByCategoryId(Long categoryId);
+
 }
