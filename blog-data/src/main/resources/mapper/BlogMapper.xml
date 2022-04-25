@@ -7,6 +7,7 @@
         <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
         <result column="updated_at" jdbcType="TIMESTAMP" property="updatedAt" />
         <result column="title" jdbcType="VARCHAR" property="title" />
+        <result column="description" jdbcType="VARCHAR" property="description" />
         <result column="cover" jdbcType="VARCHAR" property="cover" />
         <result column="content" jdbcType="LONGVARCHAR" property="content" />
         <result column="view" jdbcType="BIGINT" property="view" />
@@ -17,15 +18,16 @@
     </resultMap>
 
     <sql id="AllColumns">
-        id, created_at, updated_at, title, cover, content, view, published, commented, category_id, user_id
+        id, created_at, updated_at, title, description, cover, content, view, published, commented, category_id, user_id
     </sql>
 
     <insert id="save" parameterType="com.simple.blog.data.entity.Blog" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO blog ( created_at, updated_at, title, cover, content, view, published, commented, category_id, user_id )
+        INSERT INTO blog ( created_at, updated_at, title, description, cover, content, view, published, commented, category_id, user_id )
         VALUES (
                    #{createdAt,jdbcType=TIMESTAMP} ,
                    #{updatedAt,jdbcType=TIMESTAMP} ,
                    #{title,jdbcType=VARCHAR} ,
+                   #{description,jdbcType=VARCHAR} ,
                    #{cover,jdbcType=VARCHAR} ,
                    #{content,jdbcType=LONGVARCHAR} ,
                    #{view,jdbcType=BIGINT} ,
@@ -37,13 +39,14 @@
     </insert>
 
     <insert id="saveAll" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO blog ( created_at, updated_at, title, cover, content, view, published, commented, category_id, user_id )
+        INSERT INTO blog ( created_at, updated_at, title, description, cover, content, view, published, commented, category_id, user_id )
         values
         <foreach collection="list" item="item" index="index" separator=",">
             (
                 #{item.createdAt,jdbcType=TIMESTAMP} ,
                 #{item.updatedAt,jdbcType=TIMESTAMP} ,
                 #{item.title,jdbcType=VARCHAR} ,
+                #{item.description,jdbcType=VARCHAR} ,
                 #{item.cover,jdbcType=VARCHAR} ,
                 #{item.content,jdbcType=LONGVARCHAR} ,
                 #{item.view,jdbcType=BIGINT} ,
@@ -82,6 +85,7 @@
             created_at = #{createdAt,jdbcType=TIMESTAMP} ,
             updated_at = #{updatedAt,jdbcType=TIMESTAMP} ,
             title = #{title,jdbcType=VARCHAR} ,
+            description = #{description,jdbcType=VARCHAR} ,
             cover = #{cover,jdbcType=VARCHAR} ,
             content = #{content,jdbcType=LONGVARCHAR} ,
             view = #{view,jdbcType=BIGINT} ,

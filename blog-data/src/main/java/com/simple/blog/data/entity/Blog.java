@@ -16,6 +16,12 @@ public class Blog extends BaseEntity {
     private String title;
 
     /**
+     * 摘要
+     */
+    @NotBlank(message = "摘要不能为空")
+    private String description;
+
+    /**
      * 封面
      */
     private String cover;
@@ -59,6 +65,14 @@ public class Blog extends BaseEntity {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getCover() {

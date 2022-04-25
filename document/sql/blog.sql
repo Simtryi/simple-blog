@@ -87,6 +87,7 @@ create table `blog` (
     `created_at` datetime not null default current_timestamp comment '创建时间',
     `updated_at` datetime not null default current_timestamp on update current_timestamp comment '更新时间',
     `title` varchar(256) default null comment '标题',
+    `description` varchar(512) default null comment '摘要',
     `cover` varchar(256) default null comment '封面',
     `content` text comment '内容',
     `view` bigint(20) not null default '0' comment '阅读量',
